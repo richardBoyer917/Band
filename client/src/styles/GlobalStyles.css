@@ -5,16 +5,25 @@
   --darkTextColor: #404040;
 
   --secondaryWhiteHover: #cfcfcf;
-  --auditoriumColor: #D6D6D6;
-  --badgeBgColor: #EFEFEF;
+  --auditoriumColor: #d6d6d6;
+  --badgeBgColor: #efefef;
   --badgeColor: #686868;
 }
 
-[data-theme="dark"] {}
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+[data-theme="dark"] {
+}
 
 .css-ahj2mt-MuiTypography-root {
   padding-top: 2px !important;
-  font-family: 'Mulish' !important;
+  font-family: "Mulish" !important;
   font-size: 14px !important;
   line-height: 19.6px !important;
   letter-spacing: -0.01em !important;
@@ -209,7 +218,7 @@ video {
 }
 
 .css-1h4bzp1-MuiButtonBase-root-MuiMenuItem-root {
-  cursor: url('../assets/icon/cursor.svg'), auto !important;
+  cursor: url("../assets/icon/cursor.svg"), auto !important;
 }
 
 .MuiSlider-markLabel,
