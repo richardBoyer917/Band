@@ -88,3 +88,17 @@ export const getCasesWithCheckbox = async (checkboxValue, num) => {
     handleError("Error fetching cases with checkbox:", err);
   }
 };
+
+export const getCasesByType = async (caseType) => {
+  try {
+    const response = await axios.get(`/cases/type`, {
+      params: { caseType },
+    });
+    if (response.status !== 200) {
+      throw new Error(`Unexpected response status: ${response.status}`);
+    }
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching cases by type:", err);
+  }
+};
