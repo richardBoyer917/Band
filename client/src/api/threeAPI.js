@@ -1,45 +1,48 @@
-import axios from "axios"
-import endpoint from "../config/config"
+import axios from "axios";
+import { handleError } from "../utils";
 
-
-const getThrees = async () => {
-    try {
-        let response = await axios.get(`${endpoint}/threes`)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const insertThree = async (formdata) => {
-    try {
-        let response = await axios.post(`${endpoint}/threes`, formdata)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const updateThree = async (id, formdata) => {
-    try {
-        let response = await axios.put(`${endpoint}/threes/${id}`, formdata, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
-    } catch (err) {
-        console.error('Error updating record:', err);
-    }
+export const getThrees = async () => {
+  try {
+    const response = await axios.get("/threes");
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching three data:", err);
+  }
 };
 
-const deleteThree = async (_id) => {
-    try {
-        let response = await axios.delete(`${endpoint}/threes/${_id}`)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
+export const insertThree = async (formdata) => {
+  try {
+    const response = await axios.post("/threes", formdata);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error inserting three:", err);
+  }
+};
 
-export { getThrees, insertThree, deleteThree, updateThree }
+export const updateThree = async (id, formdata) => {
+  try {
+    const response = await axios.put(`/threes/${id}`, formdata, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error updating three:", err);
+  }
+};
+
+export const deleteThree = async (_id) => {
+  try {
+    const response = await axios.delete(`/threes/${_id}`);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error deleting three:", err);
+  }
+};

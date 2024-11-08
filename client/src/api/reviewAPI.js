@@ -1,58 +1,61 @@
-import axios from "axios"
-import endpoint from "../config/config"
+import axios from "axios";
+import { handleError } from "../utils";
 
-
-const getReviews = async () => {
-    try {
-        let response = await axios.get(`${endpoint}/reviews`)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const getReviewsBytype = async (reviewType) => {
-    try {
-        let response = await axios.get(`${endpoint}/reviewsBytype`, {
-            params: {
-                reviewType: reviewType,
-            }
-        })
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const insertReview = async (formdata) => {
-    try {
-        let response = await axios.post(`${endpoint}/reviews`, formdata)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const updateReview = async (id, formdata) => {
-    try {
-        let response = await axios.put(`${endpoint}/reviews/${id}`, formdata, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
-    } catch (err) {
-        console.error('Error updating record:', err);
-    }
+export const getReviews = async () => {
+  try {
+    const response = await axios.get("/reviews");
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching review data:", err);
+  }
 };
 
-const deleteReview = async (_id) => {
-    try {
-        let response = await axios.delete(`${endpoint}/reviews/${_id}`)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
+export const getReviewsBytype = async (reviewType) => {
+  try {
+    const response = await axios.get("/reviewsBytype", {
+      params: { reviewType: reviewType },
+    });
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching review data:", err);
+  }
+};
 
-export { getReviews, insertReview, deleteReview, updateReview, getReviewsBytype }
+export const insertReview = async (formdata) => {
+  try {
+    const response = await axios.post("/reviews", formdata);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error inserting review:", err);
+  }
+};
+
+export const updateReview = async (id, formdata) => {
+  try {
+    const response = await axios.put(`/reviews/${id}`, formdata, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error updating review:", err);
+  }
+};
+
+export const deleteReview = async (_id) => {
+  try {
+    const response = await axios.delete(`/reviews/${_id}`);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error deleting review:", err);
+  }
+};

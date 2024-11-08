@@ -1,58 +1,61 @@
-import axios from "axios"
-import endpoint from "../config/config"
+import axios from "axios";
+import { handleError } from "../utils";
 
-
-const getParticipant = async () => {
+export const getParticipant = async () => {
   try {
-    let response = await axios.get(`${endpoint}/participant`)
-    return await response.data
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-const getShowParticipant = async (num) => {
-  try {
-    let response = await axios.get(`${endpoint}/showparticipant`, {
-      params: {
-        participantNum: num
-      }
-    })
-    return await response.data
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-const insertParticipant = async (formdata) => {
-  try {
-    let response = await axios.post(`${endpoint}/participant`, formdata)
-    return await response.data
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-const updateParticipant = async (id, formdata) => {
-  try {
-    let response = await axios.put(`${endpoint}/participant/${id}`, formdata, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    const response = await axios.get("/participant");
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
   } catch (err) {
-    console.error('Error updating record:', err);
+    handleError("Error fetching participant data:", err);
   }
 };
 
-const deleteParticipant = async (_id) => {
+export const getShowParticipant = async (num) => {
   try {
-    let response = await axios.delete(`${endpoint}/participant/${_id}`)
-    return await response.data
-  } catch (err) {
-    console.log(err)
-  }
-}
+    const response = await axios.get(`/showparticipant?participantNum=${num}`);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
 
-export { getParticipant, insertParticipant, deleteParticipant, updateParticipant, getShowParticipant }
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching participant data:", err);
+  }
+};
+
+export const insertParticipant = async (formdata) => {
+  try {
+    const response = await axios.post("/participant", formdata);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error inserting participant:", err);
+  }
+};
+
+export const updateParticipant = async (id, formdata) => {
+  try {
+    const response = await axios.put(`/participant/${id}`, formdata, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error updating participant:", err);
+  }
+};
+
+export const deleteParticipant = async (_id) => {
+  try {
+    const response = await axios.delete(`/participant/${_id}`);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+
+    return response.data;
+  } catch (err) {
+    handleError("Error deleting participant:", err);
+  }
+};

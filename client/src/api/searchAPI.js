@@ -1,13 +1,15 @@
-import axios from "axios"
-import endpoint from "../config/config"
+import axios from "axios";
+import { handleError } from "../utils";
 
-const getSearchData = async (searchTerm) => {
+export const getSearchData = async (searchTerm) => {
   try {
-    let response = await axios.post(`${endpoint}/getSearchData`, { searchTerm: searchTerm })
-    return await response.data
+    const response = await axios.post("/getSearchData", {
+      searchTerm: searchTerm,
+    });
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
   } catch (err) {
-    console.log(err)
+    handleError("Error fetching search data:", err);
   }
-}
-
-export { getSearchData }
+};
