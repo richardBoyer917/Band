@@ -59,7 +59,7 @@
   height: 30px;
   padding: 0 16px;
   white-space: nowrap;
-  cursor: url("../assets/icon/cursor.svg"), auto !important;
+  cursor: url("../../assets/icon/cursor.svg");
 }
 
 .headerSearchPosition .x12_3:hover {
@@ -119,7 +119,7 @@
 }
 
 .footerImg {
-  background-image: url(../assets/background/footerBackground.png);
+  background-image: url(../../assets/background/footerBackground.png);
   background-position: right;
   background-repeat: no-repeat;
   background-size: contain;
@@ -355,7 +355,7 @@
 
 @media (max-width: 640px) {
   .footerImg {
-    background-image: url(../assets/background/footerMobileBackground.png);
+    background-image: url(../../assets/background/footerMobileBackground.png);
   }
 
   .bigFooterLogo {

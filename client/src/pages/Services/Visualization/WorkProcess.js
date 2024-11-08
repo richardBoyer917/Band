@@ -1,7 +1,7 @@
 import { downloadIcon } from "../../../assets";
 import { DownloadButton } from "../../../components/Buttons";
 import { ChichaBox } from "../../../components/ChichaBox";
-import "./visualization.css";
+import "../../../styles/pages/services/visualization.css"
 
 const WorkProcess = ({ arrowWidth, title1, title2, data, fileName }) => {
   const downloadPdf = () => {

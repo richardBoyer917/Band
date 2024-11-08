@@ -7,7 +7,7 @@ import UserList from "./UserList";
 import ContactSection from "../../home/ContactSection";
 import BlogSection from "../../home/BlogSection";
 import RentalCost from "./RentalCost";
-import './rehearsal.css'
+import "../../../styles/pages/services/rehearsal.css"
 import useScrollToTop from "../../../scrollTo/ScrollToTop";
 import { useEffect, useState } from "react";
 import { getShowParticipant } from "../../../api/participantAPI";

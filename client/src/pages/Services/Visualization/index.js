@@ -7,7 +7,7 @@ import ContactSection from '../../home/ContactSection'
 import BlogSection from '../../home/BlogSection'
 import { Big3DBox } from '../../../components/Boxes'
 import { stage3d } from '../../../assets'
-import './visualization.css'
+import "../../../styles/pages/services/visualization.css"
 import useScrollToTop from '../../../scrollTo/ScrollToTop'
 
 const Visualization = () => {

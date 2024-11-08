@@ -15,7 +15,7 @@ import {
   starIcon1,
   positionIcon,
 } from "../../assets";
-import "./card.css";
+import "../../styles/components/cards/card.css"
 import endpoint from "../../config/config";
 import { useNavigate } from "react-router-dom";
 

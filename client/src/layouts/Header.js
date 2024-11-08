@@ -6,7 +6,7 @@ import { CircleButton, DefaultButton, RectButton } from "../components/Buttons";
 import HeaderLink from "./HeaderLink/HeaderLink";
 import MobileHeaderLink from "./HeaderLink/MobileHeaderLink";
 import { getSearchData } from "../api/searchAPI";
-import "./layout.css";
+import "../styles/layouts/layout.css"
 import HeaderWrapper from "./HeaderWrapp";
 
 const Header = () => {

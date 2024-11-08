@@ -1,5 +1,5 @@
 import { darkSmallUser, whiteUser } from '../../assets'
-import './badges.css'
+import "../../styles/components/badges.css"
 
 const PermissionBadge = ({ title }) => (
   <div className='permissionBadge'>{title}</div>

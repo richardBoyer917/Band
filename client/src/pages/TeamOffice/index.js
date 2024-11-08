@@ -2,7 +2,7 @@ import useScrollToTop from '../../scrollTo/ScrollToTop';
 import ContactSection from '../home/ContactSection';
 import GoogleMap from './GoogleMap';
 import MemberSection from './MemberSection';
-import './teamOffice.css'
+import "../../styles/pages/teamOffice.css"
 
 const TeamOffice = () => {
   useScrollToTop()

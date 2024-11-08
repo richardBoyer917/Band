@@ -4,7 +4,7 @@ import { Input } from "../components/Inputs"
 import { DefaultButton } from "../components/Buttons"
 import { AdminPageWrapper } from "./components/AdminSection"
 
-import './style.css'
+import '../styles/adminpage/style.css'
 
 const AdminLogin = () => {
 

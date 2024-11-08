@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import './policy.css';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { policyAccordion } from '../../constant/group';
 import { cancelIcon, plusIcon } from '../../assets';
 import useScrollToTop from '../../scrollTo/ScrollToTop';
+import '../../styles/pages/policy.css';
 const Policy = () => {
 
     useScrollToTop()

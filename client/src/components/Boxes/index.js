@@ -5,7 +5,7 @@ import { ArrowDefaultButton, BlackButton, TabButton1 } from '../Buttons'
 import { DataTable } from '../Tables';
 import { adminDirectoryInfo } from '../../constant/group';
 import { PermissionBadge } from '../Badges';
-import './box.css'
+import "../../styles/components/box.css"
 
 const BigVideoBox = ({ item }) => {
   const videoRef = useRef(null);

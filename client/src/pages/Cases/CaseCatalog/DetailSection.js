@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { BlackButton, BlackButtonBorderWhite, DefaultButton, OutLinedButton } from "../../../components/Buttons";
 import { CaseCatalogCard } from "../../../components/Cards";
 import { CheckBox1, MobileCheckBox, SelectBox1, SelectBox2 } from "../../../components/Inputs";
-import './caseCatalog.css';
+import "../../../styles/pages/cases/caseCatalog.css"
 
 const CustomSlider = styled(Slider)({
     color: "#1976d2",
