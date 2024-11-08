@@ -92,14 +92,14 @@ const HeroSample = (props) => {
               </a>
             </div>
           )}
-          <div className="heroLinkRight chichaShow">
+          <div className="heroLinkRight gearShow">
             {heroSectionInfo.heroLinkTitle.map((item, index) => (
               <div key={index} style={{ marginTop: "3px" }}>
                 <SmallHeroLinkButton title={item.title} />
               </div>
             ))}
           </div>
-          <div className="heroLinkRight chichaHidden">
+          <div className="heroLinkRight gearHidden">
             {heroSectionInfo.mobileHeroLinkTitle.map((item, index) => (
               <div key={index} style={{ marginTop: "3px" }}>
                 <SmallHeroLinkButton title={item.title} />

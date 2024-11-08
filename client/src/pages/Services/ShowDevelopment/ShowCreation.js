@@ -1,5 +1,5 @@
 import { DarkIconButton } from "../../../components/Buttons"
-import { ChichaBox } from "../../../components/ChichaBox"
+import { GearBox } from "../../../components/GearBox"
 import { creationInfo } from "../../../constant/group"
 
 
@@ -33,7 +33,7 @@ const ShowCreation = () => {
   )
 
   return (
-    <ChichaBox content={content} />
+    <GearBox content={content} />
   )
 }
 

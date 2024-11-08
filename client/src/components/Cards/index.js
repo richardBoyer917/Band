@@ -196,7 +196,7 @@ const RentalCostDocCard = ({ item, docFile }) => {
   );
 };
 
-const ChichaBoxVideoCard = ({ video, width, height, onClick }) => (
+const GearBoxVideoCard = ({ video, width, height, onClick }) => (
   <div className="auditoriumLeft" style={{ width: width, height: height }}>
     <video
       className="auditoriumLeft"
@@ -212,7 +212,7 @@ const ChichaBoxVideoCard = ({ video, width, height, onClick }) => (
   </div>
 );
 
-const ChichaBoxRightCard = ({ content, width, height }) => (
+const GearBoxRightCard = ({ content, width, height }) => (
   <div
     className="auditoriumRight alignCenter"
     style={{ width: width, height: height }}
@@ -366,7 +366,7 @@ export {
   EventWorksCard,
   RentalCostCard,
   RentalCostDocCard,
-  ChichaBoxVideoCard,
-  ChichaBoxRightCard,
+  GearBoxVideoCard,
+  GearBoxRightCard,
   CaseCatalogCard,
 };

@@ -1,13 +1,13 @@
 /* showplant */
 
-.chichaPlant {
+.gearPlant {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 39.33%;
 }
 
-.chichaPlant1 {
+.gearPlant1 {
   width: 30.33%;
   z-index: 50;
   display: flex;
@@ -21,7 +21,7 @@
   z-index: 50;
 }
 
-.lampChicha {
+.lampGear {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -30,7 +30,7 @@
   height: clamp(152.31px, 20vw, 278.67px);
 }
 
-.lampChichaUser {
+.lampGearUser {
   width: clamp(107px, 14vw, 198px);
   height: clamp(107px, 15vw, 198px);
 }
@@ -204,11 +204,11 @@
     margin: 30px 0;
   }
 
-  .chichaPlant {
+  .gearPlant {
     order: -1;
   }
 
-  .chichaPlant1 {
+  .gearPlant1 {
     display: none;
   }
 

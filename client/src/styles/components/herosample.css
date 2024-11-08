@@ -17,21 +17,21 @@
   color: var(--secondaryWhiteColor);
 }
 
-.events .heroLinkWrap .chichaShow div:nth-child(1),
-.tourConcert .heroLinkWrap .chichaShow div:nth-child(1) {
+.events .heroLinkWrap .gearShow div:nth-child(1),
+.tourConcert .heroLinkWrap .gearShow div:nth-child(1) {
   margin-left: 100px;
 }
 
-.events .heroLinkWrap .chichaShow div:nth-child(5),
-.tourConcert .heroLinkWrap .chichaShow div:nth-child(3) {
+.events .heroLinkWrap .gearShow div:nth-child(5),
+.tourConcert .heroLinkWrap .gearShow div:nth-child(3) {
   margin-left: 230px;
 }
 
-.technical .heroLinkWrap .chichaShow div:nth-child(1) {
+.technical .heroLinkWrap .gearShow div:nth-child(1) {
   margin-left: 100px;
 }
 
-.technical .heroLinkWrap .chichaShow div:nth-child(3) {
+.technical .heroLinkWrap .gearShow div:nth-child(3) {
   margin-left: 250px;
 }
 
@@ -68,11 +68,11 @@
 }
 
 @media (max-width: 1330px) {
-  .technical .heroLinkWrap .chichaShow div:nth-child(1) {
+  .technical .heroLinkWrap .gearShow div:nth-child(1) {
     margin-left: 0px;
   }
 
-  .technical .heroLinkWrap .chichaShow div:nth-child(3) {
+  .technical .heroLinkWrap .gearShow div:nth-child(3) {
     margin-left: 0px;
   }
 }
@@ -86,13 +86,13 @@
     margin-top: 30px;
   }
 
-  .events .heroLinkWrap .chichaShow div:nth-child(1),
-  .tourConcert .heroLinkWrap .chichaShow div:nth-child(1) {
+  .events .heroLinkWrap .gearShow div:nth-child(1),
+  .tourConcert .heroLinkWrap .gearShow div:nth-child(1) {
     margin-left: 0px;
   }
 
-  .events .heroLinkWrap .chichaShow div:nth-child(5),
-  .tourConcert .heroLinkWrap .chichaShow div:nth-child(3) {
+  .events .heroLinkWrap .gearShow div:nth-child(5),
+  .tourConcert .heroLinkWrap .gearShow div:nth-child(3) {
     margin-left: 0px;
   }
 }
@@ -139,7 +139,7 @@
 }
 
 @media(max-width: 500px) {
-  .visualization .heroLinkWrap .chichaHidden div:nth-child(1) {
+  .visualization .heroLinkWrap .gearHidden div:nth-child(1) {
     width: 100%;
     text-align: center;
     display: flex;

@@ -3,7 +3,7 @@ import { Link } from "react-scroll";
 import { ArrowDefaultButton } from "../../../components/Buttons";
 import { coveringVideo } from "../../../assets";
 import CoveringPreview from "../../../components/Cards/CoveringPreview";
-import { ChichaBoxRightCard, ChichaBoxVideoCard } from "../../../components/Cards";
+import { GearBoxRightCard, GearBoxVideoCard } from "../../../components/Cards";
 
 const Covering = () => {
   const [open, setOpen] = useState(false)
@@ -23,8 +23,8 @@ const Covering = () => {
       </div>
 
       <div className="flexWrapBetween" style={{ marginTop: '30px', gap: 'clamp(30px, 3.5vw, 40px)' }}>
-        <ChichaBoxVideoCard video={coveringVideo} onClick={handleOpen} />
-        <ChichaBoxRightCard content={
+        <GearBoxVideoCard video={coveringVideo} onClick={handleOpen} />
+        <GearBoxRightCard content={
           <>
             <p className="cardTitle" style={{ color: 'var(--secondaryWhiteColor)' }}>Используем сценические покрытия от произволителей Grabo (Венгрия), RMG Polyvinyl India Limited (Индия), le mark group (Франция)</p>
             <p className="cardDescription coveringGap" style={{ color: 'var(--secondaryWhiteColor)', letterSpacing: '-0.03em' }}>Цвет черный с матовой поверхностью, толщиной от 1,2 до 2 мм. использвуется на профессиональных сценах для покрытия сценических площадок. Все покрытия армированы стекловолокном, что обеспечивает ровность при укладке и обеспечивает высокую плотность.</p>

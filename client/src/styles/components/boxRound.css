@@ -1,4 +1,4 @@
-.chichaIndex {
+.gearIndex {
   position: absolute;
   z-index: 5;
 }
@@ -10,7 +10,7 @@
   position: absolute;
 }
 
-.heroOneChichas {
+.heroOneGears {
   border-radius: 0 0 0 65px;
   width: 94px;
   height: 94px;
@@ -18,21 +18,21 @@
   background: var(--primaryBgColor);
 }
 
-.heroOneChicha {
+.heroOneGear {
   border-radius: 0 0 0 55px;
   background: var(--primaryBgColor);
   width: 74px;
   height: 74px;
 }
 
-.smallHeroOneChichas {
+.smallHeroOneGears {
   border-radius: 0 0 0 30px;
   background: var(--primaryBgColor);
   width: 50px;
   height: 50px;
 }
 
-.smallHeroOneChicha {
+.smallHeroOneGear {
   border-radius: 0 0 0 30px;
   background: var(--primaryBgColor);
   width: 50px;

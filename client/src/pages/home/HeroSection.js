@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { chicha123, chicha94 } from "../../assets";
+import { gear123, gear94 } from "../../assets";
 import {
   BoxRound,
-  MiddleChichaRound,
+  MiddleGearRound,
   MiddleRound,
-  SmallChichaRound,
+  SmallGearRound,
   SmallRound,
 } from "../../components/BoxRound";
 import {
@@ -13,24 +13,13 @@ import {
   SmallTabButton,
   SmallTransButton,
 } from "../../components/Buttons";
-import { TwoChichas } from "../../components/Chichas";
+import { TwoGears } from "../../components/Gears";
 import { menuItemsData } from "../../constant/group";
 import { Link } from "react-scroll";
 
 const HeroSection = () => {
   const navigate = useNavigate();
   const buttonGroupClassInfo = ["firstGroup", "secondGroup", "thirdGroup"];
-
-  // const valuse = ['10', '20', '30', '40', '50', '60', '70', '80', '90']
-  // valuse.map((value, index) => {
-  //   const radians = (value * Math.PI) / 180;
-
-  //   const sine = Math.sin(radians);  // Calculate sine
-  //   const cosine = Math.cos(radians);
-
-  //   let x = 100 - 100 * cosine
-  //   let y = 100 * sine
-  // })
 
   const handleLink = (url) => {
     navigate(url);
@@ -43,7 +32,7 @@ const HeroSection = () => {
     <div className="sectionWrapper" style={{ position: "relative" }}>
       <div className="heroSection ">
         <div className="section1 heroContent">
-          <div className="chichaShow">
+          <div className="gearShow">
             {menuItemsData[1].submenu.map((item, index) => (
               <div
                 key={index}
@@ -69,7 +58,7 @@ const HeroSection = () => {
           </p>
           <div className="itemCenter">
             <div
-              className="chichaHidden"
+              className="gearHidden"
               style={{ gap: "4px", marginTop: "32px" }}
             >
               {menuItemsData[1].submenu.map((item, index) => (
@@ -94,24 +83,24 @@ const HeroSection = () => {
         </div>
       </div>
       <div>
-        <div className="chichaHidden">
-          <SmallChichaRound right={-1} bottom={-1} rotate={"90deg"} />
-          <SmallChichaRound left={-1} bottom={-1} rotate={"180deg"} />
+        <div className="gearHidden">
+          <SmallGearRound right={-1} bottom={-1} rotate={"90deg"} />
+          <SmallGearRound left={-1} bottom={-1} rotate={"180deg"} />
           <SmallRound right={-1} top={-1} />
           <SmallRound left={-1} top={-1} rotate={"-90deg"} />
         </div>
 
-        <div className="chichaShow">
+        <div className="gearShow">
           <MiddleRound right={-1} top={-1} />
           <MiddleRound left={-1} top={-1} rotate="-90deg" />
-          <MiddleChichaRound
+          <MiddleGearRound
             flag={true}
             right={-1}
             bottom={-5}
             rotate="90deg"
           />
-          <div className="chichaIndex heroTwoChichas">
-            <TwoChichas img1={chicha94} img2={chicha123} />
+          <div className="gearIndex heroTwoGears">
+            <TwoGears img1={gear94} img2={gear123} />
             <BoxRound left="0px" top="-49px" width="50px" />
             <BoxRound right="-47px" bottom="43px" width="50px" />
           </div>

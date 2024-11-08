@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
-import { chicha72, chicha94, design } from "../../assets"
+import { gear72, gear94, design } from "../../assets"
 import { BigTransButton, DefaultButton } from "../../components/Buttons"
-import { TwoChichas } from "../../components/Chichas"
+import { TwoGears } from "../../components/Gears"
 import { Link } from "react-scroll"
 
 const AboutSection = () => {
@@ -16,11 +16,11 @@ const AboutSection = () => {
       <div className="aboutSection section1">
         <div className="itemCenter sectionHeader" style={{ position: 'relative', gap: '30px', textAlign: 'center' }}>
           <div style={{ position: 'absolute', left: 'clamp(0px, 4vw, 40px)', bottom: -10, }}>
-            <TwoChichas img1={chicha72} img2={chicha94} rotate='-15deg' />
+            <TwoGears img1={gear72} img2={gear94} rotate='-15deg' />
           </div>
           <p className="sectionTitle">Спроектируем и настроим</p>
           <div style={{ position: 'absolute', right: 'clamp(0px, 4vw, 40px)', bottom: 10, }}>
-            <TwoChichas img1={chicha94} img2={chicha72} rotate='-30deg' />
+            <TwoGears img1={gear94} img2={gear72} rotate='-30deg' />
           </div>
         </div>
         <div className="flexWrap itemCenter" style={{ gap: '6px' }}>

@@ -8,7 +8,7 @@ import CaseCards from './caseCards'
 import EventSection from './EventSection'
 import { getCaseById } from '../../../api/caseAPI'
 import endpoint from '../../../config/config'
-import ChichaSmallBox from '../../../components/ChichaSmallBox'
+import GearSmallBox from '../../../components/GearSmallBox'
 import EquipmentUsed from './EquipmentUsed'
 import ContactSection from '../../home/ContactSection'
 import useScrollToTop from '../../../scrollTo/ScrollToTop'
@@ -50,7 +50,7 @@ const CaseEvent = () => {
         {caseOne?.type !== 'тур' && <CristalRoom site={caseOne?.site} />}
         <div className='smallSectionWrapper'>
           <EventSection dData={caseOne?.d_id} />
-          {caseOne?.type === 'тур' && <ChichaSmallBox
+          {caseOne?.type === 'тур' && <GearSmallBox
             title="Отрепетировано на реп-базе Завод Шоу"
             text="Современный зрительный зал на 1372 места с полным электрическим оснащением. 
               Стоимость аренды от 60 тыс. ₽ при соблюдении условий аренды"

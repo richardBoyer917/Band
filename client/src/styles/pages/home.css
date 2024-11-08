@@ -79,7 +79,7 @@
 }
 
 .secondGroup .smallTransButton,
-.chichaHidden .transButton:nth-of-type(2) {
+.gearHidden .transButton:nth-of-type(2) {
   background-color: var(--secondaryWhiteColor);
   color: var(--primaryBgColor);
 }
@@ -89,7 +89,7 @@
   margin-right: 26px;
 }
 
-.chichaHidden .smallTransButton {
+.gearHidden .smallTransButton {
   font-size: 10px;
   line-height: 12.55px;
 }
@@ -342,7 +342,7 @@ hr {
   }
 }
 
-.lampChichaSquare {
+.lampGearSquare {
   display: flex;
   flex-wrap: wrap;
 }
@@ -372,7 +372,7 @@ hr {
   margin-bottom: clamp(21px, 6vw, 62px);
 }
 
-.chichaGroup {
+.gearGroup {
   margin-top: clamp(40px, 9vw, 80px);
   display: flex;
   flex-direction: column;
@@ -381,7 +381,7 @@ hr {
   position: relative;
 }
 
-.chichaWrapper {
+.gearWrapper {
   position: absolute;
   top: 64px;
   background: #171717;
@@ -393,14 +393,14 @@ hr {
   display: block;
 }
 
-.chichaGroup1 {
+.gearGroup1 {
   width: 33.33%;
   z-index: 50;
   display: flex;
   flex-direction: column;
 }
 
-.chichaGroup img {
+.gearGroup img {
   width: clamp(149.28px, 30vw, 275.7px);
   height: clamp(152.31px, 30vw, 281.31px);
 }
@@ -416,23 +416,23 @@ hr {
     display: none;
   }
 
-  .lampChichaSquare {
+  .lampGearSquare {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .chichaGroup {
+  .gearGroup {
     margin: 0 0 40px 0;
     width: 100%;
     order: -1;
   }
 
-  .chichaWrapper {
+  .gearWrapper {
     display: none;
   }
 
-  .chichaGroup1 {
+  .gearGroup1 {
     margin: 0 0 40px 0;
     width: 100%;
     align-items: center;

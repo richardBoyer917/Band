@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { ChichaBox } from "../../../components/ChichaBox"
+import { GearBox } from "../../../components/GearBox"
 import { slidingVideo } from "../../../assets";
 import CoveringPreview from "../../../components/Cards/CoveringPreview";
 import { BlackButton } from "../../../components/Buttons";
-import { ChichaBoxRightCard, ChichaBoxVideoCard } from "../../../components/Cards";
+import { GearBoxRightCard, GearBoxVideoCard } from "../../../components/Cards";
 import { DetailDataInput } from "../../../components/Inputs";
 import { Link } from "react-scroll";
 
@@ -40,8 +40,8 @@ const SlidingCurtain = () => {
       <p className="sectionTitle" style={{ color: `var(--primaryBgColor)`, width: '90%', marginBottom: '40px' }}>Раздвижной занавес</p>
 
       <div className="flexWrapBetween" style={{ marginTop: '30px', gap: 'clamp(30px, 3.5vw, 40px)' }}>
-        <ChichaBoxVideoCard video={slidingVideo} onClick={handleOpen} />
-        <ChichaBoxRightCard content={<>
+        <GearBoxVideoCard video={slidingVideo} onClick={handleOpen} />
+        <GearBoxRightCard content={<>
           {slidingInfo.map((item, index) => (
             <DetailDataInput key={index} item={item} index={index} />
           ))}
@@ -55,7 +55,7 @@ const SlidingCurtain = () => {
   )
 
   return (
-    <ChichaBox content={content} />
+    <GearBox content={content} />
   )
 }
 
