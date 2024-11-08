@@ -1,9 +1,8 @@
-import axios from "axios";
-import { handleError } from "../utils";
+import { handleError, apiClient } from "../utils";
 
 export const getSite = async () => {
   try {
-    const response = await axios.get("/sites");
+    const response = await apiClient.get("/sites");
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -14,7 +13,7 @@ export const getSite = async () => {
 
 export const getsixSite = async () => {
   try {
-    const response = await axios.get("/sites/six");
+    const response = await apiClient.get("/sites/six");
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -25,7 +24,7 @@ export const getsixSite = async () => {
 
 export const getSiteById = async (id) => {
   try {
-    const response = await axios.get(`/sites/${id}`);
+    const response = await apiClient.get(`/sites/${id}`);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -36,7 +35,7 @@ export const getSiteById = async (id) => {
 
 export const insertSite = async (formdata) => {
   try {
-    const response = await axios.post("/sites", formdata);
+    const response = await apiClient.post("/sites", formdata);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -47,7 +46,7 @@ export const insertSite = async (formdata) => {
 
 export const updateSite = async (id, formdata) => {
   try {
-    const response = await axios.put(`/sites/${id}`, formdata, {
+    const response = await apiClient.put(`/sites/${id}`, formdata, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     if (response.status !== 200)
@@ -60,7 +59,7 @@ export const updateSite = async (id, formdata) => {
 
 export const deleteSite = async (_id) => {
   try {
-    const response = await axios.delete(`/sites/${_id}`);
+    const response = await apiClient.delete(`/sites/${_id}`);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;

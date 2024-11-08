@@ -1,9 +1,8 @@
-import axios from "axios";
-import { handleError } from "../utils";
+import { handleError, apiClient } from "../utils";
 
 export const getSearchData = async (searchTerm) => {
   try {
-    const response = await axios.post("/getSearchData", {
+    const response = await apiClient.post("/getSearchData", {
       searchTerm: searchTerm,
     });
     if (response.status !== 200)

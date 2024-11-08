@@ -1,10 +1,9 @@
-import axios from "axios";
 import endpoint from "../config/config";
-import { handleError } from "../utils";
+import { handleError, apiClient } from "../utils";
 
 export const getFactorys = async () => {
   try {
-    const response = await axios.get("/factorys");
+    const response = await apiClient.get("/factorys");
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -15,7 +14,7 @@ export const getFactorys = async () => {
 
 export const getTopFactorys = async () => {
   try {
-    const response = await axios.get("/factorys/top");
+    const response = await apiClient.get("/factorys/top");
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -26,7 +25,7 @@ export const getTopFactorys = async () => {
 
 export const insertFactory = async (formdata) => {
   try {
-    const response = await axios.post("/factorys", formdata);
+    const response = await apiClient.post("/factorys", formdata);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -37,7 +36,7 @@ export const insertFactory = async (formdata) => {
 
 export const updateFactory = async (id, formdata) => {
   try {
-    const response = await axios.put(`/factorys/${id}`, formdata, {
+    const response = await apiClient.put(`/factorys/${id}`, formdata, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     if (response.status !== 200)
@@ -50,7 +49,7 @@ export const updateFactory = async (id, formdata) => {
 
 export const deleteFactory = async (_id) => {
   try {
-    const response = await axios.delete(`/factorys/${_id}`);
+    const response = await apiClient.delete(`/factorys/${_id}`);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;

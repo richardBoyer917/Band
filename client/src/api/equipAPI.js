@@ -1,9 +1,8 @@
-import axios from "axios";
-import { handleError } from "../utils";
+import { handleError, apiClient } from "../utils";
 
 export const getEquips = async () => {
   try {
-    const response = await axios.get("/equipments");
+    const response = await apiClient.get("/equipments");
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 
@@ -15,7 +14,7 @@ export const getEquips = async () => {
 
 export const getEquipsByType = async (equipmentType) => {
   try {
-    const response = await axios.get("/equipments/type", {
+    const response = await apiClient.get("/equipments/type", {
       params: { equipmentType: equipmentType },
     });
     if (response.status !== 200)
@@ -29,7 +28,7 @@ export const getEquipsByType = async (equipmentType) => {
 
 export const insertEquip = async (formdata) => {
   try {
-    const response = await axios.post("/equipments", formdata);
+    const response = await apiClient.post("/equipments", formdata);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 
@@ -41,7 +40,7 @@ export const insertEquip = async (formdata) => {
 
 export const updateEquip = async (id, formdata) => {
   try {
-    const response = await axios.put(`/equipments/${id}`, formdata, {
+    const response = await apiClient.put(`/equipments/${id}`, formdata, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     if (response.status !== 200)
@@ -55,7 +54,7 @@ export const updateEquip = async (id, formdata) => {
 
 export const deleteEquip = async (_id) => {
   try {
-    const response = await axios.delete(`/equipments/${_id}`);
+    const response = await apiClient.delete(`/equipments/${_id}`);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 
@@ -67,7 +66,7 @@ export const deleteEquip = async (_id) => {
 
 export const getEquipById = async (id) => {
   try {
-    const response = await axios.get(`/equipments/${id}`);
+    const response = await apiClient.get(`/equipments/${id}`);
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }

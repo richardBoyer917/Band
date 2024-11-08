@@ -1,9 +1,8 @@
-import axios from "axios";
-import { handleError } from "../utils";
+import { handleError, apiClient } from "../utils";
 
 export const getThrees = async () => {
   try {
-    const response = await axios.get("/threes");
+    const response = await apiClient.get("/threes");
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -14,7 +13,7 @@ export const getThrees = async () => {
 
 export const insertThree = async (formdata) => {
   try {
-    const response = await axios.post("/threes", formdata);
+    const response = await apiClient.post("/threes", formdata);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -25,7 +24,7 @@ export const insertThree = async (formdata) => {
 
 export const updateThree = async (id, formdata) => {
   try {
-    const response = await axios.put(`/threes/${id}`, formdata, {
+    const response = await apiClient.put(`/threes/${id}`, formdata, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     if (response.status !== 200)
@@ -38,7 +37,7 @@ export const updateThree = async (id, formdata) => {
 
 export const deleteThree = async (_id) => {
   try {
-    const response = await axios.delete(`/threes/${_id}`);
+    const response = await apiClient.delete(`/threes/${_id}`);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
