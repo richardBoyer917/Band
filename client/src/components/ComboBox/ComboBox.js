@@ -1,8 +1,9 @@
 import React from "react";
-import './ComboBox.css';
+
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { BlackButtonBorderWhite, DefaultButton } from "../Buttons";
 import { CaseCatalogSelectBoxInfo } from "../../constant/group";
+import '../../styles/components/ComboBox.css';
 
 const ComboBox = () => {
     return (

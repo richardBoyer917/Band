@@ -1,6 +1,7 @@
 import { caseSolutionChiCha } from '../../../assets'
 import endpoint from '../../../config/config'
-import './caseEvent.css'
+import '../../../styles/pages/cases/caseEvent.css'
+
 
 const CaseCards = ({ solution, feature }) => (
     <div className="container" >

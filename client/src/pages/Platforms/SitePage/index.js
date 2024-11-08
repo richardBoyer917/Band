@@ -4,11 +4,11 @@ import ContactSection from '../../home/ContactSection'
 import EquipmentUsed from './EquipmentUsed'
 import TopSiteEventSection from './TopSiteEventSection'
 import UserBtnList from './UserBtnList'
-import './sitepage.css'
 import { getSiteById } from '../../../api/siteAPI'
 import endpoint from '../../../config/config'
 import { useParams } from 'react-router-dom'
 import useScrollToTop from '../../../scrollTo/ScrollToTop'
+import '../../../styles/pages/sitepage.css'
 
 const SitePage = () => {
     useScrollToTop()

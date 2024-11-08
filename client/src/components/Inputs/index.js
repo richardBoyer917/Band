@@ -1,6 +1,6 @@
 import { Box, Checkbox, FormControl, FormControlLabel, MenuItem, Select } from '@mui/material'
 import { greySearch } from '../../assets'
-import './input.css'
+import "../../styles/components/input.css"
 
 export const Input = ({ color, item, value, handleChange }) => {
   return (

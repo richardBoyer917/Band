@@ -1,7 +1,7 @@
 
 import { menuItemsData } from "../../constant/group";
 import MenuItems from "./MenuItems";
-import './dropdown.css'
+import "../../styles/layouts/dropdown.css"
 
 const depthLevel = 0;
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { darkPlay } from "../../../assets";
 import VideoPreview from "./Preview/VideoPreview";
-import './swiperCard.css'
+import "../../../styles/components/cards/swiperCard.css"
 
 const VideoCard = (props) => {
   const { name, avatar } = props;
