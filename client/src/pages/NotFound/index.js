@@ -1,5 +1,5 @@
 import useScrollToTop from '../../scrollTo/ScrollToTop';
-import './notFound.css'
+import '../../styles/pages/notFound/notFound.css'
 
 const NotFound = () => {
 

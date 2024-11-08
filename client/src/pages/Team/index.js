@@ -3,8 +3,8 @@ import useScrollToTop from '../../scrollTo/ScrollToTop'
 import MasterSection from './MasterSection'
 import PlantHero from './PlantHero'
 import PlantShowSection from './PlantShowSection'
-import './teamPage.css'
 import { getTeam } from '../../api/teamAPI'
+import '../../styles/pages/team/teamPage.css'
 
 const TeamPage = () => {
   useScrollToTop()

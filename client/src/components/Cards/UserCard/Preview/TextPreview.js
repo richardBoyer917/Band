@@ -1,7 +1,7 @@
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import './preview.css'
 import CustomerModal from "../../../Modals";
+import '../../../../styles/components/cards/preview.css'
 
 const TextPreview = (props) => {
   const { name, avatar, content, open, setOpen } = props;

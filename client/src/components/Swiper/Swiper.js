@@ -5,7 +5,7 @@ import { Autoplay } from 'swiper/modules';
 import { getReviewsBytype } from '../../api/reviewAPI';
 
 import "swiper/swiper-bundle.css";
-import './swiper.css';
+import "../../styles/components/swiper/swiper.css"
 import { useEffect, useState } from 'react';
 import endpoint from '../../config/config';
 

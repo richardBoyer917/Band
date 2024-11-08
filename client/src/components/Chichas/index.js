@@ -1,6 +1,5 @@
 import { BoxRound } from '../BoxRound'
-import './chicha.css'
-
+import "../../styles/components/chichas/chicha.css"
 const BigOneChicha = ({ img }) => (
   <div className='chichaShow heroOneChichas' >
     <span className='chicha-spin'>

@@ -8,11 +8,11 @@ import CaseCards from './caseCards'
 import EventSection from './EventSection'
 import { getCaseById } from '../../../api/caseAPI'
 import endpoint from '../../../config/config'
-import './caseEvent.css'
 import ChichaSmallBox from '../../../components/ChichaSmallBox'
 import EquipmentUsed from './EquipmentUsed'
 import ContactSection from '../../home/ContactSection'
 import useScrollToTop from '../../../scrollTo/ScrollToTop'
+import '../../../styles/pages/cases/caseEvent/caseEvent.css'
 
 const CaseEvent = () => {
   useScrollToTop()

@@ -12,7 +12,7 @@ import ShowConcept from "./showconcept";
 import useScrollToTop from "../../../scrollTo/ScrollToTop";
 import { useEffect, useState } from "react";
 import { getShowParticipant } from "../../../api/participantAPI";
-import "./showDevelopment.css";
+import "../../../styles/pages/services/showDevelopment.css"
 
 const ShowDevelopment = () => {
   useScrollToTop();

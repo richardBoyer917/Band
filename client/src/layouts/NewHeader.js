@@ -3,7 +3,7 @@ import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom"
 import { DefaultButton, ScrollSpyButton } from '../components/Buttons'
 import HeaderWrapper from "./HeaderWrapp"
 import { adminUser, lightLogout, logo } from "../assets"
-import './layout.css'
+import "../styles/layouts/layout.css"
 
 const NewHeader = ({ setIsAdminPage }) => {
 

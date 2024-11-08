@@ -38,7 +38,7 @@
 
 .heroSection {
   position: relative;
-  background-image: url('../../assets/background/heroVideo.gif');
+  background-image: url('../../../assets/background/heroVideo.gif');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

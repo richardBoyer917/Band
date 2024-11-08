@@ -3,7 +3,7 @@ import { DownloadButton1 } from '../../../components/Buttons'
 import endpoint from '../../../config/config'
 import useScrollToTop from '../../../scrollTo/ScrollToTop'
 
-import './serie.css'
+import "../../../styles/pages/equipmentTopPage/serie.css"
 const EquipmentTopPage = ({ equipment }) => {
   useScrollToTop()
 

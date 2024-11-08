@@ -12,8 +12,8 @@ import Covering from "./Covering"
 import Kabuki from "./Kabuki"
 import SlidingCurtain from "./SlidingCurtain"
 
-import "./stageclothes.css"
 import TransCurtain from "./TransCurtail"
+import "../../../styles/pages/technical/stageclothes.css"
 
 const StageClothes = () => {
   useScrollToTop()

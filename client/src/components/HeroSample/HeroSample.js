@@ -7,7 +7,7 @@ import {
   ScrollSpyButton,
   SmallHeroLinkButton,
 } from "../Buttons";
-import "./herosample.css";
+import "../../styles/components/heroSample/herosample.css"
 
 const HeroSample = (props) => {
   const { heroSectionInfo } = props;
