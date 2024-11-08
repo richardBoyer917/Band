@@ -18,17 +18,17 @@
   }
 }
 
-.chicha-spin {
+.gear-spin {
   animation: spin 3s linear infinite;
   display: inline-block;
 }
 
-.chicha-back-spin {
+.gear-back-spin {
   animation: back-spin 3s linear infinite;
   display: inline-block;
 }
 
-.treeChichas {
+.treeGears {
   position: absolute;
   display: flex;
   right: -5px;
@@ -38,7 +38,7 @@
   padding: 0 30px 20px 34px;
 }
 
-.treeChichas1 {
+.treeGears1 {
   position: absolute;
   display: flex;
   left: -5px;
@@ -48,7 +48,7 @@
   padding: 0 30px 20px 34px;
 }
 
-.heroTwoChichas {
+.heroTwoGears {
   left: -1px;
   bottom: -45px;
   width: 250px;
@@ -57,7 +57,7 @@
   padding-top: 10px;
 }
 
-.oneChicha {
+.oneGear {
   position: absolute;
   width: 60px;
   height: 60px;
@@ -71,7 +71,7 @@
   background-color: var(--primaryBgColor);
 }
 
-.chichaHidden {
+.gearHidden {
   display: none !important;
 }
 
@@ -85,11 +85,11 @@
     top: 50px !important;
   }
 
-  .chichaShow {
+  .gearShow {
     display: none !important;
   }
 
-  .chichaHidden {
+  .gearHidden {
     display: flex !important;
   }
 }

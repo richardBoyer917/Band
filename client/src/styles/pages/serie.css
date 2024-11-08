@@ -20,11 +20,11 @@
     display: flex;
 }
 
-.chichaHidden .bigEquipmentImageWrappper {
+.gearHidden .bigEquipmentImageWrappper {
     height: clamp(210px, 40vw, 420px);
 }
 
-.chichaHidden .smallEquipmentImageWrappper {
+.gearHidden .smallEquipmentImageWrappper {
     height: clamp(80px, 20vw, 250px);
 }
 

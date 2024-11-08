@@ -1,4 +1,4 @@
-import { caseSolutionChiCha } from '../../../assets'
+import { caseSolutionGear } from '../../../assets'
 import endpoint from '../../../config/config'
 import '../../../styles/pages/cases/caseEvent.css'
 
@@ -12,10 +12,10 @@ const CaseCards = ({ solution, feature }) => (
             </div>
             {solution?.length > 0 &&
                 <div style={{ display: 'grid', gap: 'clamp(20px, 2vw, 24px)' }}>
-                    <p className='x30 caseChiCha'>
-                        <img className="firstImage" src={caseSolutionChiCha} alt='CaseSolutionChiCha' style={{ width: '31px', height: '39px', paddingRight: '16.29px' }} />
+                    <p className='x30'>
+                        <img className="firstImage" src={caseSolutionGear} alt='caseSolutionGear' style={{ width: '31px', height: '39px', paddingRight: '16.29px' }} />
                         Решение кейса
-                        <img className="secondImage" src={caseSolutionChiCha} alt='CaseSolutionChiCha' style={{ width: '31px', height: '39px', paddingLeft: '13px' }} />
+                        <img className="secondImage" src={caseSolutionGear} alt='caseSolutionGear' style={{ width: '31px', height: '39px', paddingLeft: '13px' }} />
                     </p>
                     <div className='flexWrap' style={{ display: 'grid', gap: 'clamp(68px,7vw,85px)' }}>
                         {solution?.map((item, index) => (

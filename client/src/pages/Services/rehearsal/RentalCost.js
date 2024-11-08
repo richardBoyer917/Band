@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RentalCostCard, RentalCostDocCard } from "../../../components/Cards";
-import { ChichaBox } from "../../../components/ChichaBox";
+import { GearBox } from "../../../components/GearBox";
 import { getRental } from "../../../api/rentalAPI";
 
 const rentalDocumentInfo = [
@@ -32,7 +32,7 @@ const RentalCost = () => {
       <div className="rentalBody">
         <div className="rentalLeft">
           <RentalCostCard cost={rental?.cost} />
-          <div className="chichaShow">
+          <div className="gearShow">
             <RentalDocument documentFile={rental?.files} />
           </div>
         </div>
@@ -42,7 +42,7 @@ const RentalCost = () => {
             <p className="cardDescription" style={{ marginBottom: '15px' }}>*Компании, осуществляющие техническое обеспечение репетиции обязаны иметь сотрудников с соответствующей квалификацией по электробезопасности, охране труда и пожарной безопасности.</p>
             <p className="cardDescription">Документы, подтверждающие квалификацию ответственных сотрудников должны быть предоставлены за 1 (одни) сутки до начала репетиции. В противном случае компании-подрядчику может быть отказано в доступе на площадку</p>
           </div>
-          <div className="chichaHidden">
+          <div className="gearHidden">
             <RentalDocument />
           </div>
         </div>
@@ -51,7 +51,7 @@ const RentalCost = () => {
   )
 
   return (
-    <ChichaBox content={content} />
+    <GearBox content={content} />
   )
 }
 

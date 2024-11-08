@@ -15,7 +15,7 @@ const EquipmentCard = ({ data, title }) => {
         >
           Этапы работы
         </p>
-        <div className="chichaShow">
+        <div className="gearShow">
           <Link to="contactSection" offset={-200} spy={true} smooth={true}>
             <BlackButton title="заказать консультацию" />
           </Link>

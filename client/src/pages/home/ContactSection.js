@@ -25,10 +25,10 @@ const ContactHeader = ({ title }) => (
   <div className="contactTop" >
     <div className='flexWrapBetween alignCenter' style={{ gap: '10px' }}>
       <p className='sectionTitle'>{title}</p>
-      <p className='x14_2 chichaShow' style={{ maxWidth: '225px' }}>Оставьте заявку, и мы свяжемся с вами в ближайшее время</p>
+      <p className='x14_2 gearShow' style={{ maxWidth: '225px' }}>Оставьте заявку, и мы свяжемся с вами в ближайшее время</p>
     </div>
     <hr className='hrStyle' />
-    <p className='x14_2 chichaHidden' style={{ maxWidth: '225px', marginBottom: '30px' }}>Оставьте заявку, и мы свяжемся с вами в ближайшее время</p>
+    <p className='x14_2 gearHidden' style={{ maxWidth: '225px', marginBottom: '30px' }}>Оставьте заявку, и мы свяжемся с вами в ближайшее время</p>
   </div>
 )
 

@@ -1,4 +1,4 @@
-import { ChichaBox } from "../../../components/ChichaBox"
+import { GearBox } from "../../../components/GearBox"
 import { DetailDataInput } from "../../../components/Inputs"
 
 const AudioriumLeftInfo = [
@@ -42,7 +42,7 @@ const Auditorium = () => {
     </section>
   )
   return (
-    <ChichaBox flag={true} content={content} />
+    <GearBox flag={true} content={content} />
   )
 }
 

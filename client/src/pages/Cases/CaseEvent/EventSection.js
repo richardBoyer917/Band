@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ChichaBoxRightCard, ChichaBoxVideoCard } from "../../../components/Cards"
+import { GearBoxRightCard, GearBoxVideoCard } from "../../../components/Cards"
 import CoveringPreview from "../../../components/Cards/CoveringPreview"
 import { WhiteBox } from "../../../components/WhiteBox/WhiteBox"
 
@@ -22,10 +22,10 @@ const EventSection = ({ dData }) => {
       <p className="sectionTitle" style={{ color: `var(--primaryBgColor)`, width: '90%' }}>3D-визуализация сцены мероприятия</p>
       <div className="flexWrapBetween" style={{ marginTop: '30px', gap: 'clamp(30px, 3.5vw, 40px)' }}>
         <div>
-          <ChichaBoxVideoCard width='clamp(240px, 46vw, 700px)' height='clamp(154px, 30vw, 410px)' video={`${endpoint}/uploads/three_d/${dData?.video}`} onClick={handleOpen} />
+          <GearBoxVideoCard width='clamp(240px, 46vw, 700px)' height='clamp(154px, 30vw, 410px)' video={`${endpoint}/uploads/three_d/${dData?.video}`} onClick={handleOpen} />
           <p style={{ marginTop: "clamp(14px, 3vw, 30px)", fontWeight: '500', fontSize: 'clamp(10px, 3vw, 16px)' }}>Перед мероприятием провели 3D-визуализацию сцены </p>
         </div>
-        <ChichaBoxRightCard
+        <GearBoxRightCard
           content={
             <>
               {dData && <div>

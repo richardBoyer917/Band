@@ -51,15 +51,15 @@ import addressIcon from './icon/address.png'
 import worldIcon from './icon/worldIcon.png'
 import whiteUser from './icon/whiteUser.png'
 
-//chichas
-import chicha35 from './chicha/chicha35.png'
-import chicha72 from './chicha/chicha72.png'
-import chicha94 from './chicha/chicha94.png'
-import chicha102 from './chicha/chicha102.png'
-import chicha107 from './chicha/chicha107.png'
-import chicha123 from './chicha/chicha123.png'
-import bigChicha from './chicha/bigChicha.png'
-import backChicha from './chicha/backchicha.png'
+//gears
+import gear35 from './gear/gear35.png'
+import gear72 from './gear/gear72.png'
+import gear94 from './gear/gear94.png'
+import gear102 from './gear/gear102.png'
+import gear107 from './gear/gear107.png'
+import gear123 from './gear/gear123.png'
+import bigGear from './gear/bigGear.png'
+import backGear from './gear/backgear.png'
 
 //backgrounds
 import heroVideo from './background/heroVideo.gif'
@@ -170,8 +170,8 @@ import kabukiImg4 from './kabuki/kabukiImg4.png'
 
 //PlantShow
 import checkIcon from './icon/check.svg'
-import inveteChicha1 from './icon/inviteChicha1.svg'
-import inveteChicha2 from './icon/inviteChicha2.svg'
+import inviteGear1 from './icon/inviteGear1.svg'
+import inviteGear2 from './icon/inviteGear2.svg'
 import master from './background/master.png'
 
 //teamOffice
@@ -207,7 +207,7 @@ import cristalRoom from './event/cristalRoomImg.png'
 import SwiperImg1 from './event/SwiperImg1.png'
 import SwiperImg2 from './event/SwiperImg2.png'
 
-import caseSolutionChiCha from './chicha/casesolutionchicha.png'
+import caseSolutionGear from './gear/casesolutiongear.png'
 
 //
 import cameraImg from './background/camera.svg'
@@ -221,8 +221,8 @@ export {
   lightArrow, whiteMail, whitePhone, downArrow, search, downloadIcon, whitePlay, white3d, questionImg, greyDocument, greyDownload, creationIcon, smallDownload,
   coveringPlay, addressIcon, starIcon, greySearch, flagIcon, dateIcon, positionIcon, userIcon, starIcon1, lengthIcon, leftArrow, rightArrow, worldIcon,
   whiteUser,
-  //chichas
-  chicha35, chicha72, chicha94, chicha102, chicha107, chicha123, bigChicha, backChicha,
+  //gears
+  gear35, gear72, gear94, gear102, gear107, gear123, bigGear, backGear,
   //backgrounds
   heroVideo, design, roundWhite, heroBgImg, secondHeroBg, stage3d, heroLampImg, threeRotation, circleHeroImg, lightHeroImg, soundHeroImg, videoHeroImg, stageHeroImg, backPlant,
   //portfolios
@@ -251,7 +251,7 @@ export {
   //KabukiImg
   kabukiImg1, kabukiImg2, kabukiImg3, kabukiImg4,
   //PlantShow
-  checkIcon, inveteChicha1, inveteChicha2, master,
+  checkIcon, inviteGear1, inviteGear2, master,
   //teamOffice
   miniPhone, miniClock, miniMail, miniTelegram,
 
@@ -264,8 +264,8 @@ export {
   //event
   eventImg1, eventImg2, eventImg3, eventImg4, eventImg5, eventImg6, cristalRoom,
 
-  //caseSolutionChiCha
-  caseSolutionChiCha,
+  //caseSolutionGear
+  caseSolutionGear,
 
 
   //serie

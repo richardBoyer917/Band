@@ -3,7 +3,7 @@ import { kabukiImg1, kabukiImg2, kabukiImg3, kabukiImg4, kabukiVideo } from "../
 import { ArrowDefaultButton } from "../../../components/Buttons"
 import { kabukiInfo } from "../../../constant/group";
 import CoveringPreview from "../../../components/Cards/CoveringPreview";
-import { ChichaBoxVideoCard } from "../../../components/Cards";
+import { GearBoxVideoCard } from "../../../components/Cards";
 import { DetailDataInput } from "../../../components/Inputs";
 import { Link } from "react-scroll";
 
@@ -79,7 +79,7 @@ const Kabuki = () => {
         <KabukiHeader />
         <div className="kabukiBody">
           <div className="flexWrapBetween" style={{ gap: '20px' }}>
-            <ChichaBoxVideoCard video={kabukiVideo} width='clamp(300px, 40vw, 640px)' height='clamp(210px, 40vw, 544px)' onClick={handleOpen} />
+            <GearBoxVideoCard video={kabukiVideo} width='clamp(300px, 40vw, 640px)' height='clamp(210px, 40vw, 544px)' onClick={handleOpen} />
             <KabukiList />
           </div>
           <KabukiImgList />

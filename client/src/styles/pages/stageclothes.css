@@ -149,15 +149,15 @@
     width: 100%;
   }
 
-  .chichaShow .transCurtainGallery {
+  .gearShow .transCurtainGallery {
     padding-top: 40px;
   }
 
-  .chichaHidden .curtainGallery {
+  .gearHidden .curtainGallery {
     width: 100%;
   }
 
-  .chichaHidden .curtainGallery img {
+  .gearHidden .curtainGallery img {
     width: 48%;
   }
 }

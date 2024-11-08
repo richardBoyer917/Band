@@ -22,14 +22,14 @@ const PortfolioSection = () => {
     <div className="sectionWrapper">
       <div className="spaceBetween sectionHeader section2"  >
         <p className="sectionTitle">Работаем на площадках</p>
-        <div className="chichaShow"><ArrowDefaultButton title='все площадки' onClick={() => handleLink('/platforms')} /></div>
+        <div className="gearShow"><ArrowDefaultButton title='все площадки' onClick={() => handleLink('/platforms')} /></div>
       </div>
       <div className="flexWrapAround" style={{ gap: '40px' }}>
         {publicationCardInfo.map((item, index) => (
           <PublicationCard key={index} item={item} />
         ))}
       </div>
-      <div className="chichaHidden itemCenter" style={{ paddingTop: '40px' }}><ArrowDefaultButton title='все площадки' /></div>
+      <div className="gearHidden itemCenter" style={{ paddingTop: '40px' }}><ArrowDefaultButton title='все площадки' /></div>
     </div>
   )
 }

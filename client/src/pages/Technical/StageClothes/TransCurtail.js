@@ -1,8 +1,8 @@
 import { Link } from "react-scroll"
 import { curtain1, curtain2, curtain3, curtain4 } from "../../../assets"
 import { BlackButton } from "../../../components/Buttons"
-import { ChichaBoxRightCard } from "../../../components/Cards"
-import { LeftChichaBox } from "../../../components/ChichaBox"
+import { GearBoxRightCard } from "../../../components/Cards"
+import { LeftGearBox } from "../../../components/GearBox"
 import { DetailDataInput } from "../../../components/Inputs"
 
 const transparentCurtainInfo = [
@@ -20,7 +20,7 @@ const curtainImageInfo = [curtain1, curtain2, curtain3, curtain4]
 
 const TransCurtain = () => {
 
-  const ChichaGallery = () => (
+  const GearGallery = () => (
     <div className="curtainGallery flexWrapBetween">
       <img src={curtainImageInfo[0]} alt="curtain" />
       <img src={curtainImageInfo[1]} alt="curtain" />
@@ -31,15 +31,15 @@ const TransCurtain = () => {
 
   return (
     <div>
-      <LeftChichaBox content={<div>
+      <LeftGearBox content={<div>
         <div className="section2" style={{ textAlign: 'right' }}>
           <p className="sectionTitle" style={{ color: 'var(--primaryBgColor)' }}>Прозрачный занавес</p>
         </div>
         <div className="flexWrapBetween transCurtain" style={{ marginTop: '30px', gap: 'clamp(0px, 2vw,20px)' }}>
-          <div className="transCurtainGallery alignCenter chichaHidden">
-            <ChichaGallery />
+          <div className="transCurtainGallery alignCenter gearHidden">
+            <GearGallery />
           </div>
-          <ChichaBoxRightCard
+          <GearBoxRightCard
             content={<div>
               {transparentCurtainInfo.map((item, index) => (
                 <DetailDataInput key={index} item={item} index={index} />
@@ -48,8 +48,8 @@ const TransCurtain = () => {
                 <div style={{ marginTop: 'clamp(10px, 20vw, 40px)' }}><BlackButton title="CДЕЛАТЬ РАСЧЁТ" /></div>
               </Link>
             </div>} />
-          <div className="transCurtainGallery alignCenter chichaShow">
-            <ChichaGallery />
+          <div className="transCurtainGallery alignCenter gearShow">
+            <GearGallery />
           </div>
         </div>
       </div>} />

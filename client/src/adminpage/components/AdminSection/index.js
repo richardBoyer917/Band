@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup, Typography } from "@mui/material"
-import { ChichaBox } from "../../../components/ChichaBox"
+import { GearBox } from "../../../components/GearBox"
 import useScrollToTop from "../../../scrollTo/ScrollToTop"
 import { BlackButtonBorderWhite, DefaultButton, OutLinedButton, TabButton } from "../../../components/Buttons"
 import { useNavigate } from "react-router-dom"
@@ -74,7 +74,7 @@ const AdminSection = ({ title, columns, data, handleNewCreate, id }) => {
   const fileList = ['3D-макеты сцены', 'Тех.райдер площадки', ' Архив фото']
 
   return (
-    <ChichaBox content={
+    <GearBox content={
       <Box id={id}>
         <div className="sectionHeader">
           <p className="sectionTitle" style={{ color: `var(--primaryBgColor)` }}>{title}</p>

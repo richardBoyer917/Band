@@ -1,6 +1,6 @@
 import { downloadIcon } from "../../../assets";
 import { DownloadButton } from "../../../components/Buttons";
-import { ChichaBox } from "../../../components/ChichaBox";
+import { GearBox } from "../../../components/GearBox";
 import "../../../styles/pages/services/visualization.css"
 
 const WorkProcess = ({ arrowWidth, title1, title2, data, fileName }) => {
@@ -88,7 +88,7 @@ const WorkProcess = ({ arrowWidth, title1, title2, data, fileName }) => {
     </div>
   );
 
-  return <ChichaBox content={content} />;
+  return <GearBox content={content} />;
 };
 
 export default WorkProcess;

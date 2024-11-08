@@ -19,7 +19,7 @@ const EquipmentCategorySection = ({ type }) => {
     <div className="sectionWrapper section2">
       <div className="sectionHeader flexWrapBetween alignCenter">
         <p className="sectionTitle">Используем в работе</p>
-        <div className="chichaShow"><ArrowDefaultButton title='ВСЕ ОБОРУДОВАНИЕ ДЛЯ СВЕТА' onClick={() => { handleLink('/equipment') }} /></div>
+        <div className="gearShow"><ArrowDefaultButton title='ВСЕ ОБОРУДОВАНИЕ ДЛЯ СВЕТА' onClick={() => { handleLink('/equipment') }} /></div>
       </div>
       <div className="flexWrapAround" style={{ gap: '40px' }}>
         {data.map((item, index) => (
@@ -44,7 +44,7 @@ const EquipmentCategorySection = ({ type }) => {
           </div>
         ))}
       </div>
-      <div className="itemCenter chichaHidden" style={{ marginTop: '40px' }}><ArrowDefaultButton title='ВСЕ ОБОРУДОВАНИЕ ДЛЯ СВЕТА' /></div>
+      <div className="itemCenter gearHidden" style={{ marginTop: '40px' }}><ArrowDefaultButton title='ВСЕ ОБОРУДОВАНИЕ ДЛЯ СВЕТА' /></div>
     </div>
   )
 }

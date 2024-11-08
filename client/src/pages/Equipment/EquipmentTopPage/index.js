@@ -12,7 +12,7 @@ const EquipmentTopPage = ({ equipment }) => {
       <div className='sectionWrapper'>
         <p className='x12_4' style={{ color: 'var(--secondaryWhiteColor)', paddingBottom: 'clamp(40px,4.5vw,51px)' }} onClick={() => { window.history.back() }}>←  ВСЁ ОБОРУДОВАНИЕ</p>
         <div className='flexWrapBetween' >
-          <div className='equipmentGallery chichaShow' style={{ display: 'grid', gap: 'clamp(10px, 1vw, 20px)' }}>
+          <div className='equipmentGallery gearShow' style={{ display: 'grid', gap: 'clamp(10px, 1vw, 20px)' }}>
             {/* Add conditional rendering to avoid errors */}
             {equipment.images && equipment.images.length > 0 && (
               <>
@@ -46,7 +46,7 @@ const EquipmentTopPage = ({ equipment }) => {
             <div>
               <p className='x18Font_5'>{equipment?.description}</p>
             </div>
-            <div className='equipmentGallery chichaHidden' style={{ display: 'grid', gap: 'clamp(10px, 1vw, 20px)' }}>
+            <div className='equipmentGallery gearHidden' style={{ display: 'grid', gap: 'clamp(10px, 1vw, 20px)' }}>
               {/* Add conditional rendering to avoid errors */}
               {equipment.images && equipment.images.length > 0 && (
                 <div className='bigEquipmentImageWrappper itemCenter'>
@@ -66,7 +66,7 @@ const EquipmentTopPage = ({ equipment }) => {
                 )}
               </div>
             </div>
-            <hr className='chichaShow' />
+            <hr className='gearShow' />
             <div className='flexWrap' style={{ gap: 'clamp(20px, 3.5vw, 30px' }}>
               <div style={{ width: '40%' }}>
                 <p className='x16Font_4' style={{ marginBottom: '10px' }}>производитель</p>

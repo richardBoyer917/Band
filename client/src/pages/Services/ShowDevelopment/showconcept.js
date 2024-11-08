@@ -1,5 +1,5 @@
 import React from "react";
-import { bigChicha } from "../../../assets";
+import { bigGear } from "../../../assets";
 import CanvasComponent from "../../../components/canvas";
 import { QuestionButton } from "../../../components/Buttons";
 const ShowConcept = () => {
@@ -14,8 +14,8 @@ const ShowConcept = () => {
       <div className="sectionHeader">
         <p className="sectionTitle">Как мы начинаем работу над шоу </p>
       </div>
-      <div className="lampChichaSquare">
-        <div className="chichaGroup1">
+      <div className="lampGearSquare">
+        <div className="gearGroup1">
           <p className="showConceptQuestions">{questionSqareInfo[0].title}</p>
           <div className="questionButtonGroup">
             {questionSqareInfo[0].button.map((title, index) => (
@@ -24,9 +24,9 @@ const ShowConcept = () => {
           </div>
         </div>
 
-        <div className="chichaGroup" >
-          <div className="chichaWrapper"></div>
-          <img src={bigChicha} alt="bigchicha" style={{ position: 'relative', zIndex: '50' }} />
+        <div className="gearGroup" >
+          <div className="gearWrapper"></div>
+          <img src={bigGear} alt="bigGear" style={{ position: 'relative', zIndex: '50' }} />
           <p className="showConceptsm">Концепция шоу</p>
           <p className="showConceptBasis">Основа для его разработки</p>
           <div className="canvasLine">
@@ -34,7 +34,7 @@ const ShowConcept = () => {
           </div>
         </div>
 
-        <div className="chichaGroup1">
+        <div className="gearGroup1">
           <p className="showConceptQuestions">{questionSqareInfo[1].title}</p>
           <div className="questionButtonGroup">
             {questionSqareInfo[1].button.map((title, index) => (

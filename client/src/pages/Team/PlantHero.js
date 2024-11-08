@@ -1,5 +1,5 @@
 import React from "react";
-import { backChicha, bigFatUser, design } from "../../assets";
+import { backGear, bigFatUser, design } from "../../assets";
 import { QuestionButton } from "../../components/Buttons";
 const PlantHero = ({ team }) => {
 
@@ -15,8 +15,8 @@ const PlantHero = ({ team }) => {
       <p className="sectionTitle" style={{ textAlign: 'center' }}>ЗАВОД ШОУ - это опыт </p>
       <div style={{ backgroundImage: `url(${design})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPositionX: 'right' }}>
         <div className="container" style={{ paddingTop: '64px' }}>
-          <div className="lampChichaSquare section1 " >
-            <div className="chichaPlant1">
+          <div className="lampGearSquare section1 " >
+            <div className="gearPlant1">
               <div className="questionButtonGroup">
                 {questionSqareInfo[0].button.map((title, index) => (
                   <div key={index} style={{ marginRight: index === 1 ? '-20px' : undefined }}
@@ -24,14 +24,14 @@ const PlantHero = ({ team }) => {
                 ))}
               </div>
             </div>
-            <div className="chichaPlant" >
+            <div className="gearPlant" >
               <div className="imgWrapper"  >
-                <img className="lampChicha" src={backChicha} alt="bigChicha" />
-                <img className="lampChichaUser" src={bigFatUser} alt="bigFatUser" />
+                <img className="lampGear" src={backGear} alt="backGear" />
+                <img className="lampGearUser" src={bigFatUser} alt="bigFatUser" />
                 <div className="imgBorder"></div>
               </div>
             </div>
-            <div className="chichaPlant1">
+            <div className="gearPlant1">
               <div className="questionButtonGroup">
                 {questionSqareInfo[1].button.map((title, index) => (
                   <div key={index} className={`${index === 1 ? 'itemStart' : 'itemEnd'}`}><QuestionButton title={data && data.competencies[index + 3] && data.competencies[index + 3]} /></div>

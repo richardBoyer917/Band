@@ -1,5 +1,5 @@
 import { PendingCard } from "../../components/Cards"
-import { ChichaBox } from "../../components/ChichaBox"
+import { GearBox } from "../../components/GearBox"
 
 import { pendingCardInfo } from "../../constant/group"
 
@@ -17,7 +17,7 @@ const PendingSection = () => {
   )
 
   return (
-    <ChichaBox content={content} />
+    <GearBox content={content} />
   )
 }
 
