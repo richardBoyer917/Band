@@ -31,7 +31,7 @@ class SiteController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['video'] = $request->file('video')? $request->file('video')->store('uploads/site','public'):'';
+        $data['video'] = $request->file('video')? url('storage/' . $request->file('video')->store('uploads/site','public')):'';
         try {
             $site = Site::createSite($data);
             return response()->json(['message' => 'Successfully saved!'], 200);
@@ -46,11 +46,11 @@ class SiteController extends Controller
             $site = Site::findOrFail($id);
             $data = $request->all();
             $data['video'] = $request->file('video')
-                ? $request->file('video')->store('uploads/site', 'public') // Adjust path as needed
+                ? url('storage/' . $request->file('video')->store('uploads/site', 'public')) // Adjust path as needed
                 : $site->video;
 
                 if ($site->video) {
-                    \Storage::disk('public')->delete($site->video);
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $site->video));
                 }
             $site->update($data);
 
@@ -71,7 +71,7 @@ class SiteController extends Controller
             $siteToDelete = Site::findOrFail($id);
             
             if ($siteToDelete->video) {
-                \Storage::disk('public')->delete($siteToDelete->video);
+                \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $siteToDelete->video));
             }
             Blog::where('site_id', $id)->update(['site_id' => null]);
             $siteToDelete->delete();

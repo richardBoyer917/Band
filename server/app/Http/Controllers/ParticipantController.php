@@ -39,7 +39,7 @@ class ParticipantController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['image'] = $request->file('image')? $request->file('image')->store('uploads/participant','public'):'';
+        $data['image'] = $request->file('image')? url('storage/' . $request->file('image')->store('uploads/participant','public')):'';
         try{
             $newParticipant = Participant::create($data);
             return response()->json([
@@ -58,11 +58,11 @@ class ParticipantController extends Controller
             $participant = Participant::findOrFail($id);
             $data = $request->all();
             $data['image'] = $request->file('image')
-                ? $request->file('image')->store('uploads/participant', 'public') // Adjust path as needed
+                ? url('storage/' . $request->file('image')->store('uploads/participant', 'public')) // Adjust path as needed
                 : $participant->image;
 
                 if ($participant->image) {
-                    \Storage::disk('public')->delete($participant->image);
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $participant->image));
                 }
             $participant->update($data);
 
@@ -82,7 +82,7 @@ class ParticipantController extends Controller
         try {
             $participant = Participant::findOrFail($id);
             if($participant->image){
-                \Storage::disk('public')->delete($participant->image);
+                \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $participant->image));
             }
             $participant->delete();
 
