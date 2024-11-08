@@ -1,6 +1,6 @@
 import { caseSolutionChiCha } from '../../../assets'
 import endpoint from '../../../config/config'
-import '../../../styles/pages/cases/caseEvent/caseEvent.css'
+import '../../../styles/pages/cases/caseEvent.css'
 
 
 const CaseCards = ({ solution, feature }) => (

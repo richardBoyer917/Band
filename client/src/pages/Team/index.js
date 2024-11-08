@@ -4,7 +4,7 @@ import MasterSection from './MasterSection'
 import PlantHero from './PlantHero'
 import PlantShowSection from './PlantShowSection'
 import { getTeam } from '../../api/teamAPI'
-import '../../styles/pages/team/teamPage.css'
+import '../../styles/pages/teamPage.css'
 
 const TeamPage = () => {
   useScrollToTop()

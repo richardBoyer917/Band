@@ -5,7 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import { policyAccordion } from '../../constant/group';
 import { cancelIcon, plusIcon } from '../../assets';
 import useScrollToTop from '../../scrollTo/ScrollToTop';
-import '../../styles/pages/policy/policy.css';
+import '../../styles/pages/policy.css';
 const Policy = () => {
 
     useScrollToTop()

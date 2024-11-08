@@ -12,7 +12,7 @@ import ChichaSmallBox from '../../../components/ChichaSmallBox'
 import EquipmentUsed from './EquipmentUsed'
 import ContactSection from '../../home/ContactSection'
 import useScrollToTop from '../../../scrollTo/ScrollToTop'
-import '../../../styles/pages/cases/caseEvent/caseEvent.css'
+import '../../../styles/pages/cases/caseEvent.css'
 
 const CaseEvent = () => {
   useScrollToTop()

@@ -13,7 +13,7 @@ import Kabuki from "./Kabuki"
 import SlidingCurtain from "./SlidingCurtain"
 
 import TransCurtain from "./TransCurtail"
-import "../../../styles/pages/technical/stageclothes.css"
+import "../../../styles/pages/stageclothes.css"
 
 const StageClothes = () => {
   useScrollToTop()

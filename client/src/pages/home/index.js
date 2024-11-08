@@ -8,7 +8,7 @@ import ContactSection from "./ContactSection";
 import BlogSection from "./BlogSection";
 
 import useScrollToTop from "../../scrollTo/ScrollToTop";
-import "../../styles/pages/home/home.css"
+import "../../styles/pages/home.css"
 
 const Home = () => {
   useScrollToTop();

@@ -8,7 +8,7 @@ import { getSiteById } from '../../../api/siteAPI'
 import endpoint from '../../../config/config'
 import { useParams } from 'react-router-dom'
 import useScrollToTop from '../../../scrollTo/ScrollToTop'
-import '../../../styles/pages/platforms/sitepage.css'
+import '../../../styles/pages/sitepage.css'
 
 const SitePage = () => {
     useScrollToTop()

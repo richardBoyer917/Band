@@ -1,7 +1,7 @@
 import { Link as ScrollLink } from "react-scroll"
 import { Button } from '@mui/material'
 import { darkArrowup, darkTelegramRound, lightArrow } from '../../assets'
-import "../../styles/components/buttons/button.css"
+import "../../styles/components/button.css"
 
 const ScrollSpyButton = ({ to, content }) => (
   <ScrollLink to={to} offset={-200} smooth={true} spy={true} >{content}</ScrollLink>

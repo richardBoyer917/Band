@@ -1,7 +1,7 @@
 import { chicha35, chicha94 } from '../../assets'
 import { BigOneChicha, OneChichas } from '../Chichas'
 
-import "../../styles/components/boxRound/boxRound.css"
+import "../../styles/components/boxRound.css"
 
 const BoxRound = ({ width, top, right, bottom, left, rotate, }) => (
   <div className='outCircleSquare' style={{ width: width, height: width, top: top, right: right, bottom: bottom, left: left, rotate: rotate }}></div>
