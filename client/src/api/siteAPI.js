@@ -1,63 +1,70 @@
-import axios from "axios"
-import endpoint from "../config/config"
+import axios from "axios";
+import { handleError } from "../utils";
 
-
-const getSite = async () => {
-    try {
-        let response = await axios.get(`${endpoint}/sites`)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const getsixSite = async () => {
-    try {
-        let response = await axios.get(`${endpoint}/sites/six`)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const getSiteById = async (id) => {
-    try {
-        let response = await axios.get(`${endpoint}/sites/${id}`);
-        return await response.data;
-    } catch (err) {
-        console.log('Error fetching case by ID:', err);
-    }
+export const getSite = async () => {
+  try {
+    const response = await axios.get("/sites");
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching site data:", err);
+  }
 };
 
-const insertSite = async (formdata) => {
-    try {
-        let response = await axios.post(`${endpoint}/sites`, formdata)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const updateSite = async (id, formdata) => {
-    try {
-        let response = await axios.put(`${endpoint}/sites/${id}`, formdata, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
-    } catch (err) {
-        console.error('Error updating record:', err);
-    }
+export const getsixSite = async () => {
+  try {
+    const response = await axios.get("/sites/six");
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching site data:", err);
+  }
 };
 
-const deleteSite = async (_id) => {
-    try {
-        let response = await axios.delete(`${endpoint}/sites/${_id}`)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
+export const getSiteById = async (id) => {
+  try {
+    const response = await axios.get(`/sites/${id}`);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching site data:", err);
+  }
+};
 
-export { getSite, insertSite, deleteSite, getsixSite, getSiteById, updateSite }
+export const insertSite = async (formdata) => {
+  try {
+    const response = await axios.post("/sites", formdata);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error inserting site:", err);
+  }
+};
+
+export const updateSite = async (id, formdata) => {
+  try {
+    const response = await axios.put(`/sites/${id}`, formdata, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error updating site:", err);
+  }
+};
+
+export const deleteSite = async (_id) => {
+  try {
+    const response = await axios.delete(`/sites/${_id}`);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error deleting site:", err);
+  }
+};

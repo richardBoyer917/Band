@@ -1,23 +1,24 @@
-import axios from "axios"
-import endpoint from "../config/config"
+import axios from "axios";
+import { handleError } from "../utils";
 
-
-const getTeam = async () => {
+export const getTeam = async () => {
   try {
-    let response = await axios.get(`${endpoint}/team`)
-    return await response.data
+    const response = await axios.get("/team");
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
   } catch (err) {
-    console.log(err)
+    handleError("Error fetching team data:", err);
   }
-}
+};
 
-const insertTeam = async (formdata) => {
+export const insertTeam = async (formdata) => {
   try {
-    let response = await axios.post(`${endpoint}/team`, formdata)
-    return await response.data
+    const response = await axios.post("/team", formdata);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
   } catch (err) {
-    console.log(err)
+    handleError("Error inserting team:", err);
   }
-}
-
-export { getTeam, insertTeam }
+};

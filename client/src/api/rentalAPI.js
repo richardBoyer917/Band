@@ -1,23 +1,28 @@
-import axios from "axios"
-import endpoint from "../config/config"
+import axios from "axios";
+import { handleError } from "../utils";
 
-
-const getRental = async () => {
+export const getRental = async () => {
   try {
-    let response = await axios.get(`${endpoint}/rental`)
-    return await response.data
-  } catch (err) {
-    console.log(err)
-  }
-}
+    const response = await axios.get("/rental");
 
-const insertRental = async (formdata) => {
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching rental data:", err);
+  }
+};
+
+export const insertRental = async (formdata) => {
   try {
-    let response = await axios.post(`${endpoint}/rental`, formdata)
-    return await response.data
-  } catch (err) {
-    console.log(err)
-  }
-}
+    const response = await axios.post("/rental", formdata);
 
-export { getRental, insertRental }
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+
+    return response.data;
+  } catch (err) {
+    handleError("Error inserting rental:", err);
+  }
+};
