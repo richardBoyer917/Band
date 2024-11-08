@@ -1,67 +1,78 @@
-import axios from "axios"
-import endpoint from "../config/config"
+import axios from "axios";
+import { handleError } from "../utils";
 
+export const getEquips = async () => {
+  try {
+    const response = await axios.get("/equipments");
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
 
-const getEquips = async () => {
-    try {
-        let response = await axios.get(`${endpoint}/equipments`)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const getEquipsByType = async (equipmentType) => {
-    try {
-        let response = await axios.get(`${endpoint}/equipments/type`, {
-            params: {
-                equipmentType: equipmentType,
-            }
-        })
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const insertEquip = async (formdata) => {
-    try {
-        let response = await axios.post(`${endpoint}/equipments`, formdata)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const updateEquip = async (id, formdata) => {
-    try {
-        let response = await axios.put(`${endpoint}/equipments/${id}`, formdata, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
-    } catch (err) {
-        console.error('Error updating record:', err);
-    }
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching equipment data:", err);
+  }
 };
 
-const deleteEquip = async (_id) => {
-    try {
-        let response = await axios.delete(`${endpoint}/equipments/${_id}`)
-        return await response.data
-    } catch (err) {
-        console.log(err)
-    }
-}
+export const getEquipsByType = async (equipmentType) => {
+  try {
+    const response = await axios.get("/equipments/type", {
+      params: { equipmentType: equipmentType },
+    });
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
 
-const getEquipById = async (id) => {
-    try {
-        let response = await axios.get(`${endpoint}/equipments/${id}`);
-        return await response.data;
-    } catch (err) {
-        console.log('Error fetching equipment by ID:', err);
-    }
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching equipment data by type:", err);
+  }
 };
 
-export { getEquips, insertEquip, deleteEquip, getEquipsByType, getEquipById, updateEquip }
+export const insertEquip = async (formdata) => {
+  try {
+    const response = await axios.post("/equipments", formdata);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+
+    return response.data;
+  } catch (err) {
+    handleError("Error inserting equipment:", err);
+  }
+};
+
+export const updateEquip = async (id, formdata) => {
+  try {
+    const response = await axios.put(`/equipments/${id}`, formdata, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+
+    return response.data;
+  } catch (err) {
+    handleError("Error updating equipment:", err);
+  }
+};
+
+export const deleteEquip = async (_id) => {
+  try {
+    const response = await axios.delete(`/equipments/${_id}`);
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+
+    return response.data;
+  } catch (err) {
+    handleError("Error deleting equipment:", err);
+  }
+};
+
+export const getEquipById = async (id) => {
+  try {
+    const response = await axios.get(`/equipments/${id}`);
+    if (response.status !== 200) {
+      throw new Error(`Unexpected response status: ${response.status}`);
+    }
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching equipment by ID:", err);
+  }
+};
