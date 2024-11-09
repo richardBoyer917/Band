@@ -1,9 +1,8 @@
-import axios from "axios";
-import { handleError } from "../utils";
+import { handleError, apiClient } from "../utils";
 
 export const getReviews = async () => {
   try {
-    const response = await axios.get("/reviews");
+    const response = await apiClient.get("/reviews");
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -14,7 +13,7 @@ export const getReviews = async () => {
 
 export const getReviewsBytype = async (reviewType) => {
   try {
-    const response = await axios.get("/reviewsBytype", {
+    const response = await apiClient.get("/reviewsBytype", {
       params: { reviewType: reviewType },
     });
     if (response.status !== 200)
@@ -27,7 +26,7 @@ export const getReviewsBytype = async (reviewType) => {
 
 export const insertReview = async (formdata) => {
   try {
-    const response = await axios.post("/reviews", formdata);
+    const response = await apiClient.post("/reviews", formdata);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -38,7 +37,7 @@ export const insertReview = async (formdata) => {
 
 export const updateReview = async (id, formdata) => {
   try {
-    const response = await axios.put(`/reviews/${id}`, formdata, {
+    const response = await apiClient.put(`/reviews/${id}`, formdata, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     if (response.status !== 200)
@@ -51,7 +50,7 @@ export const updateReview = async (id, formdata) => {
 
 export const deleteReview = async (_id) => {
   try {
-    const response = await axios.delete(`/reviews/${_id}`);
+    const response = await apiClient.delete(`/reviews/${_id}`);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;

@@ -1,5 +1,5 @@
 import EventWorks from "./EventWorks";
-import useScrollToTop from "../../../scrollTo/ScrollToTop";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 import HeroSample from "../../../components/HeroSample/HeroSample";
 import GallerySection from "../../home/GallerySection";
 import WorkProcess from "../../Services/Visualization/WorkProcess";

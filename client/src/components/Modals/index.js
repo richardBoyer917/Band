@@ -1,7 +1,7 @@
 import Modal from "@mui/material/Modal";
 
 const CustomerModal = (props) => {
-  const { open, setOpen, content } = props
+  const { open, setOpen, content } = props;
 
   const handleClose = () => setOpen(false);
 
@@ -13,13 +13,13 @@ const CustomerModal = (props) => {
       aria-describedby="modal-modal-description"
       disableAutoFocus
       sx={{
-        backgroundColor: 'rgba(23, 23, 23, 0.42)', // Semi-transparent background color
-        backdropFilter: 'blur(8px)',  // Blur effect
+        backgroundColor: "rgba(23, 23, 23, 0.42)", // Semi-transparent background color
+        backdropFilter: "blur(8px)", // Blur effect
       }}
     >
       {content}
     </Modal>
-  )
-}
+  );
+};
 
-export default CustomerModal
+export default CustomerModal;

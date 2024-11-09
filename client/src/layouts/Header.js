@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMediaQuery } from "@mui/material";
 import { logo, search, darkVK, darkTelegram, hambuger } from "../assets";
 import { CircleButton, DefaultButton, RectButton } from "../components/Buttons";
 import HeaderLink from "./HeaderLink/HeaderLink";
 import MobileHeaderLink from "./HeaderLink/MobileHeaderLink";
 import { getSearchData } from "../api/searchAPI";
-import "../styles/layouts/layout.css"
+import "../styles/layouts/layout.css";
 import HeaderWrapper from "./HeaderWrapp";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 const Header = () => {
   const navigate = useNavigate();

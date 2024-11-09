@@ -10,7 +10,7 @@ import PendingSection from "../../home/PendingSection";
 import WorkProcess from "../../Services/Visualization/WorkProcess";
 import { getCasesByType } from "../../../api/caseAPI";
 import endpoint from "../../../config/config";
-import useScrollToTop from "../../../scrollTo/ScrollToTop";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const TourConcert = () => {
   useScrollToTop();

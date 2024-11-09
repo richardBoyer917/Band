@@ -36,16 +36,24 @@
   margin-bottom: clamp(36px, 10vw, 80px);
 }
 
+.errorText {
+  color: red;
+  font-size: 0.875rem; /* equivalent to MUI's body2 */
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
 .heroSection {
   position: relative;
-  background-image: url('../../assets/background/heroVideo.gif');
+  background-image: url("../../assets/background/heroVideo.gif");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .heroSection::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -142,7 +150,6 @@
   margin: clamp(12px, 6vw, 84px) 0 0 0;
 }
 
-
 .galleryMain div img {
   border-radius: 8px;
   object-fit: cover;
@@ -217,8 +224,7 @@ hr {
   color: var(--secondaryWhiteColor);
 }
 
-@media(max-width:1331px) {
-
+@media (max-width: 1331px) {
   .galleryMain div:nth-child(3) {
     padding: 0;
   }
@@ -229,7 +235,6 @@ hr {
 }
 
 @media screen and (max-width: 1170px) {
-
   .sectionWrapper {
     margin-bottom: 150px;
   }
@@ -264,7 +269,6 @@ hr {
 }
 
 @media screen and (max-width: 768px) {
-
   .sectionWrapper {
     margin-bottom: 100px;
   }
@@ -298,8 +302,7 @@ hr {
   }
 }
 
-@media screen and (max-width:500px) {
-
+@media screen and (max-width: 500px) {
   .container {
     padding: 0 10px;
   }
@@ -320,14 +323,11 @@ hr {
   .heroContent {
     padding: 64px 11px 4px 11px;
   }
-
-
-
 }
 
 /* contact */
 
-@media(max-width:560px) {
+@media (max-width: 560px) {
   .formLeft {
     padding: 0px;
   }
@@ -350,9 +350,8 @@ hr {
 .questionButtonGroup {
   display: flex;
   flex-direction: column;
-  gap: 84px
+  gap: 84px;
 }
-
 
 .showConceptsm {
   font-family: Russo One, sans-serif;

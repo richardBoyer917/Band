@@ -1,25 +1,25 @@
-import useScrollToTop from '../../scrollTo/ScrollToTop';
-import ContactSection from '../home/ContactSection';
-import GoogleMap from './GoogleMap';
-import MemberSection from './MemberSection';
-import "../../styles/pages/teamOffice.css"
+import useScrollToTop from "../../hooks/useScrollToTop";
+import ContactSection from "../home/ContactSection";
+import GoogleMap from "./GoogleMap";
+import MemberSection from "./MemberSection";
+import "../../styles/pages/teamOffice.css";
 
 const TeamOffice = () => {
-  useScrollToTop()
+  useScrollToTop();
   return (
     <div className="wrapper">
-      <div className='container' >
-        <div className='sectionWrapper'>
-          <div className='section2 flexWrap alignCenter' >
+      <div className="container">
+        <div className="sectionWrapper">
+          <div className="section2 flexWrap alignCenter">
             <MemberSection />
             <GoogleMap />
           </div>
         </div>
-        <div className='sectionWrapper'>
-          <ContactSection title='Остались вопросы?' />
+        <div className="sectionWrapper">
+          <ContactSection title="Остались вопросы?" />
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

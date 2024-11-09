@@ -15,7 +15,7 @@
   border-radius: 50px;
 
   text-transform: uppercase;
-  font-family: 'Russo One';
+  font-family: "Russo One";
   color: var(--primaryBgColor);
   font-size: 12px;
   font-weight: 400;
@@ -60,12 +60,38 @@
   border-radius: 5px;
 }
 
+.fileUploadButton {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  gap: 10px;
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
+  height: 40px;
+  border-radius: 5px;
+  padding: 0px 20px;
+  background-color: white;
+  font-family: Mulish, sans-serif;
+  color: black;
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 700;
+  line-height: 20.08px;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  border: none;
+}
+
+.fileUploadButton:hover {
+  background-color: var(--secondaryWhiteHover);
+}
+
 .tabButton {
   height: 40px;
   border-radius: 5px;
   padding: 10px 20px;
 
-  font-family: 'Mulish';
+  font-family: "Mulish";
   font-size: clamp(14px, 1vw, 16px);
   font-weight: 700;
   line-height: 20.08px;
@@ -78,7 +104,7 @@
   padding: 10px;
   border-radius: 5px;
 
-  font-family: 'Mulish';
+  font-family: "Mulish";
   font-size: 12px;
   font-weight: 500;
   line-height: 15.06px;
@@ -103,10 +129,9 @@
   border: 1px solid var(--primaryBgColor);
 }
 
-
 .transButton {
   background-color: rgba(246, 246, 246, 0.22);
-  font-family: 'Mulish';
+  font-family: "Mulish";
   color: var(--secondaryWhiteColor);
   font-weight: 700;
 }
@@ -217,7 +242,7 @@
 
 .eventTags {
   height: 33px;
-  color: #F6F6F6;
+  color: #f6f6f6;
   font-size: 18px;
   font-weight: 400;
   border-radius: 5px;
@@ -263,7 +288,7 @@
   }
 }
 
-@media(max-width:850px) {
+@media (max-width: 850px) {
   .rectButton {
     display: none;
   }

@@ -9,10 +9,10 @@ import UserList from "../rehearsal/UserList";
 import ContactSection from "../../home/ContactSection";
 import BlogSection from "../../home/BlogSection";
 import ShowConcept from "./showconcept";
-import useScrollToTop from "../../../scrollTo/ScrollToTop";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 import { useEffect, useState } from "react";
 import { getShowParticipant } from "../../../api/participantAPI";
-import "../../../styles/pages/services/showDevelopment.css"
+import "../../../styles/pages/services/showDevelopment.css";
 
 const ShowDevelopment = () => {
   useScrollToTop();

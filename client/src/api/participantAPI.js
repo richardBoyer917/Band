@@ -1,9 +1,8 @@
-import axios from "axios";
-import { handleError } from "../utils";
+import { handleError, apiClient } from "../utils";
 
 export const getParticipant = async () => {
   try {
-    const response = await axios.get("/participant");
+    const response = await apiClient.get("/participant");
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -14,7 +13,9 @@ export const getParticipant = async () => {
 
 export const getShowParticipant = async (num) => {
   try {
-    const response = await axios.get(`/showparticipant?participantNum=${num}`);
+    const response = await apiClient.get(
+      `/showparticipant?participantNum=${num}`
+    );
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 
@@ -26,7 +27,7 @@ export const getShowParticipant = async (num) => {
 
 export const insertParticipant = async (formdata) => {
   try {
-    const response = await axios.post("/participant", formdata);
+    const response = await apiClient.post("/participant", formdata);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -37,7 +38,7 @@ export const insertParticipant = async (formdata) => {
 
 export const updateParticipant = async (id, formdata) => {
   try {
-    const response = await axios.put(`/participant/${id}`, formdata, {
+    const response = await apiClient.put(`/participant/${id}`, formdata, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     if (response.status !== 200)
@@ -50,7 +51,7 @@ export const updateParticipant = async (id, formdata) => {
 
 export const deleteParticipant = async (_id) => {
   try {
-    const response = await axios.delete(`/participant/${_id}`);
+    const response = await apiClient.delete(`/participant/${_id}`);
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 

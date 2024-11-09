@@ -1,9 +1,8 @@
-import axios from "axios";
-import { handleError } from "../utils";
+import { handleError, apiClient } from "../utils";
 
 export const getCases = async () => {
   try {
-    const response = await axios.get(`/cases`);
+    const response = await apiClient.get(`/cases`);
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -15,7 +14,7 @@ export const getCases = async () => {
 
 export const getCaseById = async (id) => {
   try {
-    const response = await axios.get(`/cases/${id}`);
+    const response = await apiClient.get(`/cases/${id}`);
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -27,7 +26,7 @@ export const getCaseById = async (id) => {
 
 export const insertCase = async (formdata) => {
   try {
-    const response = await axios.post(`/cases`, formdata);
+    const response = await apiClient.post(`/cases`, formdata);
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -39,7 +38,7 @@ export const insertCase = async (formdata) => {
 
 export const updateCase = async (id, formdata) => {
   try {
-    const response = await axios.put(`/cases/${id}`, formdata, {
+    const response = await apiClient.put(`/cases/${id}`, formdata, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     if (response.status !== 200) {
@@ -53,7 +52,7 @@ export const updateCase = async (id, formdata) => {
 
 export const deleteCase = async (_id) => {
   try {
-    const response = await axios.delete(`/cases/${_id}`);
+    const response = await apiClient.delete(`/cases/${_id}`);
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -65,7 +64,7 @@ export const deleteCase = async (_id) => {
 
 export const insertSolution = async (formdata) => {
   try {
-    const response = await axios.post(`/cases/solution`, formdata);
+    const response = await apiClient.post(`/cases/solution`, formdata);
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -77,7 +76,7 @@ export const insertSolution = async (formdata) => {
 
 export const getCasesWithCheckbox = async (checkboxValue, num) => {
   try {
-    const response = await axios.get(`/cases/checkbox`, {
+    const response = await apiClient.get(`/cases/checkbox`, {
       params: { checkboxValue, casesNum: num },
     });
     if (response.status !== 200) {
@@ -91,7 +90,7 @@ export const getCasesWithCheckbox = async (checkboxValue, num) => {
 
 export const getCasesByType = async (caseType) => {
   try {
-    const response = await axios.get(`/cases/type`, {
+    const response = await apiClient.get(`/cases/type`, {
       params: { caseType },
     });
     if (response.status !== 200) {

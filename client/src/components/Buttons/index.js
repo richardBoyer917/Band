@@ -32,7 +32,7 @@ const TabButton1 = ({ icon, title, onClick }) => (
 );
 
 const TabButton = ({ icon, title, onChange }) => (
-  <label className="tabButton">
+  <label className="fileUploadButton">
     <input type="file" name="video" hidden onChange={onChange} />
     <img src={icon} alt="darkAdd" />
     {title}
