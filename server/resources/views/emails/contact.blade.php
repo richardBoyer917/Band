@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>New Contact</title>
+    <title>Contact Form Submission</title>
 </head>
 <body>
-    <p>Hi, there is a new contact:</p>
-    <ul>
-        <li>Full Name: {{ $name }}</li>
-        <li>Contacts: {{ $email }}</li>
-        <li>Content: {{ $content }}</li>
-    </ul>
+    <h1>New Contact Form Submission</h1>
+    <p><strong>Name:</strong> {{ $data['name'] }}</p>
+    <p><strong>Email:</strong> {{ $data['email'] }}</p>
+    <p><strong>Message:</strong> {{ $data['content'] }}</p>
 </body>
 </html>

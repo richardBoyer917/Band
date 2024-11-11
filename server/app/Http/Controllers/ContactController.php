@@ -5,27 +5,33 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
     public function sendEmail(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'content' => 'required|string',
-            'attachment' => 'nullable|file',
+            'file' => 'nullable|file',
         ]);
 
+        if ($request->hasFile('file')) {
+            // Store the file temporarily
+            $filePath = $request->file('file')->store('temp');
+            $data['file_path'] = storage_path('app/' . $filePath);
+            $data['file_name'] = $request->file('file')->getClientOriginalName();
+        }
+
         try {
-            $attachment = $request->file('attachment');
-            Mail::to('powjsnxngapaons@gmail.com')->send(new ContactMail(
-                $request->name,
-                $request->email,
-                $request->content,
-                $attachment
-            ));
+            Mail::to('powjsnxngapaons@gmail.com')->send(new ContactMail($data));
+
+            if (isset($filePath)) {
+                Storage::delete($filePath);
+            }
             
             return response()->json(['message' => 'Successfully sent!'], 200);
         } catch (\Exception $e) {

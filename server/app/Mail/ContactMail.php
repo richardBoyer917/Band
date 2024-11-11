@@ -10,44 +10,25 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name;
-    public $email;
-    public $content;
-    public $attachment;
+    public $data;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($name, $email, $content, $attachment = null)
+    public function __construct($data)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->content = $content;
-        $this->attachment = $attachment;
+        $this->data = $data;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        $email = $this->from(config('mail.from.address'), config('mail.from.name'))
-            ->subject('New Contact')
-            ->view('emails.contact')
-            ->with([
-                'name' => $this->name,
-                'email' => $this->email,
-                'content' => $this->content,
-            ]);
+        $email = $this->from(config('mail.from.address'))
+                      ->subject('New Contact Form Submission')
+                      ->view('emails.contact')
+                      ->with('data', $this->data);
 
-        // Attach file if it exists
-        if ($this->attachment) {
-            $email->attach($this->attachment->getPathname(), [
-                'as' => $this->attachment->getClientOriginalName(),
+        // Attach the file if it exists
+        if (isset($this->data['file_path'])) {
+            $email->attach($this->data['file_path'], [
+                'as' => $this->data['file_name'],  // Original file name
+                'mime' => mime_content_type($this->data['file_path']),
             ]);
         }
 
