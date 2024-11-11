@@ -13,6 +13,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ThreeController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\ContactController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -118,4 +119,8 @@ Route::prefix('rental')->middleware('throttle:1000,1')->group(function () {
 Route::prefix('team')->middleware('throttle:1000,1')->group(function () {
     Route::get('/', [TeamController::class, 'getTeam']);
     Route::post('/', [TeamController::class, 'createOrUpdateTeam']);
+});
+
+Route::prefix('sendEmail')->middleware('throttle:1000,1')->group(function () {
+    Route::post('/', [ContactController::class, 'sendEmail']);
 });
