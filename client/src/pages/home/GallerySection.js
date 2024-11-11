@@ -67,6 +67,7 @@ const GallerySection = ({ title, galleryType }) => {
             textAlign: "center",
             position: !isShrunk ? "sticky" : "static",
             top: "clamp(100px, 15vw, 200px)",
+            zIndex: "20",
           }}
         >
           {title}

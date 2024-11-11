@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import VideoImgSwiper from "../../../components/VideoImgSwiper/VideoImgSwiper";
 import { DefaultButton } from "../../../components/Buttons";
 import { Navigation } from "swiper/modules";
 import { leftArrow, rightArrow } from "../../../assets";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 const EquipmentUsed = ({ cases, title }) => {
   const [data, setData] = useState([]);

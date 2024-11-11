@@ -45,7 +45,7 @@ const EquipmentCatalog = ({ type, catalogInfo }) => {
                 Оборудование
               </p>
               <p className="x30" style={{ color: `#B0B0B0` }}>
-                16
+                {equipments?.length}
               </p>
             </div>
             <SearchInputBasic

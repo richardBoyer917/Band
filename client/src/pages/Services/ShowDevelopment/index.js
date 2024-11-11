@@ -38,7 +38,7 @@ const ShowDevelopment = () => {
           }}
         />
         <WorkProcess
-          arrowWidth="210px"
+          arrowWidth="115px"
           title1="Подготовка, реализация и проведение шоу"
           data={workProcessInfo2}
           fileName="development"

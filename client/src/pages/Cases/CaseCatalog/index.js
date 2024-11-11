@@ -43,7 +43,7 @@ const CaseCatalog = ({ type, catalogInfo }) => {
                 Кейсы
               </p>
               <p className="x30" style={{ color: `#B0B0B0` }}>
-                16
+                {cases?.length}
               </p>
             </div>
             <SearchInputBasic

@@ -43,7 +43,7 @@ const CatalogOfSites = ({ progress, type, catalogInfo }) => {
                 Площадки
               </p>
               <p className="x30" style={{ color: `#B0B0B0` }}>
-                16
+                {sites?.length}
               </p>
             </div>
             <SearchInputBasic

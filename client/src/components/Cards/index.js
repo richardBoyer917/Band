@@ -163,7 +163,7 @@ const EventWorksCard = ({ item }) => (
 const RentalCostCard = ({ cost }) => (
   <div className="rentalBox">
     <p className="sectionTitle" style={{ color: "var(--primaryBgColor)" }}>
-      от {cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} руб
+      от {cost?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} руб
     </p>
     <p className="rentalSmallText">за один репетиционный час</p>
   </div>
