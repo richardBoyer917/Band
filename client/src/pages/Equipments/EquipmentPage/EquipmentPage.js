@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import EquipmentUsed from "../../Platforms/SitePage/EquipmentUsed";
-import ContactSection from "../../home/ContactSection";
+import EquipmentUsed from "../../Sites/SitePage/EquipmentUsed";
+import ContactSection from "../../Home/ContactSection";
 import EquipmentTopPage from "../EquipmentTopPage";
 import { useEffect, useState } from "react";
 import { getEquipById } from "../../../api/equipAPI";

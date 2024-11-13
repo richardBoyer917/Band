@@ -1,11 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { adminUser, darkEmail, darkLogout, darkPencil, greyPencil, white3d, whitePlay } from '../../assets'
-import { ArrowDefaultButton, BlackButton, TabButton1 } from '../Buttons'
-import { DataTable } from '../Tables';
-import { adminDirectoryInfo } from '../../constant/group';
-import { PermissionBadge } from '../Badges';
-import "../../styles/components/box.css"
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  adminUser,
+  darkEmail,
+  darkLogout,
+  darkPencil,
+  greyPencil,
+  redTrash,
+  white3d,
+  whitePlay,
+} from "../../assets";
+import { ArrowDefaultButton, BlackButton, TabButton1 } from "../Buttons";
+import { DataTable } from "../Tables";
+import { adminDirectoryInfo } from "../../constant/group";
+import { PermissionBadge } from "../Badges";
+import "../../styles/components/box.css";
+import { TitleAdminUserEdit } from "../Titles";
 
 const BigVideoBox = ({ item }) => {
   const videoRef = useRef(null);
@@ -13,23 +23,28 @@ const BigVideoBox = ({ item }) => {
 
   const handlePlayPause = () => {
     if (isPlaying) {
-      videoRef.current.pause()
+      videoRef.current.pause();
     } else {
-      videoRef.current.play()
+      videoRef.current.play();
     }
-    setIsPlaying(!isPlaying)
-  }
+    setIsPlaying(!isPlaying);
+  };
   const navigate = useNavigate();
   const handleLink = (url) => {
     navigate(url);
-  }
+  };
 
   return (
     <div className="sectionWrapper" style={{ paddingLeft: 0, paddingRight: 0 }}>
-      {item.title &&
-        <div className={`sectionHeader section2 ${item.titleCenter ? 'itemCenter' : 'sectionHeaderTitleSquare'}`}>
+      {item.title && (
+        <div
+          className={`sectionHeader section2 ${
+            item.titleCenter ? "itemCenter" : "sectionHeaderTitleSquare"
+          }`}
+        >
           <p className={`sectionTitle `}>{item.title}</p>
-        </div>}
+        </div>
+      )}
       <div className="bigVideoSquare">
         <video
           controls
@@ -39,49 +54,76 @@ const BigVideoBox = ({ item }) => {
           onClick={handlePlayPause}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
-          src={item.src}>
+          src={item.src}
+        >
           {/* <source src={`${endpoint}/uploads/cases/${item.src}`} type="video/mp4" /> */}
         </video>
-        {!isPlaying && <img src={whitePlay} alt='whitePlay' className='bigPlayIcon' onClick={handlePlayPause} />}
+        {!isPlaying && (
+          <img
+            src={whitePlay}
+            alt="whitePlay"
+            className="bigPlayIcon"
+            onClick={handlePlayPause}
+          />
+        )}
       </div>
-      <div className='spaceBetween bigVideoSquareFooter'>
-        <p className='x24Font_2'>{item.videoTitle}</p>
-        <p className='x18Font_2'>{item.videoDescription}</p>
-        <ArrowDefaultButton title='ПОДРОБНЕЕ' onClick={() => { handleLink('/cases') }} />
+      <div className="spaceBetween bigVideoSquareFooter">
+        <p className="x24Font_2">{item.videoTitle}</p>
+        <p className="x18Font_2">{item.videoDescription}</p>
+        <ArrowDefaultButton
+          title="ПОДРОБНЕЕ"
+          onClick={() => {
+            handleLink("/cases");
+          }}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
 const BigImageBox = ({ item }) => {
-
   return (
     <div className="sectionWrapper">
       <img src={item.src} alt={item.src} />
     </div>
-  )
-}
+  );
+};
 
 const Big3DBox = ({ item }) => (
   <div className="sectionWrapper" style={{ paddingLeft: 0, paddingRight: 0 }}>
-    {!item.subTitle ?
-      <div className="sectionHeader" style={{ textAlign: 'center' }}>
+    {!item.subTitle ? (
+      <div className="sectionHeader" style={{ textAlign: "center" }}>
         <p className="sectionTitle">{item.title}</p>
-      </div> :
-      <div className='flexWrapBetween section2'>
+      </div>
+    ) : (
+      <div className="flexWrapBetween section2">
         <div className="sectionHeader">
           <p className="sectionTitle">{item.title}</p>
         </div>
-        <p className='x18font_2' style={{ maxWidth: '310px', color: 'var(--secondaryWhiteColor)' }}>{item.subTitle}</p>
-      </div>}
+        <p
+          className="x18font_2"
+          style={{ maxWidth: "310px", color: "var(--secondaryWhiteColor)" }}
+        >
+          {item.subTitle}
+        </p>
+      </div>
+    )}
     <div className="bigVideoSquare">
-      <img src={item.src} alt='3d' style={{ width: '100%', objectFit: 'cover' }} />
-      <div className='itemCenter bigPlayIcon'>
-        <img src={white3d} alt='whitePlay' style={{ width: 'clamp(69px, 12vw, 151px)' }} />
+      <img
+        src={item.src}
+        alt="3d"
+        style={{ width: "100%", objectFit: "cover" }}
+      />
+      <div className="itemCenter bigPlayIcon">
+        <img
+          src={white3d}
+          alt="whitePlay"
+          style={{ width: "clamp(69px, 12vw, 151px)" }}
+        />
       </div>
     </div>
   </div>
-)
+);
 
 const BigCaseVideoBox = ({ src }) => {
   const videoRef = useRef(null);
@@ -89,12 +131,12 @@ const BigCaseVideoBox = ({ src }) => {
 
   const handlePlayPause = () => {
     if (isPlaying) {
-      videoRef.current.pause()
+      videoRef.current.pause();
     } else {
-      videoRef.current.play()
+      videoRef.current.play();
     }
-    setIsPlaying(!isPlaying)
-  }
+    setIsPlaying(!isPlaying);
+  };
 
   return (
     <div style={{ paddingLeft: 0, paddingRight: 0 }}>
@@ -109,43 +151,53 @@ const BigCaseVideoBox = ({ src }) => {
           onPause={() => setIsPlaying(false)}
           src={src}
         />
-        {!isPlaying && <img src={whitePlay} alt='whitePlay' className='bigPlayIcon' onClick={handlePlayPause} />}
+        {!isPlaying && (
+          <img
+            src={whitePlay}
+            alt="whitePlay"
+            className="bigPlayIcon"
+            onClick={handlePlayPause}
+          />
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const TabBox = ({ title }) => (
-  <button className='caseEventTab itemCenter x14_1'>{title}</button>
-)
+  <button className="caseEventTab itemCenter x14_1">{title}</button>
+);
 
 const AdminDataBox = ({ selData }) => {
-
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
   const [userData, setUserData] = useState({
-    firstName: 'Иван',
-    lastName: 'Иванов',
-    email: 'ivanov@zavodshow.ru',
-    permission: ['']
-  })
+    firstName: "Иван",
+    lastName: "Иванов",
+    email: "ivanov@zavodshow.ru",
+    permission: [""],
+  });
 
   const handleLogout = () => {
-    alert('logout')
-  }
+    alert("logout");
+  };
 
   const handleChange = (e) => {
-    setUserData({ ...userData, 'email': e.target.value })
-  }
+    setUserData({ ...userData, email: e.target.value });
+  };
 
   const handleSend = () => {
-    alert('Send your secrect number to ' + userData.email)
-  }
+    alert("Send your secrect number to " + userData.email);
+  };
 
   return (
-    <div className="adminDataSection" id='adminDataSection'>
-      <p className="adminDataTitle sectionTitle">Данные<br />аккаунта</p>
-      <div className="adminInfoBox" style={{ width: '315px' }}>
-        <div className='alignCenter'>
+    <div className="adminDataSection" id="adminDataSection">
+      <p className="adminDataTitle sectionTitle">
+        Данные
+        <br />
+        аккаунта
+      </p>
+      <div className="adminInfoBox" style={{ width: "315px" }}>
+        <div className="alignCenter">
           <img src={adminUser} alt="adminUser" />
           <div>
             {userData.permission.map((title, index) => (
@@ -154,46 +206,81 @@ const AdminDataBox = ({ selData }) => {
           </div>
         </div>
         <div className="adminInfoSquare">
-          <p className="x20Font_1">{userData.firstName}<br />{userData.lastName}</p>
-          <p className="adminCaptionTitle" style={{ paddingTop: '5px' }}>{selData ? 'Пользователь' : 'Суперадминистратор'}</p>
+          <p className="x20Font_1">
+            {userData.firstName}
+            <br />
+            {userData.lastName}
+          </p>
+          <p className="adminCaptionTitle" style={{ paddingTop: "5px" }}>
+            {selData ? "Пользователь" : "Суперадминистратор"}
+          </p>
         </div>
         <div>
-          <TabButton1 icon={darkLogout} onClick={handleLogout} title='Выбрать файл' />
+          <TabButton1
+            icon={darkLogout}
+            onClick={handleLogout}
+            title="Выбрать файл"
+          />
         </div>
       </div>
-      <div className="adminInfoBox" style={{ width: '460px', paddingTop: '54.5px', paddingBottom: '54.5px' }}>
+      <div
+        className="adminInfoBox"
+        style={{
+          width: "460px",
+          paddingTop: "54.5px",
+          paddingBottom: "54.5px",
+        }}
+      >
         <div className="adminInfoSquare">
           <p className="x20Font_1">Электронная почта</p>
           <input
-            className="adminCaptionTitle" style={{ marginTop: '5px', marginBottom: '11px', border: !disabled && 'none', background: 'transparent' }}
+            className="adminCaptionTitle"
+            style={{
+              marginTop: "5px",
+              marginBottom: "11px",
+              border: !disabled && "none",
+              background: "transparent",
+            }}
             onChange={handleChange}
-            value={userData.email || ''}
+            value={userData.email || ""}
             disabled={!disabled}
           />
-          <TabButton1 onClick={() => setDisabled(!disabled)} icon={darkPencil} title='Изменить адрес' />
+          <TabButton1
+            onClick={() => setDisabled(!disabled)}
+            icon={darkPencil}
+            title="Изменить адрес"
+          />
         </div>
         <div className="adminInfoSquare">
-          <p className="x20Font_1" style={{ paddingBottom: '10px' }}>Пароль</p>
-          <TabButton1 icon={darkEmail} onClick={handleSend} title='Отправить на эл. почту' />
+          <p className="x20Font_1" style={{ paddingBottom: "10px" }}>
+            Пароль
+          </p>
+          <TabButton1
+            icon={darkEmail}
+            onClick={handleSend}
+            title="Отправить на эл. почту"
+          />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const AdminDirectoryBox = () => {
-
-  const navigate = useNavigate()
-  const [data, setData] = useState([])
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
   const directoryColumns = [
     {
-      field: "fullName", headerName: "Имя пользователя",
-      renderCell: (params) => (params.row.firstName + ' ' + params.row.lastName),
-      flex: 2
+      field: "fullName",
+      headerName: "Имя пользователя",
+      renderCell: (params) => params.row.firstName + " " + params.row.lastName,
+      flex: 2,
     },
     { field: "email", headerName: "Электронная почта", flex: 2 },
     {
-      field: "permission", headerName: "Права", flex: 2,
+      field: "permission",
+      headerName: "Права",
+      flex: 2,
       renderCell: (params) => (
         <>
           {params?.row?.permission?.map((title, index) => (
@@ -203,49 +290,72 @@ const AdminDirectoryBox = () => {
       ),
     },
     {
-      field: "action", headerName: "", flex: 2,
+      field: "action",
+      headerName: "",
+      flex: 2,
       renderCell: (params) => (
-        <div className='alignCenter adminDirectoryEdit' onClick={() => handleEdit(params.row)}>
-          <img src={greyPencil} alt='editPencil' style={{ marginRight: '10px' }} />
-          <p className='x15_1' style={{ color: '#969696' }}>
-            Изменить данные пользователя
-          </p>
+        <div
+          className="alignCenter adminDirectoryEdit"
+          style={{ height: "100%" }}
+        >
+          <TitleAdminUserEdit
+            onClick={() => handleEdit(params.row)}
+            img={greyPencil}
+            title="Изменить данные пользователя"
+          />
+          <TitleAdminUserEdit
+            onClick={() => handleDelete(params.row.id)}
+            img={redTrash}
+            // title={"Удалить пользователя"}
+          />
         </div>
       ),
     },
-  ]
+  ];
 
   const addId = (data) => {
-    let temp = []
-    data.map((item, index) => ((temp[index] = item), (temp[index].id = index + 1)))
-    return temp
-  }
+    let temp = [];
+    data.map(
+      (item, index) => ((temp[index] = item), (temp[index].id = index + 1))
+    );
+    return temp;
+  };
 
   const handleEdit = (data) => {
-    navigate('/admin/edit', { state: { data } })
-  }
+    navigate("/admin/edit", { state: { data } });
+  };
+
+  const handleDelete = (data) => {
+    console.log("deleteData: ", data);
+  };
 
   useEffect(() => {
-    let temp = addId(adminDirectoryInfo)
-    setData(temp)
-  }, [])
+    let temp = addId(adminDirectoryInfo);
+    setData(temp);
+  }, []);
 
   return (
-    <div className="adminDirectorySection" id='adminDirectorySection'>
-      <div className='spaceBetween' style={{ width: '100%' }}>
-        <p className='adminDirectoryTitle'>Каталог пользователей</p>
-        <BlackButton onClick={() => navigate('/admin/create')} title='Добавить пользователя' />
+    <div className="adminDirectorySection" id="adminDirectorySection">
+      <div className="spaceBetween" style={{ width: "100%" }}>
+        <p className="adminDirectoryTitle">Каталог пользователей</p>
+        <BlackButton
+          onClick={() => navigate("/admin/create")}
+          title="Добавить пользователя"
+        />
       </div>
-      <div style={{ paddingTop: '20px' }}>
+      <div style={{ paddingTop: "20px" }}>
         <DataTable data={data} columns={directoryColumns} />
       </div>
     </div>
-  )
-}
-
-
+  );
+};
 
 export {
-  AdminDataBox, AdminDirectoryBox,
-  BigVideoBox, Big3DBox, BigImageBox, BigCaseVideoBox, TabBox,
-}
+  AdminDataBox,
+  AdminDirectoryBox,
+  BigVideoBox,
+  Big3DBox,
+  BigImageBox,
+  BigCaseVideoBox,
+  TabBox,
+};

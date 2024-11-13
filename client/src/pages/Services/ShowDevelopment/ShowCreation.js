@@ -3,6 +3,21 @@ import { ChichaBox } from "../../../components/ChichaBox";
 import { creationInfo } from "../../../constant/group";
 
 const ShowCreation = () => {
+  const handleDownload = () => {
+    const data = { name: "John", age: 30 };
+    const jsonData = JSON.stringify(data);
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "data.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url); // Clean up the URL object
+  };
+
   const content = (
     <section>
       <p
@@ -63,10 +78,14 @@ const ShowCreation = () => {
                 <DarkIconButton
                   icon={item.buttonIcon}
                   title={item.buttonTitle}
+                  onClick={handleDownload}
                 />
                 <p
-                  className="docuSizeText"
-                  style={{ marginTop: "clamp(16px , 2vw, 25px" }}
+                  className="pdfText"
+                  style={{
+                    marginTop: "clamp(16px , 2vw, 25px)",
+                    marginLeft: "0",
+                  }}
                 >
                   {item.sizeText}
                 </p>

@@ -4,9 +4,9 @@ import HeroSample from "../../../components/HeroSample/HeroSample";
 import SwiperSection from "../../../components/Swiper/Swiper";
 import { equipmentsCardInfo, heroSectionInfo } from "../../../constant/group";
 import useScrollToTop from "../../../hooks/useScrollToTop";
-import BlogSection from "../../home/BlogSection";
-import ContactSection from "../../home/ContactSection";
-import GallerySection from "../../home/GallerySection";
+import BlogSection from "../../Home/BlogSection";
+import ContactSection from "../../Home/ContactSection";
+import GallerySection from "../../Home/GallerySection";
 import EquipmentCard from "../Light/EquipmentCard";
 import EquipmentCategorySection from "../Light/EquipmentCategorySection";
 

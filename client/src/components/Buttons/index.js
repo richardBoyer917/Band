@@ -151,9 +151,10 @@ const HeroDarkButton = ({ title }) => (
   </button>
 );
 
-const DarkIconButton = ({ icon, title }) => (
+const DarkIconButton = ({ icon, title, onClick }) => (
   <button
     className="button blackButton downloadBtn"
+    onClick={onClick}
     style={{ fontSize: "12px", padding: "8px 10px" }}
   >
     <img src={icon} alt="icon" />
@@ -187,6 +188,21 @@ const Banquet = ({ title }) => (
   <button className="button banquetBtn">{title}</button>
 );
 
+const CaptchaButton = ({ title, onClick }) => (
+  <button
+    className="button captchaButton itemCenter x24Font_2"
+    onClick={onClick}
+  >
+    {title}
+  </button>
+);
+
+const BestCaseTagButton = ({ title, className, onClick }) => (
+  <button className={`button bestCaseTagButton ${className}`} onClick={onClick}>
+    {title}
+  </button>
+);
+
 export {
   ScrollSpyButton,
   DefaultButton,
@@ -215,4 +231,6 @@ export {
   BlackButtonBorderWhite,
   CaseButton,
   Banquet,
+  CaptchaButton,
+  BestCaseTagButton,
 };

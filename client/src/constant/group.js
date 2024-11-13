@@ -127,7 +127,7 @@ const menuItemsData = [
       {
         title: "ТЕХНИЧЕСКИЕ УСЛУГИ",
         submenu: [
-          { title: "Свет", url: "/technical" },
+          { title: "Свет", url: "/technical/light" },
           { title: "Звук", url: "/technical/sound" },
           { title: "Видео", url: "/technical/videopage" },
           { title: "Одежда сцены и линолеум", url: "/technical/stageclothes" },
@@ -137,30 +137,30 @@ const menuItemsData = [
         title: "ФИРМЕННЫЕ УСЛУГИ",
         submenu: [
           { title: "Разработка шоу", url: "/services/showdevelopment" },
-          { title: "3D-визуализация", url: "/services" },
+          { title: "3D-визуализация", url: "/services/visualization" },
           { title: "База для репетиций", url: "/services/rehearsal" },
         ],
       },
       {
         title: "ПРОДАКШН",
         submenu: [
-          { title: "События", url: "/production" },
+          { title: "События", url: "/production/event" },
           { title: "Концерты и туры", url: "/production/tourconcert" },
         ],
       },
     ],
   },
   { title: "КЕЙСЫ", url: "/cases" },
-  { title: "ПЛОЩАДКИ", url: "/platforms" },
-  { title: "ОБОРУДОВАНИЕ", url: "/equipment" },
+  { title: "ПЛОЩАДКИ", url: "/sites" },
+  { title: "ОБОРУДОВАНИЕ", url: "/equipments" },
   { title: "КОНТАКТЫ", url: "/contact" },
 ];
 
 const footerTopLink = [
   { title: "КОМАНДА", url: "/team" },
   { title: "КЕЙСЫ", url: "/cases" },
-  { title: "ПЛОЩАДКИ", url: "/platforms" },
-  { title: "ОБОРУДОВАНИЕ", url: "/equipment" },
+  { title: "ПЛОЩАДКИ", url: "/sites" },
+  { title: "ОБОРУДОВАНИЕ", url: "/equipments" },
   { title: "КОНТАКТЫ", url: "/contact" },
 ];
 
@@ -492,7 +492,7 @@ const heroSectionInfo = [
     },
     defaultDarkBtn: {
       title: "Заполнить бриф",
-      urlLink: "",
+      urlLink: "https://forms.yandex.com/admin/",
     },
     heroLinkTitle: [
       {
@@ -1546,37 +1546,46 @@ const SwiperVideoImgInfo = [
 const CatalogInfo = {
   caseCatalog: {
     placeholder: "Название кейса, формат, город",
-    checkText: ["С 3D-визуализацией", "С генератором"],
+    checkText: [
+      {
+        name: "visualization",
+        label: "С 3D-визуализацией",
+      },
+      {
+        name: "generator",
+        label: "С генератором",
+      },
+    ],
     selectBoxInfo: [
       {
         name: "type",
         label: "Вид мероприятия",
-        option: ["Все виды", "aaa", "bbb"],
+        option: [],
       },
       {
         name: "startDate",
         label: "Год проведения",
-        option: ["Все года"],
+        option: [],
       },
       {
         name: "venue",
         label: "Площадка",
-        option: ["Все площадки"],
+        option: [],
       },
       {
         name: "city",
         label: "Город",
-        option: ["Все города"],
+        option: [],
       },
       {
         name: "equipment",
         label: "Оборудование",
-        option: ["Все типы"],
+        option: [],
       },
       {
         name: "name",
         label: "Хедлайнер",
-        option: ["Все артисты"],
+        option: [],
       },
     ],
   },
@@ -1593,17 +1602,43 @@ const CatalogInfo = {
       "Концертный зал",
       "ДК",
     ],
-    checkText: ["С 3D-визуализацией"],
+    checkText: [
+      {
+        name: "visualization",
+        label: "С 3D-визуализацией",
+      },
+    ],
     selectBoxInfo: [
       {
         name: "type",
         label: "Вид мероприятия",
-        option: ["Все виды", "aaa", "bbb"],
+        option: [],
       },
       {
         name: "city",
         label: "Город",
-        option: ["Все года"],
+        option: [],
+      },
+      {
+        name: "venue",
+        label: "Тип площадки",
+        option: [
+          "Рестораны",
+          "Конференц-залы",
+          "Загородные площадки",
+          "Концертные залы",
+        ],
+      },
+      {
+        name: "equipment",
+        label: "видам оснащения",
+        option: [
+          "Парковка",
+          "Гримёрные комнаты",
+          "Звуковое оборудование",
+          "Световое оборудование",
+          "Проекторы и экраны",
+        ],
       },
     ],
   },
@@ -1624,17 +1659,17 @@ const CatalogInfo = {
       {
         name: "type",
         label: "Вид оборудования",
-        option: ["Все виды", "aaa", "bbb"],
+        option: [],
       },
       {
         name: "categoryType",
         label: "Категория вида оборудования",
-        option: ["Все года"],
+        option: [],
       },
       {
-        name: "brand",
+        name: "series",
         label: "Бренд",
-        option: ["Все года"],
+        option: [],
       },
     ],
     catalogCardInfo: [

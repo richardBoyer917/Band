@@ -6,9 +6,7 @@ const EquipmentCard = ({ data, title }) => {
   return (
     <div className="sectionWrapper pendingSquare section1">
       <div className="flexWrapBetween alignCenter">
-        <p className="sectionTitle" style={{ color: `var(--primaryBgColor)` }}>
-          {title}
-        </p>
+        <p className="sectionTitle">{title}</p>
         <p
           className="sectionTitle"
           style={{ color: `var(--secondaryWhiteHover)` }}

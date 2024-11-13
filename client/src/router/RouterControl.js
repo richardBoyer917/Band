@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "../pages/home";
+import Home from "../pages/Home";
 import Visualization from "../pages/Services/Visualization";
 import Rehearsal from "../pages/Services/rehearsal";
 import Header from "../layouts/Header";
@@ -22,11 +22,11 @@ import TeamPage from "../pages/Team";
 import TeamOffice from "../pages/TeamOffice";
 import CaseCatalog from "../pages/Cases/CaseCatalog";
 import CaseEvent from "../pages/Cases/CaseEvent";
-import CatalogOfSites from "../pages/Platforms/CatalogOfSites";
-import SitePage from "../pages/Platforms/SitePage";
+import CatalogOfSites from "../pages/Sites/CatalogOfSites";
+import SitePage from "../pages/Sites/SitePage";
 import { CatalogInfo } from "../constant/group";
-import EquipmentCatalog from "../pages/Equipment/EquipmentCatalog";
-import EquipmentPage from "../pages/Equipment/EquipmentPage/EquipmentPage";
+import EquipmentCatalog from "../pages/Equipments/EquipmentCatalog";
+import EquipmentPage from "../pages/Equipments/EquipmentPage/EquipmentPage";
 
 import AdminPage from "../adminpage/AdminPage";
 import AdminLogin from "../adminpage/AdminLogin";
@@ -46,7 +46,6 @@ const RouterControl = () => {
 
   useEffect(() => {
     const currentPath = window.location.pathname;
-    // console.log('path: ', currentPath)
     setIsAdminPage(currentPath.includes("/admin"));
   }, []);
 
@@ -78,16 +77,16 @@ const RouterControl = () => {
         <Route path="/" element={<Home />} />
 
         {/* Services Page */}
-        <Route path="/services" element={<Visualization />} />
+        <Route path="/services/visualization" element={<Visualization />} />
         <Route path="/services/rehearsal" element={<Rehearsal />} />
         <Route path="/services/showdevelopment" element={<ShowDevelopment />} />
 
         {/* Production Page */}
-        <Route path="/production" element={<Event />} />
+        <Route path="/production/event" element={<Event />} />
         <Route path="/production/tourconcert" element={<TourConcert />} />
 
         {/* Technical Page */}
-        <Route path="/technical" element={<Light />} />
+        <Route path="/technical/light" element={<Light />} />
         <Route path="/technical/sound" element={<Sound />} />
         <Route path="/technical/videopage" element={<VideoPage />} />
         <Route path="/technical/stageclothes" element={<StageClothes />} />
@@ -100,9 +99,9 @@ const RouterControl = () => {
         />
         <Route path="/case-one/:caseId" element={<CaseEvent />} />
 
-        {/* Platforms */}
+        {/* Sites */}
         <Route
-          path="/platforms"
+          path="/sites"
           element={
             <CatalogOfSites
               type="platform"
@@ -115,7 +114,7 @@ const RouterControl = () => {
 
         {/* Equipment Page */}
         <Route
-          path="/equipment"
+          path="/equipments"
           element={
             <EquipmentCatalog
               type="equipment"

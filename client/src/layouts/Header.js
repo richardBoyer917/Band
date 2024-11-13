@@ -8,6 +8,7 @@ import { getSearchData } from "../api/searchAPI";
 import "../styles/layouts/layout.css";
 import HeaderWrapper from "./HeaderWrapp";
 import { useMediaQuery } from "../hooks/useMediaQuery";
+import { ToPhone } from "../components/ToText";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -202,8 +203,7 @@ const Header = () => {
                 </div>
               )}
             </div>
-
-            <p className="phoneNumber">+7 (495) 720-12-82</p>
+            <ToPhone className="phoneNumber" phoneNumber="+7 (495) 720-12-82" />
             <div className="circleBtnWrapper">
               <a
                 href="https://web.telegram.org"

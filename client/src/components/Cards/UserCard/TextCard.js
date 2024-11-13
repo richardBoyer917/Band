@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { swiperGeer } from "../../../assets";
+// import { swiperGeer } from "../../../assets";
 import TextPreview from "./Preview/TextPreview";
 
 const TextCard = (props) => {

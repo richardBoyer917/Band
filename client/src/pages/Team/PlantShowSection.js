@@ -52,6 +52,7 @@ const PlantShowSection = ({ team }) => {
                 <a
                   href="https://xn--80adkstanfhkcs0b.xn--p1ai/page53391439.html"
                   target="_blank"
+                  rel="noreferrer"
                   className="teamLink"
                 >
                   праздник «Суворочка»

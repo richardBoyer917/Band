@@ -1,15 +1,15 @@
+import { useEffect, useState } from "react";
 import { heroSectionInfo } from "../../../constant/group";
 import HeroSample from "../../../components/HeroSample/HeroSample";
 import Auditorium from "./Auditorium";
 import Scene from "./Scene";
 import Electricity from "./Electricity";
 import UserList from "./UserList";
-import ContactSection from "../../home/ContactSection";
-import BlogSection from "../../home/BlogSection";
+import ContactSection from "../../Home/ContactSection";
+import BlogSection from "../../Home/BlogSection";
 import RentalCost from "./RentalCost";
 import "../../../styles/pages/services/rehearsal.css";
 import useScrollToTop from "../../../hooks/useScrollToTop";
-import { useEffect, useState } from "react";
 import { getShowParticipant } from "../../../api/participantAPI";
 
 const Rehearsal = () => {

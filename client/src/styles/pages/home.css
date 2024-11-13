@@ -129,6 +129,10 @@
   border-radius: 10px;
 }
 
+.pendingSquare .sectionTitle {
+  color: var(--primaryBgColor);
+}
+
 /* Gallery */
 
 .galleryWrapper {
@@ -149,11 +153,26 @@
   margin: clamp(12px, 6vw, 84px) 0 0 0;
 }
 
-.galleryMain div img {
+/* .gallery div img {
   border-radius: 8px;
   object-fit: cover;
   flex: 1 1 auto;
-  transition: flex-basis 0.5s ease;
+  transition: scale 0.5s ease;
+} */
+
+.gallery div {
+  transition: scale 0.5s ease;
+}
+
+.gallery div:hover {
+  scale: 1.05;
+  transition: scale 0.5s ease;
+}
+
+.gallery div video:hover,
+.gallery div img:hover {
+  box-shadow: 0 30px 30px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.5s ease;
 }
 
 .galleryMain div .x16 {

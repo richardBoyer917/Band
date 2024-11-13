@@ -1,12 +1,12 @@
 import EventWorks from "./EventWorks";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import HeroSample from "../../../components/HeroSample/HeroSample";
-import GallerySection from "../../home/GallerySection";
+import GallerySection from "../../Home/GallerySection";
 import WorkProcess from "../../Services/Visualization/WorkProcess";
 import SwiperSection from "../../../components/Swiper/Swiper";
-import PendingSection from "../../home/PendingSection";
-import ContactSection from "../../home/ContactSection";
-import BlogSection from "../../home/BlogSection";
+import PendingSection from "../../Home/PendingSection";
+import ContactSection from "../../Home/ContactSection";
+import BlogSection from "../../Home/BlogSection";
 import { BigVideoBox } from "../../../components/Boxes";
 
 import { workProcessInfo3, heroSectionInfo } from "../../../constant/group";

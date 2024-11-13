@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { BigCaseVideoBox } from "../../../components/Boxes";
-import ContactSection from "../../home/ContactSection";
+import ContactSection from "../../Home/ContactSection";
 import EquipmentUsed from "./EquipmentUsed";
 import TopSiteEventSection from "./TopSiteEventSection";
 import UserBtnList from "./UserBtnList";
 import { getSiteById } from "../../../api/siteAPI";
 import endpoint from "../../../config/config";
-import { useParams } from "react-router-dom";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import "../../../styles/pages/sitepage.css";
 

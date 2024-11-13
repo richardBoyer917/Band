@@ -10,7 +10,7 @@ import { getCaseById } from "../../../api/caseAPI";
 import endpoint from "../../../config/config";
 import ChichaSmallBox from "../../../components/ChichaSmallBox";
 import EquipmentUsed from "./EquipmentUsed";
-import ContactSection from "../../home/ContactSection";
+import ContactSection from "../../Home/ContactSection";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import "../../../styles/pages/cases/caseEvent.css";
 

@@ -1,7 +1,9 @@
-import { Box, Button, ButtonGroup, Typography } from "@mui/material";
+import { Box, ButtonGroup, Typography } from "@mui/material";
 import { ChichaBox } from "../../../components/ChichaBox";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import {
+  BestCaseTagButton,
+  BlackButton,
   BlackButtonBorderWhite,
   DefaultButton,
   OutLinedButton,
@@ -32,7 +34,15 @@ const AdminPageWrapper = ({ content }) => {
   );
 };
 
-const AdminSection = ({ title, columns, data, handleNewCreate, id }) => {
+const AdminSection = ({
+  id,
+  title,
+  columns,
+  data,
+  dataType,
+  handle,
+  handleNewCreate,
+}) => {
   const [rental, setRental] = useState({ cost: "", files: [] });
   useEffect(() => {
     getRental().then((data) => {
@@ -60,6 +70,16 @@ const AdminSection = ({ title, columns, data, handleNewCreate, id }) => {
     placeholder: "Введите Стоимость аренды",
   };
 
+  const bestCaseInfo = [
+    { title: "Главная", galleryType: "Home" },
+    { title: "События", galleryType: "Events" },
+    { title: "Туры", galleryType: "Tours" },
+    { title: "СветСвет", galleryType: "Light" },
+    { title: "Звук", galleryType: "Sound" },
+    { title: "Видео", galleryType: "Video" },
+    { title: "Одежда сцены", galleryType: "Stage" },
+  ];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRental({ ...rental, [name]: value });
@@ -86,61 +106,78 @@ const AdminSection = ({ title, columns, data, handleNewCreate, id }) => {
     <ChichaBox
       content={
         <Box id={id}>
-          <div className="sectionHeader">
-            <p
-              className="sectionTitle"
-              style={{ color: `var(--primaryBgColor)` }}
-            >
-              {title}
-            </p>
-          </div>
-          <DataTable columns={columns} data={data} />
-          <Button
-            color="primary"
-            sx={{ mt: 1 }}
-            variant="contained"
-            onClick={handleNewCreate}
-          >
-            Новый {title}
-          </Button>
-          {title === "Репетиционная база" && (
-            <div>
-              <form
-                onSubmit={handleSubmit}
-                style={{ display: "flex", gap: "18px" }}
-                className="itemCenter"
-              >
-                <div
-                  style={{ display: "flex", gap: "10px" }}
-                  className="itemCenter"
-                >
-                  <p className="x16">{inputinfo.title}:</p>
-                  <Input
-                    value={rental.cost}
-                    item={inputinfo}
-                    handleChange={handleChange}
+          <div className="sectionHeader" style={{ marginBottom: "20px" }}>
+            <p className="sectionTitle">{title}</p>
+            <br />
+            {id === "bestCase" && (
+              <div className="alignCenter">
+                {bestCaseInfo.map((item, index) => (
+                  <BestCaseTagButton
+                    key={index}
+                    title={item.title}
+                    className={
+                      dataType === item.galleryType ? "selBestCase" : ""
+                    }
+                    onClick={() => handle(item.galleryType)}
                   />
-                </div>
-                <div style={{ display: "flex", gap: "10px" }}>
-                  {fileList.map((item, index) => (
-                    <div key={index}>
-                      <TabButton
-                        icon={darkAdd}
-                        title={item}
-                        onChange={(e) => handleFileChange(e, index)}
-                      />
-                      {rental.files[index] && (
-                        <Typography>
-                          {" "}
-                          Выбранный файл: {rental.files[index].name}
-                        </Typography>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <OutLinedButton type="submit" title="Применять" />
-              </form>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <DataTable id={id} columns={columns} data={data} />
+          {id === "bestCase" ? (
+            <div className="spaceBetween">
+              <div className="alignCenter">
+                <BlackButton
+                  onClick={handleNewCreate}
+                  title={`Новый ${title}`}
+                />
+                <span style={{ marginLeft: "25px" }}>
+                  Можно добавить еще {9 - data.length} кейса
+                </span>
+              </div>
+              <span style={{ paddingRight: "10px" }}>
+                <b>На странице:</b> {data.length} кейсов
+              </span>
             </div>
+          ) : (
+            <BlackButton onClick={handleNewCreate} title={`Новый ${title}`} />
+          )}
+
+          {title === "Репетиционная база" && (
+            <form
+              onSubmit={handleSubmit}
+              style={{ gap: "18px" }}
+              className="itemCenter"
+            >
+              <div style={{ gap: "10px" }} className="itemCenter">
+                <p className="x16">{inputinfo.title}:</p>
+                <Input
+                  value={rental.cost}
+                  item={inputinfo}
+                  handleChange={handleChange}
+                />
+              </div>
+              <div style={{ display: "flex", gap: "10px" }}>
+                {fileList.map((item, index) => (
+                  <div key={index}>
+                    <TabButton
+                      icon={darkAdd}
+                      title={item}
+                      onChange={(e) => handleFileChange(e, index)}
+                    />
+                    {rental.files[index] && (
+                      <Typography>
+                        {" "}
+                        Выбранный файл: {rental.files[index].name}
+                      </Typography>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <OutLinedButton type="submit" title="Применять" />
+            </form>
           )}
         </Box>
       }

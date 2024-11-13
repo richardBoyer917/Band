@@ -74,7 +74,7 @@ const GallerySection = ({ title, galleryType }) => {
         </p>
         {screenSize >= 1332 ? (
           <>
-            <div className="galleryMain">
+            <div className="gallery galleryMain">
               {galleryInfo.map((image, index) => (
                 <div key={index} style={{ width: `${image.width}px` }}>
                   <video
@@ -102,7 +102,7 @@ const GallerySection = ({ title, galleryType }) => {
             </div>
           </>
         ) : (
-          <div className="smallgalleryMain">
+          <div className="gallery  smallgalleryMain">
             <div className="smallgallery">
               <div>
                 <video

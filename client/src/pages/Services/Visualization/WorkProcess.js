@@ -1,12 +1,13 @@
 import { downloadIcon } from "../../../assets";
 import { DownloadButton } from "../../../components/Buttons";
 import { ChichaBox } from "../../../components/ChichaBox";
+import { PDFText } from "../../../components/Titles";
 import "../../../styles/pages/services/visualization.css";
 
 const WorkProcess = ({ arrowWidth, title1, title2, data, fileName }) => {
   const downloadPdf = () => {
     const link = document.createElement("a");
-    link.download = `download.pdf`;
+    link.download = `${fileName}.pdf`;
     link.href = `../../../assets/document/${fileName}.pdf`;
     link.click();
   };
@@ -18,7 +19,7 @@ const WorkProcess = ({ arrowWidth, title1, title2, data, fileName }) => {
         title="Скачать пример документации"
         onClick={downloadPdf}
       />
-      <p className="pdfText">PDF 2.1 Мб</p>
+      <PDFText />
     </div>
   );
 

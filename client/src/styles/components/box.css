@@ -52,14 +52,12 @@
   transition: 0.5s !important;
 }
 
-.css-vvjlga-MuiDataGrid-root .MuiDataGrid-row:hover .adminDirectoryEdit {
+.MuiDataGrid-row:hover .adminDirectoryEdit {
   display: flex !important;
   transition: 0.5s !important;
 }
 
-
 @media screen and (max-width: 768px) {
-
   .bigVideoSquareFooter {
     padding-left: 0;
     padding-right: 0;

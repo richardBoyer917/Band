@@ -1,5 +1,5 @@
 import useScrollToTop from "../../hooks/useScrollToTop";
-import ContactSection from "../home/ContactSection";
+import ContactSection from "../Home/ContactSection";
 import GoogleMap from "./GoogleMap";
 import MemberSection from "./MemberSection";
 import "../../styles/pages/teamOffice.css";

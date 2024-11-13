@@ -14,6 +14,11 @@ import {
   whitePlay,
   starIcon1,
   positionIcon,
+  redTrash,
+  greyPencil,
+  greyArrow,
+  moveUp,
+  moveDown,
 } from "../../assets";
 import "../../styles/components/cards/card.css";
 import endpoint from "../../config/config";
@@ -358,6 +363,86 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
   );
 };
 
+const BigEquipmentImageCard = ({ url }) => (
+  <div className="bigEquipmentImageWrappper itemCenter">
+    <img src={url} alt="cameraImg1" />
+  </div>
+);
+
+const SmallEquipmentImageCard = ({ url }) => (
+  <div className="smallEquipmentImageWrappper itemCenter">
+    <img src={url} alt="smailCameraImg1" />
+  </div>
+);
+
+const EquipmentImageCaptionCard = ({ title, text }) => (
+  <div style={{ width: "40%" }}>
+    <p className="x16Font_4" style={{ marginBottom: "10px" }}>
+      {title}
+    </p>
+    <p className="x18Font_4 ">{text}</p>
+  </div>
+);
+
+const DataTableActionCard = ({
+  params,
+  type,
+  handleDelete,
+  link,
+  scrollSpy,
+}) => {
+  const navigate = useNavigate();
+
+  const handlePreview = () => {
+    if (link) {
+      navigate(link);
+      setTimeout(() => {
+        const section = document.getElementById(scrollSpy);
+        if (section) {
+          const sectionY =
+            section.getBoundingClientRect().top + window.pageYOffset - 200;
+          window.scrollTo({ top: sectionY, behavior: "smooth" });
+        }
+      }, 300);
+    } else {
+      navigate(`/${type}-one/${params.row._id}`);
+    }
+  };
+
+  const handleUpdate = () => {
+    let url = `/admin/${type}`;
+    let Data = params.row;
+    navigate(url, { state: { Data } });
+  };
+
+  return (
+    <div className="spaceAround adminDirectoryEdit" style={{ height: "100%" }}>
+      {type !== "three" && (
+        <img onClick={() => handlePreview()} src={greyArrow} alt="greyArrow" />
+      )}
+      <img onClick={() => handleUpdate()} src={greyPencil} alt="greyPencil" />
+      <img
+        onClick={() => handleDelete(params.row._id)}
+        src={redTrash}
+        alt="redTrash"
+      />
+    </div>
+  );
+};
+
+const DataTableMoveRowCard = ({ params, handleMoveUp, handleMoveDown }) => {
+  return (
+    <div className="spaceAround adminDirectoryEdit" style={{ height: "100%" }}>
+      <img onClick={() => handleMoveUp(params.id)} src={moveUp} alt="moveUp" />
+      <img
+        onClick={() => handleMoveDown(params.id)}
+        src={moveDown}
+        alt="moveDown"
+      />
+    </div>
+  );
+};
+
 export {
   PendingCard,
   PublicationCard,
@@ -369,4 +454,9 @@ export {
   ChichaBoxVideoCard,
   ChichaBoxRightCard,
   CaseCatalogCard,
+  BigEquipmentImageCard,
+  SmallEquipmentImageCard,
+  EquipmentImageCaptionCard,
+  DataTableActionCard,
+  DataTableMoveRowCard,
 };

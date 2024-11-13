@@ -20,7 +20,6 @@ import {
   CheckBox1,
   MobileCheckBox,
   SelectBox1,
-  SelectBox2,
 } from "../../../components/Inputs";
 import "../../../styles/pages/cases/caseCatalog.css";
 
@@ -41,15 +40,16 @@ const CustomSlider = styled(Slider)({
 });
 
 const MobileCustomSlider = styled(Slider)({
-  color: "#1976d2", // Main color for the slider bar
+  color: "#1976d2",
+  margin: 0,
   "& .MuiSlider-thumb": {
-    backgroundColor: "rgba(104, 104, 104, 1)", // Thumb color
+    backgroundColor: "rgba(104, 104, 104, 1)",
   },
   "& .MuiSlider-rail": {
-    color: "rgba(104, 104, 104, 1)", // Rail color (unfilled part)
+    color: "rgba(104, 104, 104, 1)",
   },
   "& .MuiSlider-track": {
-    color: "rgba(207, 207, 207, 1)", // Track color (filled part)
+    color: "rgba(207, 207, 207, 1)",
   },
 });
 
@@ -80,11 +80,24 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
 
+  // const marks = [
+  //   { value: 0, capacity: 30, label: "30" },
+  //   { value: 1, capacity: 1000, label: "1k" },
+  //   { value: 2, capacity: 10000, label: "10k" },
+  //   { value: 3, capacity: 60000, label: "60k" },
+  // ];
+
   const marks = [
-    { value: 0, capacity: 30, label: "30" },
-    { value: 1, capacity: 1000, label: "1k" },
-    { value: 2, capacity: 10000, label: "10k" },
-    { value: 3, capacity: 60000, label: "60k" },
+    { value: 0, capacity: 0, label: "0" },
+    { value: 1, capacity: 30, label: "30" },
+    { value: 2, capacity: 50, label: "50" },
+    { value: 3, capacity: 100, label: "100" },
+    { value: 4, capacity: 150, label: "150" },
+    { value: 5, capacity: 200, label: "200" },
+    { value: 6, capacity: 300, label: "300" },
+    { value: 7, capacity: 500, label: "500" },
+    { value: 8, capacity: 700, label: "700" },
+    { value: 9, capacity: 1000, label: "1000+" },
   ];
 
   useEffect(() => {
@@ -93,11 +106,18 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
         case "type":
         case "startDate":
         case "venue":
-        case "city":
         case "name":
+        case "equipment":
+        case "series":
+        case "categoryType":
           return {
             ...field,
             option: Array.from(new Set(data.map((item) => item[field.name]))),
+          };
+        case "city":
+          return {
+            ...field,
+            option: Array.from(new Set(data.map((item) => item.cities).flat())),
           };
         default:
           return field;
@@ -154,17 +174,21 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
         (!searchData.venue ||
           item.venue.toUpperCase().includes(searchData.venue.toUpperCase())) &&
         (!searchData.city ||
-          item.city.toUpperCase().includes(searchData.city.toUpperCase())) &&
+          item.cities.some((city) =>
+            city.toUpperCase().includes(searchData.city.toUpperCase())
+          )) &&
         (!searchData.equipment ||
           item.equipment
             .toUpperCase()
             .includes(searchData.equipment.toUpperCase())) &&
         (!searchData.name ||
           item.name.toUpperCase().includes(searchData.name.toUpperCase())) &&
-        (!searchData.visualization ||
-          item.visualization === searchData.visualization) &&
+        (!searchData.visualization || item.tags.includes("3D")) &&
         (!searchData.generator || item.generator === searchData.generator) &&
-        (!searchData.capacity || item.capacity >= searchData.capacity)
+        (!searchData.capacity || item.capacity >= searchData.capacity) &&
+        (!searchData.series || item.series === searchData.series) &&
+        (!searchData.categoryType ||
+          item.categoryType === searchData.categoryType)
     );
     setResult(filteredData);
     setSliceData(filteredData.slice(0, 8));
@@ -191,33 +215,43 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
             ))}
           {progress && (
             <div style={{ paddingBottom: "30px", width: "100%" }}>
-              <label style={{ color: "#FFFFFF", marginBottom: "30px" }}>
-                {progress}
-              </label>{" "}
-              <br /> <br />
+              <div
+                className="spaceBetween"
+                style={{ color: "white", marginBottom: "10px" }}
+              >
+                <p>{progress}</p>
+                <p>{searchData.capacity}</p>
+              </div>
               <CustomSlider
                 aria-label="Restricted values"
+                valueLabelDisplay="auto"
                 name="capacity"
                 step={null}
-                valueLabelDisplay="auto"
                 marks={marks}
                 min={0}
-                max={3}
+                max={9}
                 onChange={handleChange}
               />
-              <div className="spaceBetween">
-                {marks.map((item, index) => (
+              <div className="spaceBetween slideNumber">
+                <p>0</p>
+                <p>1000+</p>
+                {/* {marks.map((item, index) => (
                   <p key={index} className="slideNumber">
                     {item.label}
                   </p>
-                ))}
+                ))} */}
               </div>
             </div>
           )}
           <FormGroup>
             {checkText &&
-              checkText.map((title, index) => (
-                <CheckBox1 key={index} title={title} />
+              checkText.map((item, index) => (
+                <CheckBox1
+                  key={index}
+                  name={item.name}
+                  title={item.label}
+                  onChange={handleChange}
+                />
               ))}
           </FormGroup>
           <ButtonGroup sx={{ mt: 4, gap: "10px" }}>
@@ -251,58 +285,60 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
               "aria-labelledby": "basic-button",
             }}
           >
-            {fieldInfo.map((item, index) => (
-              <MenuItem key={index} sx={{ p: 0, m: 0 }}>
-                <SelectBox2
-                  key={index}
-                  item={item}
-                  value={searchData[item.name] || ""}
-                  handleSelect={handleChange}
-                />
-              </MenuItem>
-            ))}
+            {fieldData &&
+              fieldData.map((item, index) => (
+                <MenuItem key={index} sx={{ p: 0, m: 0 }}>
+                  <SelectBox1
+                    key={index}
+                    item={item}
+                    value={searchData[item.name] || ""}
+                    handleSelect={handleChange}
+                    mobile={true}
+                  />
+                </MenuItem>
+              ))}
             {progress && (
               <div style={{ padding: "10px 0", width: "90%", margin: "auto" }}>
-                <label style={{ color: "rgba(104, 104, 104, 1)" }}>
-                  {progress}
-                </label>
+                <div
+                  className="spaceBetween"
+                  style={{ color: "rgba(104, 104, 104, 1)" }}
+                >
+                  <p>{progress}</p>
+                  <p>{searchData.capacity}</p>
+                </div>
                 <MobileCustomSlider
-                  min={-30} // Minimum value, shifting the slider left
-                  max={60} // Maximum value
-                  defaultValue={0}
+                  aria-label="Restricted values"
+                  valueLabelDisplay="auto"
+                  name="capacity"
+                  step={null}
+                  marks={marks}
+                  min={0}
+                  max={9}
+                  onChange={handleChange}
                 />
-                <div className="spaceBetween">
-                  <p
-                    className="slideNumber"
-                    style={{ color: "rgba(104, 104, 104, 1)" }}
-                  >
-                    30
-                  </p>
-                  <p
-                    className="slideNumber"
-                    style={{ color: "rgba(104, 104, 104, 1)" }}
-                  >
-                    1
-                  </p>
-                  <p
-                    className="slideNumber"
-                    style={{ color: "rgba(104, 104, 104, 1)" }}
-                  >
-                    10k
-                  </p>
-                  <p
-                    className="slideNumber"
-                    style={{ color: "rgba(104, 104, 104, 1)" }}
-                  >
-                    60k
-                  </p>
+                <div
+                  className="spaceBetween slideNumber"
+                  style={{ color: `var(--primaryBgColor)` }}
+                >
+                  <p>0</p>
+                  <p>1000+</p>
+                  {/* {marks.map((item, index) => (
+                    <p key={index} className="slideNumber">
+                      {item.label}
+                    </p>
+                  ))} */}
                 </div>
               </div>
             )}
             {checkText &&
-              checkText.map((title, index) => (
+              checkText.map((item, index) => (
                 <MenuItem key={index}>
-                  <MobileCheckBox title={title} />
+                  <MobileCheckBox
+                    key={index}
+                    name={item.name}
+                    title={item.label}
+                    onChange={handleChange}
+                  />
                 </MenuItem>
               ))}
             <MenuItem sx={{ mt: 2, gap: "10px" }}>
