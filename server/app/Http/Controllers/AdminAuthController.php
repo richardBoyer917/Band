@@ -64,13 +64,10 @@ class AdminAuthController extends Controller
                 'deleting' => $validatedData['deleting'],
             ]);
 
-            $token = $admin->createToken('AdminAccess')->plainTextToken;
-
             Mail::to($admin->email)->send(new AdminPasswordMail($admin, $generatedPassword));
 
             return response()->json([
                 'message' => 'Registration successful',
-                'token' => $token,
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
