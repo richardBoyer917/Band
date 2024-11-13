@@ -26,7 +26,13 @@ export const getReviewsBytype = async (reviewType) => {
 
 export const insertReview = async (formdata) => {
   try {
-    const response = await apiClient.post("/reviews", formdata);
+    const token = localStorage.getItem("token");
+    const response = await apiClient.post("/reviews", formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -37,8 +43,12 @@ export const insertReview = async (formdata) => {
 
 export const updateReview = async (id, formdata) => {
   try {
-    const response = await apiClient.put(`/reviews/${id}`, formdata, {
-      headers: { "Content-Type": "multipart/form-data" },
+    const token = localStorage.getItem("token");
+    const response = await apiClient.post(`/reviews/${id}`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
@@ -48,9 +58,14 @@ export const updateReview = async (id, formdata) => {
   }
 };
 
-export const deleteReview = async (_id) => {
+export const deleteReview = async (id) => {
   try {
-    const response = await apiClient.delete(`/reviews/${_id}`);
+    const token = localStorage.getItem("token");
+    const response = await apiClient.delete(`/reviews/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;

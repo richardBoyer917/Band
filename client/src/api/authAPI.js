@@ -1,32 +1,35 @@
 import { handleError, apiClient } from "../utils";
 
-export const getRental = async () => {
+export const login = async (formdata) => {
   try {
-    const response = await apiClient.get("/rental");
-
+    const response = await apiClient.post("/admin/login", formdata, {
+      headers: { "Content-Type": "application/json" },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 
+    const token = response.data.token;
+    localStorage.setItem("token", token);
     return response.data;
   } catch (err) {
-    handleError("Error fetching rental data:", err);
+    handleError("Error logging in user:", err);
   }
 };
 
-export const insertRental = async (formdata) => {
+export const logout = async () => {
   try {
     const token = localStorage.getItem("token");
-    const response = await apiClient.post("/rental", formdata, {
+    const response = await apiClient.post("/admin/logout", null, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 
+    localStorage.removeItem("token");
     return response.data;
   } catch (err) {
-    handleError("Error inserting rental:", err);
+    handleError("Error logging out user:", err);
   }
 };

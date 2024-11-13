@@ -9,3 +9,5 @@ export * from "./searchAPI";
 export * from "./siteAPI";
 export * from "./teamAPI";
 export * from "./threeAPI";
+export * from "authAPI";
+export * from "adminAPI";

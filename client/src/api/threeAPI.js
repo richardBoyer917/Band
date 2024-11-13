@@ -13,7 +13,13 @@ export const getThrees = async () => {
 
 export const insertThree = async (formdata) => {
   try {
-    const response = await apiClient.post("/threes", formdata);
+    const token = localStorage.getItem("token");
+    const response = await apiClient.post("/threes", formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -24,8 +30,12 @@ export const insertThree = async (formdata) => {
 
 export const updateThree = async (id, formdata) => {
   try {
-    const response = await apiClient.put(`/threes/${id}`, formdata, {
-      headers: { "Content-Type": "multipart/form-data" },
+    const token = localStorage.getItem("token");
+    const response = await apiClient.post(`/threes/${id}`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
@@ -35,9 +45,14 @@ export const updateThree = async (id, formdata) => {
   }
 };
 
-export const deleteThree = async (_id) => {
+export const deleteThree = async (id) => {
   try {
-    const response = await apiClient.delete(`/threes/${_id}`);
+    const token = localStorage.getItem("token");
+    const response = await apiClient.delete(`/threes/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
