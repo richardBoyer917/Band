@@ -15,6 +15,9 @@ class BlogController extends Controller
     {
         try {
             $blogs = Blog::orderBy('queue', 'desc')->get();
+            foreach ($blogs as $blog) {
+                $blog->equipment_names = $blog->equipment->pluck('name')->toArray();
+            }
             return response()->json($blogs, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching data'], 400);

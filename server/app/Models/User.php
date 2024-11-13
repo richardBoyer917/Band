@@ -14,9 +14,13 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'lastname',
         'email',
         'password',
-        'is_admin',
+        'role',
+        'adding',
+        'editing',
+        'deleting',
     ];
 
     protected $hidden = [
@@ -27,4 +31,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function hasPermission($permission)
+    {
+        return $this->{$permission} ?? false;
+    }
 }

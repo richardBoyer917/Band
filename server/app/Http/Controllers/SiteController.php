@@ -11,7 +11,7 @@ class SiteController extends Controller
     public function index()
     {
         try {
-            $data = Site::orderBy('queue', 'desc')->get();
+            $data = Site::orderBy('queue', 'desc')->with('blogs')->get();
             return response()->json($data);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching data'], 400);

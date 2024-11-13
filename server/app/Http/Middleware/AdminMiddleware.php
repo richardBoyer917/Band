@@ -15,14 +15,14 @@ class AdminMiddleware
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $permission = null)
     {
         // Check if the user is authenticated and is an admin
-        if (Auth::check() && Auth::user()->is_admin) {
+        if (Auth::check() && Auth::user()->hasPermission($permission)) {
             return $next($request);
         }
 
         // Redirect if the user is not an admin
-        return redirect()->route('/')->with('error', 'You do not have admin access.');
+        return response()->json(['error' => 'You do not have access to this action.'], 403);
     }
 }

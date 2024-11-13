@@ -11,7 +11,7 @@ class EquipmentController extends Controller
     public function getEquipments()
     {
         try {
-            $data = Equipment::orderBy('queue', 'desc')->get();
+            $data = Equipment::orderBy('queue', 'desc')->with('blogs')->get();
             return response()->json($data);
         } catch (\Exception $e) {
             return response()->json(['error' => 'error fetching data'], 400);

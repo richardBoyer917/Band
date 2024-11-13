@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Mail\AdminPasswordMail;
 
 class AdminAuthController extends Controller
 {
-    // Admin Login
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -20,19 +23,12 @@ class AdminAuthController extends Controller
 
         try {
             if (Auth::attempt($credentials)) {
-                // Check if the user is an admin
-                if (Auth::user()->is_admin) {
-                    // Generate a token for the logged-in admin
-                    $token = Auth::user()->createToken('AdminAccess')->plainTextToken;
+                $token = Auth::user()->createToken('AdminAccess')->plainTextToken;
 
-                    return response()->json([
-                        'message' => 'Login successful',
-                        'token' => $token,
-                    ], 200);
-                } else {
-                    Auth::logout();
-                    return response()->json(['message' => 'Unauthorized: Admin access required'], 403);
-                }
+                return response()->json([
+                    'message' => 'Login successful',
+                    'token' => $token,
+                ], 200);
             }
 
             return response()->json(['message' => 'Invalid credentials'], 401);
@@ -44,24 +40,33 @@ class AdminAuthController extends Controller
         }
     }
 
-    // Admin Registration (optional, if you want admins to register via API)
     public function register(Request $request)
     {
+        
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'adding' => 'boolean',
+            'editing' => 'boolean',
+            'deleting' => 'boolean',
         ]);
 
         try {
+            $generatedPassword = Str::random(8);
             $admin = User::create([
                 'name' => $validatedData['name'],
+                'lastname' => $validatedData['lastname'],
                 'email' => $validatedData['email'],
-                'password' => Hash::make($validatedData['password']),
-                'is_admin' => true,
+                'password' => Hash::make($generatedPassword),
+                'adding' => $validatedData['adding'],
+                'editing' => $validatedData['editing'],
+                'deleting' => $validatedData['deleting'],
             ]);
 
             $token = $admin->createToken('AdminAccess')->plainTextToken;
+
+            Mail::to($admin->email)->send(new AdminPasswordMail($admin, $generatedPassword));
 
             return response()->json([
                 'message' => 'Registration successful',
@@ -77,7 +82,7 @@ class AdminAuthController extends Controller
 
 
     // Admin Logout
-   public function logout(Request $request)
+    public function logout(Request $request)
     {
         try {
             // Revoke the token that was used to authenticate the current request
@@ -90,5 +95,98 @@ class AdminAuthController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function index()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        return response()->json($user);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $validatedData = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $user->id,
+            'adding' => 'sometimes|boolean',
+            'editing' => 'sometimes|boolean',
+            'deleting' => 'sometimes|boolean',
+        ]);
+
+        try {
+            $user->name = $validatedData['name'] ?? $user->name;
+            $user->email = $validatedData['email'] ?? $user->email;
+
+            $generatedPassword = Str::random(8);
+            $user->password = Hash::make($generatedPassword);
+
+            Mail::to($user->email)->send(new AdminPasswordMail($user, $generatedPassword));
+
+            $user->adding = $validatedData['adding'] ?? $user->adding;
+            $user->editing = $validatedData['editing'] ?? $user->editing;
+            $user->deleting = $validatedData['deleting'] ?? $user->deleting;
+
+            $user->save();
+
+            return response()->json([
+                'message' => 'User updated successfully',
+                'user' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Update failed',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'User deleted successfully']);
+    }
+
+    public function updateEmail(Request $request)
+    {
+        $user = Auth::user();
+        return response()->json(['message' => $user], 200);
+        $request->validate(['email' => 'required|email|unique:users,email,' . $user->id]);
+        $user->email = $request->email;
+        $user->save();
+
+        return response()->json(['message' => 'Email updated successfully'], 200);
+    }
+
+    public function sendPasswordByEmail()
+    {
+        $user = Auth::user();
+        $password = decrypt($user->password); // Ensure proper encryption
+        Mail::to($user->email)->send(new AdminPasswordMail($user,$password));
+
+        return response()->json(['message' => 'Password sent to email'], 200);
     }
 }
