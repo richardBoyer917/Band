@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { UserCardNumber } from "../../../components/Badges";
 import { ArrowDefaultButton, Banquet } from "../../../components/Buttons";
-import endpoint from "../../../config/config";
 
 const CristalRoom = ({ site }) => {
   const navigate = useNavigate();

@@ -7,7 +7,6 @@ import { getReviewsBytype } from "../../api/reviewAPI";
 import "swiper/swiper-bundle.css";
 import "../../styles/components/swiper.css";
 import { useEffect, useState } from "react";
-import endpoint from "../../config/config";
 
 const SwiperSection = ({ displayType }) => {
   const [swiperData, setSwiperData] = useState([]);

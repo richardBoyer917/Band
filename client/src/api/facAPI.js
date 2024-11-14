@@ -1,4 +1,3 @@
-import endpoint from "../config/config";
 import { handleError, apiClient } from "../utils";
 
 export const getFactorys = async () => {

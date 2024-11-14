@@ -12,7 +12,6 @@ import { BigVideoBox } from "../../../components/Boxes";
 import { workProcessInfo3, heroSectionInfo } from "../../../constant/group";
 import { useEffect, useState } from "react";
 import { getCasesByType } from "../../../api/caseAPI";
-import endpoint from "../../../config/config";
 
 const Event = () => {
   useScrollToTop();

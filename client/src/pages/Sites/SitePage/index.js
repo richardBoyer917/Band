@@ -6,7 +6,6 @@ import EquipmentUsed from "./EquipmentUsed";
 import TopSiteEventSection from "./TopSiteEventSection";
 import UserBtnList from "./UserBtnList";
 import { getSiteById } from "../../../api/siteAPI";
-import endpoint from "../../../config/config";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import "../../../styles/pages/sitepage.css";
 

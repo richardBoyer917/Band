@@ -6,7 +6,6 @@ import {
   SmallEquipmentImageCard,
 } from "../../../components/Cards";
 import { PDFText, TitleGoBack } from "../../../components/Titles";
-import endpoint from "../../../config/config";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 
 import "../../../styles/pages/serie.css";
