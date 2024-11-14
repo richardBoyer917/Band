@@ -12,9 +12,7 @@ import { deleteParticipant, getParticipant } from "../../api/participantAPI";
 import { getTeam } from "../../api/teamAPI";
 import FormDialog from "../../components/Modal";
 import { AdminDataBox } from "../../components/Boxes";
-import { DataTableActionCard } from "../../components/Cards";
 import { getUserInfo } from "../../api/adminAPI";
-import MoveableDataTable from "../Test";
 import {
   greyArrow,
   greyPencil,
@@ -347,7 +345,6 @@ const Publist = () => {
     });
     getEquips().then((data) => {
       setEquipment(data);
-      console.log("equipment", data);
     });
     getThrees().then((data) => {
       setThree(data);

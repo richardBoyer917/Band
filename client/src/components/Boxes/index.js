@@ -18,6 +18,7 @@ import "../../styles/components/box.css";
 import { TitleAdminUserEdit } from "../Titles";
 import { logout } from "../../api/authAPI";
 import { changeEmail } from "../../api/adminAPI";
+import { AdminPermissionCard } from "../Cards";
 
 const BigVideoBox = ({ item }) => {
   const videoRef = useRef(null);
@@ -174,6 +175,7 @@ const AdminDataBox = ({ userInfo }) => {
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
   const [userData, setUserData] = useState({});
+
   useEffect(() => {
     setUserData(userInfo);
   }, [userInfo]);
@@ -204,13 +206,21 @@ const AdminDataBox = ({ userInfo }) => {
         аккаунта
       </p>
       <div className="adminInfoBox" style={{ width: "315px" }}>
-        <div className="alignCenter">
+        <div className="alignCenter spaceBetween">
           <img src={adminUser} alt="adminUser" />
-          <div>
-            {userData?.adding !== 0 && <PermissionBadge title="добавить" />}
-            {userData?.editing !== 0 && <PermissionBadge title="изменить" />}
-            {userData?.deleting !== 0 && <PermissionBadge title="удалить" />}
-          </div>
+          <AdminPermissionCard
+            content={
+              <>
+                {userData?.adding !== 0 && <PermissionBadge title="добавить" />}
+                {userData?.editing !== 0 && (
+                  <PermissionBadge title="изменить" />
+                )}
+                {userData?.deleting !== 0 && (
+                  <PermissionBadge title="удалить" />
+                )}
+              </>
+            }
+          />
         </div>
         <div className="adminInfoSquare">
           <p className="x20Font_1">

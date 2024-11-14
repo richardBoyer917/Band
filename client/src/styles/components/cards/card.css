@@ -246,6 +246,18 @@
   align-items: center;
 }
 
+.adminPermissionCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--secondaryWhiteColor);
+  box-sizing: border-box;
+  width: 141px;
+  height: 102px;
+  padding: 5px 10px;
+  border-radius: 7px;
+}
+
 @media (max-width: 850px) {
   .caseCatalogTopic {
     letter-spacing: -0.8px;

@@ -372,85 +372,12 @@ const EquipmentImageCaptionCard = ({ title, text }) => (
   </div>
 );
 
-const DataTableActionCard = ({
-  userInfo,
-  params,
-  type,
-  handleDelete,
-  link,
-  scrollSpy,
-  handleMoveUp,
-  handleMoveDown,
-}) => {
-  const navigate = useNavigate();
-
-  const handlePreview = () => {
-    if (link) {
-      navigate(link);
-      setTimeout(() => {
-        const section = document.getElementById(scrollSpy);
-        if (section) {
-          const sectionY =
-            section.getBoundingClientRect().top + window.pageYOffset - 200;
-          window.scrollTo({ top: sectionY, behavior: "smooth" });
-        }
-      }, 300);
-    } else {
-      navigate(`/${type}-one/${params.row.id}`);
-    }
-  };
-
-  const handleUpdate = () => {
-    let url = `/admin/${type}`;
-    let Data = params.row;
-    navigate(url, { state: { Data } });
-  };
-
-  return (
-    <div
-      className="spaceAround adminDirectoryEdit"
-      style={{ height: "100%", width: "100%" }}
-    >
-      {type !== "three" && (
-        <img onClick={() => handlePreview()} src={greyArrow} alt="greyArrow" />
-      )}
-      {userInfo?.editing !== 0 && (
-        <img onClick={() => handleUpdate()} src={greyPencil} alt="greyPencil" />
-      )}
-      {userInfo?.deleting !== 0 && (
-        <img
-          onClick={() => handleDelete(params.row.id)}
-          src={redTrash}
-          alt="redTrash"
-        />
-      )}
-      <button
-        onClick={() => handleMoveUp(params.id)}
-        disabled={params.id === 0}
-      >
-        <img src={moveUp} alt="moveUp" />
-      </button>
-      <img
-        onClick={() => handleMoveDown(params.id)}
-        src={moveDown}
-        alt="moveDown"
-      />
-    </div>
-  );
-};
-
-const DataTableMoveRowCard = ({ params, handleMoveUp, handleMoveDown }) => {
-  return (
-    <div className="spaceAround adminDirectoryEdit" style={{ height: "100%" }}>
-      <img onClick={() => handleMoveUp(params.id)} src={moveUp} alt="moveUp" />
-      <img
-        onClick={() => handleMoveDown(params.id)}
-        src={moveDown}
-        alt="moveDown"
-      />
-    </div>
-  );
-};
+const AdminPermissionCard = ({ content }) => (
+  <div className="adminPermissionCard">
+    <p>Доступно:</p>
+    {content}
+  </div>
+);
 
 export {
   PendingCard,
@@ -466,6 +393,5 @@ export {
   BigEquipmentImageCard,
   SmallEquipmentImageCard,
   EquipmentImageCaptionCard,
-  DataTableActionCard,
-  DataTableMoveRowCard,
+  AdminPermissionCard,
 };
