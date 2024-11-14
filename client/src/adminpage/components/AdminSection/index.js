@@ -19,17 +19,9 @@ import { DataTable } from "../../../components/Tables";
 const AdminPageWrapper = ({ content }) => {
   useScrollToTop();
 
-  // const navigate = useNavigate()
   return (
     <div className="wrapper">
-      <div className="section1">
-        {/* <div style={{ textAlign: 'center' }}>
-          <Button color="success" sx={{ mb: 5 }} onClick={() => navigate('/admin')}>
-            <p className="pageTitle">Добро пожаловать на страницу администратора!</p>
-          </Button>
-        </div> */}
-        {content}
-      </div>
+      <div className="section1">{content}</div>
     </div>
   );
 };
@@ -108,7 +100,6 @@ const AdminSection1 = ({
   title,
   columns,
   data,
-  handle,
   handleNewCreate,
   id,
 }) => {
@@ -132,7 +123,7 @@ const AdminSection1 = ({
   const handleFileChange = (e, index) => {
     const file = e.target.files[0];
     setRental((prevState) => {
-      const updatedFiles = [...(prevState.files || [])]; // Ensure files is always an array
+      const updatedFiles = [...(prevState.files || [])];
       updatedFiles[index] = file;
       return {
         ...prevState,
@@ -201,7 +192,7 @@ const AdminSection1 = ({
                 >
                   <p className="x16">{inputinfo.title}:</p>
                   <Input
-                    value={rental.cost}
+                    value={rental.cost || ""}
                     item={inputinfo}
                     handleChange={handleChange}
                   />

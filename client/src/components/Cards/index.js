@@ -379,6 +379,8 @@ const DataTableActionCard = ({
   handleDelete,
   link,
   scrollSpy,
+  handleMoveUp,
+  handleMoveDown,
 }) => {
   const navigate = useNavigate();
 
@@ -422,6 +424,12 @@ const DataTableActionCard = ({
           alt="redTrash"
         />
       )}
+      <img onClick={() => handleMoveUp(params.id)} src={moveUp} alt="moveUp" />
+      <img
+        onClick={() => handleMoveDown(params.id)}
+        src={moveDown}
+        alt="moveDown"
+      />
     </div>
   );
 };

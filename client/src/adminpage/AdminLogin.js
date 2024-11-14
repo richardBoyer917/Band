@@ -36,9 +36,11 @@ const AdminLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(adminInfo).then((data) => {
-      data ? navigate("/admin") : alert("Неверный логин или пароль");
-    });
+    sessionStorage.getItem("token")
+      ? navigate("/admin")
+      : login(adminInfo).then((data) => {
+          data ? navigate("/admin") : alert("Неверный логин или пароль");
+        });
   };
 
   const content = (
