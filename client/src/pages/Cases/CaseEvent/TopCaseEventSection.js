@@ -11,7 +11,6 @@ import { TitleGoBack } from "../../../components/Titles";
 
 const TopCaseEventSection = ({ caseOne }) => {
   const day = caseOne?.startDate?.split(" ")[0];
-  console.log("caseOne", caseOne);
   return (
     <section className="section1" style={{ paddingTop: "30px" }}>
       <div className="caseTopSection">
@@ -19,9 +18,7 @@ const TopCaseEventSection = ({ caseOne }) => {
         <div className="flexWrapBetween caseTopWrapper">
           <div className="caseTitleWrapper">
             <p className="caseTitle">{caseOne?.name}</p>
-            <CaseButton
-              title={caseOne?.blog_type.length > 0 && caseOne.blog_type[0]}
-            />
+            <CaseButton title={caseOne?.blog_type?.[0] || ""} />
           </div>
           <div className="caseTopItem spaceBetween">
             <div className="caseTopGap">
@@ -33,15 +30,12 @@ const TopCaseEventSection = ({ caseOne }) => {
                   style={{ marginRight: "clamp(6px, 2vw, 12px)" }}
                   alt="flagImg"
                   src={
-                    caseOne.blog_type.length > 0 &&
-                    caseOne.blog_type[0] === "тур"
-                      ? positionIcon
-                      : flagIcon
+                    caseOne?.blog_type?.[0] === "тур" ? positionIcon : flagIcon
                   }
                 />
-                {caseOne.blog_type.length > 0 && caseOne.blog_type[0] === "тур"
-                  ? `${caseOne?.cities.length} городов`
-                  : caseOne?.cities?.length > 0 && caseOne.cities[0]}
+                {caseOne.blog_type?.[0] === "тур"
+                  ? `${caseOne?.cities?.length} городов`
+                  : caseOne?.cities?.[0]}
               </div>
               <div
                 className="x24Font_5"
@@ -51,10 +45,7 @@ const TopCaseEventSection = ({ caseOne }) => {
                   style={{ marginRight: "clamp(6px, 2vw, 12px)" }}
                   alt="positionImg"
                   src={
-                    caseOne.blog_type.length > 0 &&
-                    caseOne.blog_type[0] === "тур"
-                      ? starIcon1
-                      : positionIcon
+                    caseOne?.blog_type?.[0] === "тур" ? starIcon1 : positionIcon
                   }
                 />
                 {caseOne?.venue}
@@ -70,7 +61,7 @@ const TopCaseEventSection = ({ caseOne }) => {
                   alt="dateIcon"
                   src={dateIcon}
                 />
-                {caseOne.blog_type.length > 0 && caseOne.blog_type[0] === "тур"
+                {caseOne?.blog_type?.[0] === "тур"
                   ? `${day}-${caseOne?.endDate}`
                   : caseOne?.startDate}
               </div>
@@ -82,13 +73,10 @@ const TopCaseEventSection = ({ caseOne }) => {
                   style={{ marginRight: "clamp(6px, 2vw, 12px)" }}
                   alt="userIcon"
                   src={
-                    caseOne.blog_type.length > 0 &&
-                    caseOne.blog_type[0] === "тур"
-                      ? lengthIcon
-                      : userIcon
+                    caseOne?.blog_type?.[0] === "тур" ? lengthIcon : userIcon
                   }
                 />{" "}
-                {caseOne.blog_type.length > 0 && caseOne.blog_type[0] === "тур"
+                {caseOne.blog_type?.[0] === "тур"
                   ? `${caseOne?.guests}KM`
                   : caseOne?.guests}{" "}
               </div>

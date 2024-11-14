@@ -28,7 +28,6 @@ const CatalogOfSites = ({ progress, type, catalogInfo }) => {
     getSite().then((data) => {
       data && setSites(data);
       setFilteredData(data);
-      console.log("sitesData: ", data);
     });
   }, []);
   return (

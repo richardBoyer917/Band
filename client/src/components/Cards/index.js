@@ -50,7 +50,6 @@ const PendingCard = ({ item }) => {
 const PublicationCard = ({ item }) => {
   const navigate = useNavigate();
   const handleLink = () => {
-    console.log("sdfsdf");
     navigate(`site-one/${item.id}`);
   };
 
@@ -379,6 +378,8 @@ const DataTableActionCard = ({
   handleDelete,
   link,
   scrollSpy,
+  handleMoveUp,
+  handleMoveDown,
 }) => {
   const navigate = useNavigate();
 
@@ -422,6 +423,12 @@ const DataTableActionCard = ({
           alt="redTrash"
         />
       )}
+      <img onClick={() => handleMoveUp(params.id)} src={moveUp} alt="moveUp" />
+      <img
+        onClick={() => handleMoveDown(params.id)}
+        src={moveDown}
+        alt="moveDown"
+      />
     </div>
   );
 };

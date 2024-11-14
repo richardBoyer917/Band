@@ -139,6 +139,8 @@ const Publist = () => {
         handleDelete={handleDelete}
         link={link}
         scrollSpy={scrollSpy}
+        handleMoveUp={handleArrowUp}
+        handleMoveDown={handleArrowDown}
       />
     ),
   });
@@ -280,35 +282,35 @@ const Publist = () => {
     }),
   ];
 
-  // useEffect(() => {
-  //   getCases().then((data) => {
-  //     setCases(data);
-  //   });
-  //   getSite().then((data) => {
-  //     setSites(data);
-  //   });
-  //   getEquips().then((data) => {
-  //     setEquipment(data);
-  //   });
-  //   getThrees().then((data) => {
-  //     setThree(data);
-  //   });
-  //   getFactorys().then((data) => {
-  //     setFactory(data);
-  //   });
-  //   getReviews().then((data) => {
-  //     setRevlist(data);
-  //   });
-  //   getParticipant().then((data) => {
-  //     setParticipant(data);
-  //   });
-  //   getTeam().then((data) => {
-  //     setTeam(data);
-  //   });
-  //   getUserInfo().then((data) => {
-  //     setUserInfo(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    getCases().then((data) => {
+      setCases(data);
+    });
+    getSite().then((data) => {
+      setSites(data);
+    });
+    getEquips().then((data) => {
+      setEquipment(data);
+    });
+    getThrees().then((data) => {
+      setThree(data);
+    });
+    getFactorys().then((data) => {
+      setFactory(data);
+    });
+    getReviews().then((data) => {
+      setRevlist(data);
+    });
+    getParticipant().then((data) => {
+      setParticipant(data);
+    });
+    getTeam().then((data) => {
+      setTeam(data);
+    });
+    getUserInfo().then((data) => {
+      setUserInfo(data);
+    });
+  }, []);
 
   useEffect(() => {
     getCasesWithCheckbox(caseType, 9)
@@ -399,7 +401,6 @@ const Publist = () => {
             columns={section.columns}
             data={section.data}
             dataType={caseType}
-            handle={handleSelBestCase}
             handleNewCreate={() => handleNewCreate(section.path)}
           />
         ) : (

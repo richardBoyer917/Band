@@ -231,7 +231,7 @@ class BlogController extends Controller
     {
         $caseType = $request->query('caseType');
         try {
-            $data = Blog::where('type', $caseType)->select('video', 'name', 'venue')->limit(1)->get();
+            $data = Blog::where('blog_type', $caseType)->select('video', 'name', 'venue')->limit(1)->get();
             return response()->json($data);
         } catch (\Exception $error) {
             return response()->json(['error' => 'Error fetching data'], 400);

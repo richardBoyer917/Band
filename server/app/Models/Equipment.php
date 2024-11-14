@@ -43,7 +43,7 @@ class Equipment extends Model
 
     public static function getByType($type, $limit)
     {
-        return self::where('type', $type)
+        return self::where('equipment_type', $type)
             ->orderBy('queue', 'desc')
             ->select('images', 'name', 'description')
             ->limit($limit)
