@@ -11,6 +11,7 @@ import { TitleGoBack } from "../../../components/Titles";
 
 const TopCaseEventSection = ({ caseOne }) => {
   const day = caseOne?.startDate?.split(" ")[0];
+  console.log("caseOne", caseOne);
   return (
     <section className="section1" style={{ paddingTop: "30px" }}>
       <div className="caseTopSection">
@@ -18,7 +19,9 @@ const TopCaseEventSection = ({ caseOne }) => {
         <div className="flexWrapBetween caseTopWrapper">
           <div className="caseTitleWrapper">
             <p className="caseTitle">{caseOne?.name}</p>
-            <CaseButton title={caseOne?.type} />
+            <CaseButton
+              title={caseOne?.blog_type.length > 0 && caseOne.blog_type[0]}
+            />
           </div>
           <div className="caseTopItem spaceBetween">
             <div className="caseTopGap">
@@ -29,9 +32,14 @@ const TopCaseEventSection = ({ caseOne }) => {
                 <img
                   style={{ marginRight: "clamp(6px, 2vw, 12px)" }}
                   alt="flagImg"
-                  src={caseOne.type === "тур" ? positionIcon : flagIcon}
+                  src={
+                    caseOne.blog_type.length > 0 &&
+                    caseOne.blog_type[0] === "тур"
+                      ? positionIcon
+                      : flagIcon
+                  }
                 />
-                {caseOne.type === "тур"
+                {caseOne.blog_type.length > 0 && caseOne.blog_type[0] === "тур"
                   ? `${caseOne?.cities.length} городов`
                   : caseOne?.cities?.length > 0 && caseOne.cities[0]}
               </div>
@@ -42,7 +50,12 @@ const TopCaseEventSection = ({ caseOne }) => {
                 <img
                   style={{ marginRight: "clamp(6px, 2vw, 12px)" }}
                   alt="positionImg"
-                  src={caseOne.type === "тур" ? starIcon1 : positionIcon}
+                  src={
+                    caseOne.blog_type.length > 0 &&
+                    caseOne.blog_type[0] === "тур"
+                      ? starIcon1
+                      : positionIcon
+                  }
                 />
                 {caseOne?.venue}
               </div>
@@ -57,7 +70,7 @@ const TopCaseEventSection = ({ caseOne }) => {
                   alt="dateIcon"
                   src={dateIcon}
                 />
-                {caseOne.type === "тур"
+                {caseOne.blog_type.length > 0 && caseOne.blog_type[0] === "тур"
                   ? `${day}-${caseOne?.endDate}`
                   : caseOne?.startDate}
               </div>
@@ -68,9 +81,14 @@ const TopCaseEventSection = ({ caseOne }) => {
                 <img
                   style={{ marginRight: "clamp(6px, 2vw, 12px)" }}
                   alt="userIcon"
-                  src={caseOne.type === "тур" ? lengthIcon : userIcon}
+                  src={
+                    caseOne.blog_type.length > 0 &&
+                    caseOne.blog_type[0] === "тур"
+                      ? lengthIcon
+                      : userIcon
+                  }
                 />{" "}
-                {caseOne.type === "тур"
+                {caseOne.blog_type.length > 0 && caseOne.blog_type[0] === "тур"
                   ? `${caseOne?.guests}KM`
                   : caseOne?.guests}{" "}
               </div>

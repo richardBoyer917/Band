@@ -13,19 +13,24 @@ class Site extends Model
 
     protected $fillable = [
         'name',
-        'type',
-        'type_equipment',
+        'site_type',
+        'equipment_type',
+        'blog_type',
         'capacity',
         'address',
         'link_page',
         'video',
         'queue',
         'tags',
+        'city',
     ];
 
     protected $casts = [
-        'type_equipment' =>'array',
+        'equipment_type' =>'array',
+        'blog_type' => 'array',
+        'site_type' => 'array',
         'tags' => 'array',
+        'city' => 'array',
     ];
 
     public function blogs()

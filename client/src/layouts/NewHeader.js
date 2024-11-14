@@ -59,10 +59,12 @@ const NewHeader = ({ setIsAdminPage }) => {
   };
 
   useEffect(() => {
-    getUserInfo().then((data) => {
-      data && setUserInfo(data);
-    });
-  }, []);
+    let token = sessionStorage.getItem("token");
+    token &&
+      getUserInfo().then((data) => {
+        data && setUserInfo(data);
+      });
+  }, [sessionStorage.getItem("token")]);
 
   useEffect(() => {
     const handleScroll = () => {

@@ -10,8 +10,10 @@ const AdminPage = () => {
     if (!token) {
       navigate("/adminLogin");
     }
-  }, [token]);
-  return <AdminPageWrapper content={<Publist />} />;
+  }, [token, navigate]);
+  if (!token) {
+    return null;
+  } else return <AdminPageWrapper content={<Publist />} />;
 };
 
 export default AdminPage;

@@ -52,7 +52,7 @@ const NewCase = () => {
   const [formData, setFormData] = useState({
     cities: Data?.cities || [],
     name: Data?.name || "",
-    type: Data?.type || "частное",
+    blog_type: Data?.blog_type[0] || "частное",
     startDate: Data?.startDate || "",
     endDate: Data?.endDate || "",
     guests: Data?.guests || "",
@@ -63,6 +63,8 @@ const NewCase = () => {
     features: Data?.features || "",
     site: Data?.site || "",
     equipment: Data?.equipment || [],
+    equipment_type: Data?.equipment_type || [],
+    site_type: Data?.site_type || [],
     // queue: Data?.queue || 0,
     images: [],
   });
@@ -159,6 +161,54 @@ const NewCase = () => {
     });
   };
 
+  const inputinfo = [
+    {
+      title: "Название",
+      name: "name",
+      type: "text",
+      placeholder: "ВХОДНАЯ ФИО",
+    },
+    {
+      title: "ТИП КЕЙСА",
+      name: "blog_type",
+      type: "text",
+      placeholder: "ВХОДНАЯ ТИП",
+      option: ["частное", "тур", "корпоративное", "городское"],
+    },
+    {
+      title: "Место проведения",
+      name: "venue",
+      type: "text",
+      placeholder: "ВХОДНАЯ Место проведения",
+    },
+    {
+      title: "Гости",
+      name: "guests",
+      type: "text",
+      placeholder: "ВХОДНАЯ Гости",
+    },
+    {
+      title: "Описание",
+      name: "features",
+      type: "text",
+      placeholder: "ВХОДНАЯ Описание",
+    },
+  ];
+
+  const typeEquipment = [
+    "Парковка",
+    "Гримёрные комнаты",
+    "Звуковое оборудование",
+    "Световое оборудование",
+    "Проекторы и экраны",
+  ];
+  const typeSite = [
+    "Рестораны",
+    "Конференц-залы",
+    "Загородные площадки",
+    "Концертные залы",
+  ];
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let newFormData = new FormData();
@@ -168,6 +218,16 @@ const NewCase = () => {
       } else if (key === "equipment") {
         formData[key].forEach((item) =>
           newFormData.append("equipment[]", item)
+        );
+      } else if (key === "blog_type") {
+        newFormData.append("blog_type[]", formData[key]);
+      } else if (key === "site_type") {
+        formData[key].forEach((item) =>
+          newFormData.append("site_type[]", item)
+        );
+      } else if (key === "equipment_type") {
+        formData[key].forEach((item) =>
+          newFormData.append("equipment_type[]", item)
         );
       } else if (key === "images") {
         formData[key].forEach((file) =>
@@ -197,40 +257,6 @@ const NewCase = () => {
           }
         });
   };
-
-  const inputinfo = [
-    {
-      title: "Название",
-      name: "name",
-      type: "text",
-      placeholder: "ВХОДНАЯ ФИО",
-    },
-    {
-      title: "ТИП",
-      name: "type",
-      type: "text",
-      placeholder: "ВХОДНАЯ ТИП",
-      option: ["частное", "тур", "корпоративное", "городское"],
-    },
-    {
-      title: "Место проведения",
-      name: "venue",
-      type: "text",
-      placeholder: "ВХОДНАЯ Место проведения",
-    },
-    {
-      title: "Гости",
-      name: "guests",
-      type: "text",
-      placeholder: "ВХОДНАЯ Гости",
-    },
-    {
-      title: "Описание",
-      name: "features",
-      type: "text",
-      placeholder: "ВХОДНАЯ Описание",
-    },
-  ];
 
   return (
     <CreatePageWrapper
@@ -425,6 +451,42 @@ const NewCase = () => {
                 )}
               />
             </Box>
+          </Box>
+
+          <Box sx={{ width: "100%" }}>
+            <Typography variant="h6">ВИДЫ ОСНАЩЕНИЯ</Typography>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              options={typeEquipment}
+              getOptionLabel={(option) => option}
+              filterSelectedOptions
+              value={formData?.equipment_type}
+              onChange={(event, newValue) => {
+                setFormData({ ...formData, equipment_type: newValue });
+              }}
+              renderInput={(params) => (
+                <TextField {...params} placeholder="Click to Add more" />
+              )}
+            />
+          </Box>
+
+          <Box sx={{ width: "100%" }}>
+            <Typography variant="h6">ТИП ПЛОЩАДКИ</Typography>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              options={typeSite}
+              getOptionLabel={(option) => option}
+              filterSelectedOptions
+              value={formData?.site_type}
+              onChange={(event, newValue) => {
+                setFormData({ ...formData, site_type: newValue });
+              }}
+              renderInput={(params) => (
+                <TextField {...params} placeholder="Click to Add more" />
+              )}
+            />
           </Box>
 
           <Box>

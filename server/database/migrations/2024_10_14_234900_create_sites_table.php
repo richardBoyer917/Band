@@ -11,14 +11,16 @@ class CreateSitesTable extends Migration
         Schema::create('sites', function (Blueprint $table) {
             $table->id(); // Primary key
             $table->string('name')->nullable(); // Equivalent to String
-            $table->string('type')->nullable();
+            $table->text('site_type')->nullable();
             $table->string('capacity')->nullable();
             $table->string('address')->nullable();
             $table->string('link_page')->nullable();
             $table->string('video')->nullable();
             $table->integer('queue')->default(0); // Default value for queue
             $table->text('tags')->nullable(); // Store tags as a JSON array
-            $table->text('type_equipment')->nullable();
+            $table->text('equipment_type')->nullable();
+            $table->text('blog_type')->nullable();
+            $table->json('city')->nullable()->default(json_encode([]));
             $table->timestamps(); // Created at and updated at
         });
     }

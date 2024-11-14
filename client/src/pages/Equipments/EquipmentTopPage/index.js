@@ -12,7 +12,7 @@ import useScrollToTop from "../../../hooks/useScrollToTop";
 import "../../../styles/pages/serie.css";
 const EquipmentTopPage = ({ equipment }) => {
   useScrollToTop();
-
+  console.log(equipment);
   return (
     <div className="section2">
       <div className="sectionWrapper caseTopSection">

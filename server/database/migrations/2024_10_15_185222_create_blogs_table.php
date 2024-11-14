@@ -11,7 +11,7 @@ class CreateBlogsTable extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('type')->nullable();
+            $table->text('blog_type')->nullable();
             $table->string('startDate')->nullable();
             $table->string('endDate')->nullable();
             $table->string('guests')->nullable();
@@ -20,6 +20,8 @@ class CreateBlogsTable extends Migration
             $table->text('images')->nullable();
             $table->text('tags')->nullable();
             $table->text('checkbox')->nullable();
+            $table->text('equipment_type')->nullable();
+            $table->text('site_type')->nullable();
             $table->json('cities')->nullable()->default(json_encode([]));
             $table->string('features')->nullable();
             $table->integer('queue')->default(0);

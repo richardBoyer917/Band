@@ -13,7 +13,7 @@ class Equipment extends Model
     
     protected $fillable = [
         'name',
-        'type',
+        'equipment_type',
         'categoryType',
         'brand',
         'description',
@@ -24,11 +24,16 @@ class Equipment extends Model
         'queue',
         'file',
         'images',
+        'blog_type',
+        'site_type',
     ];
 
     protected $casts = [
         'dimension' => 'array',
         'images' => 'array',
+        'blog_type' => 'array',
+        'site_type' => 'array',
+        'equipment_type' => 'array',
     ];
 
     public function blogs()

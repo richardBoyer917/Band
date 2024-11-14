@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Slider, Typography } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Slider,
+  TextField,
+  Typography,
+} from "@mui/material";
 import "react-datepicker/dist/react-datepicker.module.css";
 import { insertEquip, updateEquip } from "../../../api/equipAPI";
 import { Dropzone, FileMosaic } from "@files-ui/react";
@@ -14,7 +20,9 @@ const NewEquip = () => {
   const { Data } = location.state || {};
   const [formData, setFormData] = useState({
     name: Data?.name || "",
-    type: Data?.type || "",
+    equipment_type: Data?.equipment_type[0] || "",
+    site_type: Data?.site_type || [],
+    blog_type: Data?.blog_type || [],
     categoryType: Data?.categoryType || "",
     brand: Data?.name || "",
     description: Data?.description || "",
@@ -33,7 +41,7 @@ const NewEquip = () => {
 
   const currency = [
     {
-      title: "Тип",
+      title: "ВИДЫ ОСНАЩЕНИЯ",
       name: "type",
       option: ["свет", "звук", "видео"],
     },
@@ -107,6 +115,14 @@ const NewEquip = () => {
     },
   ];
 
+  const typeSite = [
+    "Рестораны",
+    "Конференц-залы",
+    "Загородные площадки",
+    "Концертные залы",
+  ];
+  const typeBlog = ["частное", "тур", "корпоративное", "городское"];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (["width", "depth", "height"].includes(name)) {
@@ -139,6 +155,16 @@ const NewEquip = () => {
       } else if (key === "images") {
         formData[key].forEach((file) =>
           newFormData.append("images[]", file.file)
+        );
+      } else if (key === "equipment_type") {
+        newFormData.append("equipment_type[]", formData[key]);
+      } else if (key === "site_type") {
+        formData[key].forEach((item) =>
+          newFormData.append("site_type[]", item)
+        );
+      } else if (key === "blog_type") {
+        formData[key].forEach((item) =>
+          newFormData.append("blog_type[]", item)
         );
       } else if (key === "dimension") {
         newFormData.append("dimension", JSON.stringify(formData[key]));
@@ -224,6 +250,40 @@ const NewEquip = () => {
               valueLabelDisplay="auto"
             />
           </div>
+          <Box sx={{ width: "100%" }}>
+            <Typography variant="h6">ТИП КЕЙСА</Typography>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              options={typeBlog}
+              getOptionLabel={(option) => option}
+              filterSelectedOptions
+              value={formData?.blog_type}
+              onChange={(event, newValue) => {
+                setFormData({ ...formData, blog_type: newValue });
+              }}
+              renderInput={(params) => (
+                <TextField {...params} placeholder="Click to Add more" />
+              )}
+            />
+          </Box>
+          <Box sx={{ width: "100%" }}>
+            <Typography variant="h6">ТИП ПЛОЩАДКИ</Typography>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              options={typeSite}
+              getOptionLabel={(option) => option}
+              filterSelectedOptions
+              value={formData?.site_type}
+              onChange={(event, newValue) => {
+                setFormData({ ...formData, site_type: newValue });
+              }}
+              renderInput={(params) => (
+                <TextField {...params} placeholder="Click to Add more" />
+              )}
+            />
+          </Box>
           <Dropzone onChange={updateFiles} value={formData.images}>
             {formData.images.map((file, index) => (
               <FileMosaic key={index} {...file} preview />

@@ -13,20 +13,24 @@ import { CreatePageWrapper } from "../AdminSection";
 import { Input, SelectBox } from "../../../components/Inputs";
 import { TabButton } from "../../../components/Buttons";
 import { darkAdd } from "../../../assets";
+import MultipleValueTextInput from "react-multivalue-text-input";
 
 const NewSite = () => {
   const location = useLocation();
   const { Data } = location.state || {};
+  const [cities, setCities] = useState(Data?.cities || []);
 
   const [formData, setFormData] = useState({
     name: Data?.name || "",
-    type: Data?.type || "",
+    site_type: Data?.site_type[0] || "",
     capacity: Data?.capacity || "",
     address: Data?.address || "",
     link_page: Data?.link_page || "",
     tags: Data?.tags || [],
-    type_equipment: Data?.type_equipment || [],
+    equipment_type: Data?.equipment_type || [],
+    blog_type: Data?.blog_type || [],
     queue: Data?.queue || 0,
+    city: Data?.city[0] || "",
   });
 
   const inputinfo = [
@@ -37,11 +41,16 @@ const NewSite = () => {
       placeholder: "ВХОДНАЯ ФИО",
     },
     {
-      title: "ТИП",
-      name: "type",
+      title: "ТИП ПЛОЩАДКИ",
+      name: "site_type",
       type: "text",
       placeholder: "ВХОДНАЯ ТИП",
-      option: ["ресторан", "конц. зал", "клуб", "Банкетный зал"],
+      option: [
+        "Рестораны",
+        "Конференц-залы",
+        "Загородные площадки",
+        "Концертные залы",
+      ],
     },
     {
       title: "ЕМКОСТЬ",
@@ -61,6 +70,12 @@ const NewSite = () => {
       type: "text",
       placeholder: "ВХОДНАЯ ССЫЛКА СТРАНИЦА",
     },
+    {
+      title: "ГОРОД",
+      name: "city",
+      type: "text",
+      placeholder: "ВХОДНАЯ ГОРОД",
+    },
   ];
 
   const tagCurrencies = [
@@ -78,6 +93,7 @@ const NewSite = () => {
     "Световое оборудование",
     "Проекторы и экраны",
   ];
+  const typeBlog = ["частное", "тур", "корпоративное", "городское"];
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -95,9 +111,17 @@ const NewSite = () => {
     Object.keys(formData).forEach((key) => {
       if (key === "tags") {
         formData[key].forEach((item) => newFormData.append("tags[]", item));
-      } else if (key === "type_equipment") {
+      } else if (key === "city") {
+        newFormData.append("city[]", formData[key]);
+      } else if (key === "equipment_type") {
         formData[key].forEach((item) =>
-          newFormData.append("type_equipment[]", item)
+          newFormData.append("equipment_type[]", item)
+        );
+      } else if (key === "site_type") {
+        newFormData.append("site_type[]", formData[key]);
+      } else if (key === "blog_type") {
+        formData[key].forEach((item) =>
+          newFormData.append("blog_type[]", item)
         );
       } else {
         newFormData.append(key, formData[key]);
@@ -160,20 +184,6 @@ const NewSite = () => {
             )
           )}
 
-          <div>
-            <p className="x16" style={{ marginBottom: "12px" }}>
-              Очередь
-            </p>
-            <Slider
-              min={0}
-              max={100}
-              value={formData.queue}
-              name="queue"
-              onChange={handleChange}
-              valueLabelDisplay="auto"
-            />
-          </div>
-
           <Box sx={{ width: "100%" }}>
             <Typography variant="h6">Теги вместимости</Typography>
             <Autocomplete
@@ -191,17 +201,47 @@ const NewSite = () => {
               )}
             />
           </Box>
+          <div>
+            <p className="x16" style={{ marginBottom: "12px" }}>
+              Очередь
+            </p>
+            <Slider
+              min={0}
+              max={100}
+              value={formData.queue}
+              name="queue"
+              onChange={handleChange}
+              valueLabelDisplay="auto"
+            />
+          </div>
           <Box sx={{ width: "100%" }}>
-            <Typography variant="h6">виды оснащения</Typography>
+            <Typography variant="h6">ВИДЫ ОСНАЩЕНИЯ</Typography>
             <Autocomplete
               multiple
               id="tags-outlined"
               options={typeEquipment}
               getOptionLabel={(option) => option}
               filterSelectedOptions
-              value={formData?.type_equipment}
+              value={formData?.equipment_type}
               onChange={(event, newValue) => {
-                setFormData({ ...formData, type_equipment: newValue });
+                setFormData({ ...formData, equipment_type: newValue });
+              }}
+              renderInput={(params) => (
+                <TextField {...params} placeholder="Click to Add more" />
+              )}
+            />
+          </Box>
+          <Box sx={{ width: "100%" }}>
+            <Typography variant="h6">ТИП КЕЙСА</Typography>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              options={typeBlog}
+              getOptionLabel={(option) => option}
+              filterSelectedOptions
+              value={formData?.blog_type}
+              onChange={(event, newValue) => {
+                setFormData({ ...formData, blog_type: newValue });
               }}
               renderInput={(params) => (
                 <TextField {...params} placeholder="Click to Add more" />
