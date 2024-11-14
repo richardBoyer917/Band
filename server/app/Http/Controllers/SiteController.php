@@ -21,7 +21,7 @@ class SiteController extends Controller
     public function getSixSites()
     {
         try {
-            $data = Site::getTopSixSites();
+            $data = Site::orderBy('queue', 'desc')->with('blogs')->take(6)->get();
             return response()->json($data);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching data'], 400);
