@@ -58,7 +58,7 @@ const RouterControl = () => {
       )}
       <Routes>
         {/* AdminPage */}
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin" element={<AdminLogin />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/admin/pannel" element={<>sdf</>} />
         <Route path="/admin/setting" element={<AdminSetting />} />
