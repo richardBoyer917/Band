@@ -28,7 +28,6 @@ const CaseCatalog = ({ type, catalogInfo }) => {
     getCases().then((data) => {
       data && setCases(data);
       setFilteredData(data);
-      console.log("data: ", data);
     });
   }, []);
   return (

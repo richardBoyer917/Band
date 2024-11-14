@@ -16,6 +16,7 @@ export const Input = ({ color, item, value, handleChange, onKeyDown }) => {
       style={{ backgroundColor: color }}
       placeholder={item.placeholder}
       name={item.name}
+      type={item.type}
       onChange={handleChange}
       value={value}
       onKeyDown={onKeyDown}
