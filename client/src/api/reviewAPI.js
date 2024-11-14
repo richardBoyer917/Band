@@ -13,7 +13,7 @@ export const getReviews = async () => {
 
 export const getReviewsBytype = async (reviewType) => {
   try {
-    const response = await apiClient.get("/reviewsBytype", {
+    const response = await apiClient.get("/reviews/reviewsBytype", {
       params: { reviewType: reviewType },
     });
     if (response.status !== 200)
@@ -26,7 +26,7 @@ export const getReviewsBytype = async (reviewType) => {
 
 export const insertReview = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/reviews", formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ export const insertReview = async (formdata) => {
 
 export const updateReview = async (id, formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/reviews/${id}`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ export const updateReview = async (id, formdata) => {
 
 export const deleteReview = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.delete(`/reviews/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,

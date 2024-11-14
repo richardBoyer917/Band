@@ -46,7 +46,7 @@ const CaseEvent = () => {
         style={{ paddingBottom: "clamp(100px,15vw,200px)" }}
       >
         <TopCaseEventSection caseOne={caseOne} />
-        <BigCaseVideoBox src={`${endpoint}/uploads/cases/${caseOne?.video}`} />
+        <BigCaseVideoBox src={`${caseOne?.video}`} />
         <CaseEventSwiper images={caseOne?.images} />
         <section className="section2 caseEventTagSection">
           <CaseEventTag title="ЧТО ДЕЛАЛИ" tags={caseOne?.tags} />
@@ -54,7 +54,7 @@ const CaseEvent = () => {
         </section>
         {caseOne?.type !== "тур" && <CristalRoom site={caseOne?.site} />}
         <div className="smallSectionWrapper">
-          <EventSection dData={caseOne?.d_id} />
+          <EventSection dData={caseOne?.three} />
           {caseOne?.type === "тур" && (
             <ChichaSmallBox
               title="Отрепетировано на реп-базе Завод Шоу"

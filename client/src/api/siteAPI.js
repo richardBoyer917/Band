@@ -35,7 +35,7 @@ export const getSiteById = async (id) => {
 
 export const insertSite = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/sites", formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -52,7 +52,7 @@ export const insertSite = async (formdata) => {
 
 export const updateSite = async (id, formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/sites/${id}`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ export const updateSite = async (id, formdata) => {
 
 export const deleteSite = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.delete(`/sites/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,

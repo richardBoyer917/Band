@@ -9,7 +9,7 @@ export const login = async (formdata) => {
       throw new Error(`Unexpected response status: ${response.status}`);
 
     const token = response.data.token;
-    localStorage.setItem("token", token);
+    sessionStorage.setItem("token", token);
     return response.data;
   } catch (err) {
     handleError("Error logging in user:", err);
@@ -18,7 +18,7 @@ export const login = async (formdata) => {
 
 export const logout = async () => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/admin/logout", null, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const logout = async () => {
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     return response.data;
   } catch (err) {
     handleError("Error logging out user:", err);

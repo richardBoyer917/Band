@@ -36,7 +36,7 @@ const TourConcert = () => {
           item={{
             titleCenter: false,
             title: "Видео из тура",
-            src: `${endpoint}/uploads/cases/${caseData?.video}`,
+            src: `${caseData?.video}`,
             videoTitle: caseData?.venue,
             videoDescription: caseData?.name,
           }}

@@ -13,7 +13,7 @@ export const getTeam = async () => {
 
 export const insertTeam = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/team", formdata, {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -28,7 +28,7 @@ export const getEquipsByType = async (equipmentType) => {
 
 export const insertEquip = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/equipments", formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ export const insertEquip = async (formdata) => {
 
 export const updateEquip = async (id, formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/equipments/${id}`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -64,7 +64,7 @@ export const updateEquip = async (id, formdata) => {
 
 export const deleteEquip = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.delete(`/equipments/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,

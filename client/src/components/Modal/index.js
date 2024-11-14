@@ -67,11 +67,11 @@ export default function FormDialog({ opened, idd, onClose }) {
     newFormData.append("idd", idd);
 
     files.forEach((file) => {
-      newFormData.append("images", file.image.file);
+      newFormData.append("images[]", file.image.file);
     });
 
     files.forEach((file) => {
-      newFormData.append("imageContent", file.title);
+      newFormData.append("imageContent[]", file.title);
     });
 
     insertSolution(newFormData).then((data) => {

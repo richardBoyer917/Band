@@ -61,7 +61,7 @@ class ParticipantController extends Controller
                 ? url('storage/' . $request->file('image')->store('uploads/participant', 'public')) // Adjust path as needed
                 : $participant->image;
 
-                if ($participant->image) {
+                if ($request->file('image')) {
                     \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $participant->image));
                 }
             $participant->update($data);

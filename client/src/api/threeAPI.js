@@ -13,7 +13,7 @@ export const getThrees = async () => {
 
 export const insertThree = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/threes", formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ export const insertThree = async (formdata) => {
 
 export const updateThree = async (id, formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/threes/${id}`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ export const updateThree = async (id, formdata) => {
 
 export const deleteThree = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.delete(`/threes/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,

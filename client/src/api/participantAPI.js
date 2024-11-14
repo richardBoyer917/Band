@@ -14,7 +14,7 @@ export const getParticipant = async () => {
 export const getShowParticipant = async (num) => {
   try {
     const response = await apiClient.get(
-      `/showparticipant?participantNum=${num}`
+      `/participant/showparticipant?participantNum=${num}`
     );
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
@@ -27,7 +27,7 @@ export const getShowParticipant = async (num) => {
 
 export const insertParticipant = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/participant", formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const insertParticipant = async (formdata) => {
 
 export const updateParticipant = async (id, formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/participant/${id}`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ export const updateParticipant = async (id, formdata) => {
 
 export const deleteParticipant = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.delete(`/participant/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,

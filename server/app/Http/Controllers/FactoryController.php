@@ -90,7 +90,7 @@ class FactoryController extends Controller
             $file = $request->file('video');
             $filePath = url('storage/' . $file->store('uploads/factory', 'public'));
 
-            if ($factory->video) {
+            if ($request->file('video')) {
                 \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $factory->video));
             }
 

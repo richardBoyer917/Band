@@ -26,7 +26,7 @@ export const getCaseById = async (id) => {
 
 export const insertCase = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/blogs`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const insertCase = async (formdata) => {
 
 export const updateCase = async (id, formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/blogs/${id}`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ export const updateCase = async (id, formdata) => {
 
 export const deleteCase = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.delete(`/blogs/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ export const deleteCase = async (id) => {
 
 export const insertSolution = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/blogs/solution`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -6,9 +6,8 @@ import { deleteEquip, getEquips } from "../../api/equipAPI";
 import { deleteFactory, getFactorys } from "../../api/facAPI";
 import { deleteThree, getThrees } from "../../api/threeAPI";
 import { deleteReview, getReviews } from "../../api/reviewAPI";
-import endpoint from "../../config/config";
 import { useNavigate } from "react-router-dom";
-import { AdminSection } from "./AdminSection";
+import { AdminSection, AdminSection1 } from "./AdminSection";
 import { deleteParticipant, getParticipant } from "../../api/participantAPI";
 import { getTeam } from "../../api/teamAPI";
 import FormDialog from "../../components/Modal";
@@ -17,12 +16,14 @@ import {
   DataTableActionCard,
   DataTableMoveRowCard,
 } from "../../components/Cards";
+import { getUserInfo } from "../../api/adminAPI";
 
 const Publist = () => {
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [caseType, setCaseType] = useState("Home");
+  const [userInfo, setUserInfo] = useState(null);
 
   const handleOpenDialog = (id) => {
     setSelectedId(id); // Set the selected row ID
@@ -44,59 +45,44 @@ const Publist = () => {
 
   const handleDelete = (index) => {
     deleteCase(index).then((data) => {
-      const temp = addId(data);
-      setCases(temp);
+      setCases(data);
     });
   };
 
   const handleEquipDelete = (index) => {
     deleteEquip(index).then((data) => {
-      const temp = addId(data);
-      setEquipment(temp);
+      setEquipment(data);
     });
   };
 
   const handleSiteDelete = (index) => {
     deleteSite(index).then((data) => {
-      const temp = addId(data);
-      setSites(temp);
+      setSites(data);
     });
   };
 
   const handleRevDelete = (index) => {
     deleteReview(index).then((data) => {
-      const temp = addId(data);
-      setRevlist(temp);
+      setRevlist(data);
     });
   };
 
   const handleFactoryDelete = (index) => {
     deleteFactory(index).then((data) => {
-      const temp = addId(data);
-      setFactory(temp);
+      setFactory(data);
     });
   };
 
   const handleThreeDelete = (index) => {
     deleteThree(index).then((data) => {
-      const temp = addId(data);
-      setThree(temp);
+      setThree(data);
     });
   };
 
   const handleParticipantDelete = (index) => {
     deleteParticipant(index).then((data) => {
-      const temp = addId(data);
-      setParticipant(temp);
+      setParticipant(data);
     });
-  };
-
-  const addId = (data) => {
-    let temp = [];
-    data.map(
-      (item, index) => ((temp[index] = item), (temp[index].id = index + 1))
-    );
-    return temp;
   };
 
   const handleSelBestCase = (type) => {
@@ -122,16 +108,12 @@ const Publist = () => {
   const handleArrowUp = (id) => moveRow(id, "up");
   const handleArrowDown = (id) => moveRow(id, "down");
 
-  const idColumn = { field: "id", headerName: "ID", flex: 0.5 };
-  const createMediaColumn = (field, headerName, mediaType) => ({
+  const createMediaColumn = (field, headerName) => ({
     field,
     headerName,
     flex: 1,
     renderCell: (params) => {
-      const src =
-        field === "images"
-          ? `${endpoint}/uploads/${mediaType}/${params.value[0]}`
-          : `${endpoint}/uploads/${mediaType}/${params.value}`;
+      const src = field === "images" ? `${params.value[0]}` : `${params.value}`;
 
       const style =
         field === "video"
@@ -151,6 +133,7 @@ const Publist = () => {
     flex: 2,
     renderCell: (params) => (
       <DataTableActionCard
+        userInfo={userInfo}
         params={params}
         type={type}
         handleDelete={handleDelete}
@@ -162,13 +145,13 @@ const Publist = () => {
 
   const [cases, setCases] = useState([]);
   const caseColumns = [
-    idColumn,
+    { field: "id", headerName: "ID", flex: 0.5 },
     { field: "name", headerName: "Имя", flex: 3.5 },
     // { field: "queue", headerName: "Очередь", flex: 1 },
     { field: "type", headerName: "Тип", flex: 1.5 },
     { field: "venue", headerName: "Адрес", flex: 1 },
     { field: "guests", headerName: "Гости", flex: 0.5 },
-    createMediaColumn("video", "Дело", "cases"),
+    createMediaColumn("video", "Дело"),
     createActionColumn("case", handleDelete),
     {
       field: "addAction",
@@ -178,7 +161,7 @@ const Publist = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => handleOpenDialog(params.row._id)}
+          onClick={() => handleOpenDialog(params.row.id)}
         >
           Добавить
         </Button>
@@ -188,10 +171,10 @@ const Publist = () => {
 
   const [bestCases, setBestCases] = useState([]);
   const bestCaseColumns = [
-    idColumn,
+    { field: "id", headerName: "ID", flex: 0.5 },
     { field: "name", headerName: "Кейс", flex: 3.5 },
     { field: "type", headerName: "Тип", flex: 1.5 },
-    createMediaColumn("video", "Дело", "cases"),
+    createMediaColumn("video", "Дело"),
     createActionColumn("case", handleDelete),
     {
       field: "moveRow",
@@ -210,39 +193,39 @@ const Publist = () => {
 
   const [sites, setSites] = useState([]);
   const siteColums = [
-    idColumn,
+    { field: "id", headerName: "ID", flex: 0.5 },
     { field: "name", headerName: "Имя", flex: 1 },
     { field: "queue", headerName: "Очередь", flex: 1 },
     { field: "type", headerName: "Тип", flex: 1 },
     { field: "capacity", headerName: "Вместимость", flex: 1 },
     { field: "address", headerName: "Адрес", flex: 1 },
     { field: "link_page", headerName: "Ссылка Страница", flex: 1 },
-    createMediaColumn("video", "Сайт", "site"),
+    createMediaColumn("video", "Сайт"),
     createActionColumn("site", handleSiteDelete),
   ];
 
   const [equipment, setEquipment] = useState([]);
   const equipmentColums = [
-    idColumn,
+    { field: "id", headerName: "ID", flex: 0.5 },
     { field: "name", headerName: "Имя", flex: 1 },
     { field: "queue", headerName: "Очередь", flex: 1 },
     { field: "type", headerName: "Тип", flex: 1 },
     { field: "description", headerName: "Описание", flex: 2 },
     { field: "manufacturer", headerName: "Производитель", flex: 1 },
-    createMediaColumn("images", "Оборудование", "equipment"),
+    createMediaColumn("images", "Оборудование"),
     createActionColumn("equipment", handleEquipDelete),
   ];
 
   const [revlist, setRevlist] = useState([]);
   const reviewColumns = [
-    idColumn,
+    { field: "id", headerName: "ID", flex: 0.5 },
     { field: "type", headerName: "Тип", flex: 1 },
     { field: "name", headerName: "Имя", flex: 1 },
     { field: "queue", headerName: "Очередь", flex: 1 },
     { field: "displayType", headerName: "Тип", flex: 1 },
     { field: "content", headerName: "Содержание", flex: 2 },
     createActionColumn(
-      "equipment",
+      "review",
       handleRevDelete,
       "/services/visualization",
       "customerReviewSection"
@@ -251,19 +234,19 @@ const Publist = () => {
 
   const [factory, setFactory] = useState([]);
   const factoryColums = [
-    idColumn,
+    { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title", headerName: "Название", flex: 2 },
     { field: "queue", headerName: "Очередь", flex: 1 },
     { field: "description", headerName: "Описание", flex: 3 },
-    createMediaColumn("video", "Завод Показать", "factory"),
+    createMediaColumn("video", "Завод Показать"),
     createActionColumn("factory", handleFactoryDelete, "/", "blogSection"),
   ];
 
   const [participant, setParticipant] = useState([]);
   const participantColumns = [
-    idColumn,
+    { field: "id", headerName: "ID", flex: 0.5 },
     { field: "name", headerName: "Имя", flex: 4 },
-    createMediaColumn("image", "Avatar", "participant"),
+    createMediaColumn("image", "Avatar"),
     createActionColumn(
       "participant",
       handleParticipantDelete,
@@ -274,16 +257,16 @@ const Publist = () => {
 
   const [three, setThree] = useState([]);
   const threeColumns = [
-    idColumn,
+    { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title1", headerName: "Название1", flex: 2 },
     { field: "title2", headerName: "Название2", flex: 2 },
-    createMediaColumn("video", "3D-визуализация", "three_d"),
+    createMediaColumn("video", "3D-визуализация"),
     createActionColumn("three", handleThreeDelete),
   ];
 
   const [team, setTeam] = useState([]);
   const teamColumns = [
-    idColumn,
+    { field: "id", headerName: "ID", flex: 0.5 },
     { field: "tag1", headerName: "Тег1", flex: 1 },
     { field: "tag2", headerName: "Тег2", flex: 1 },
     { field: "tag3", headerName: "Тег3", flex: 1 },
@@ -299,49 +282,38 @@ const Publist = () => {
 
   useEffect(() => {
     getCases().then((data) => {
-      const temp = addId(data);
-      setCases(temp);
+      setCases(data);
     });
-    getCasesWithCheckbox(caseType, 9).then((data) => {
-      const temp = addId(data);
-      setBestCases(temp);
-    });
-
     getSite().then((data) => {
-      const temp = addId(data);
-      setSites(temp);
+      setSites(data);
     });
     getEquips().then((data) => {
-      const temp = addId(data);
-      setEquipment(temp);
+      setEquipment(data);
     });
     getThrees().then((data) => {
-      const temp = addId(data);
-      setThree(temp);
+      setThree(data);
     });
     getFactorys().then((data) => {
-      const temp = addId(data);
-      setFactory(temp);
+      setFactory(data);
     });
     getReviews().then((data) => {
-      const temp = addId(data);
-      setRevlist(temp);
+      setRevlist(data);
     });
     getParticipant().then((data) => {
-      const temp = addId(data);
-      setParticipant(temp);
+      setParticipant(data);
     });
     getTeam().then((data) => {
-      const temp = addId(data);
-      setTeam(temp);
+      setTeam(data);
+    });
+    getUserInfo().then((data) => {
+      setUserInfo(data);
     });
   }, []);
 
   useEffect(() => {
     getCasesWithCheckbox(caseType, 9)
       .then((data) => {
-        const temp = addId(data);
-        setBestCases(temp);
+        setBestCases(data);
       })
       .catch((error) => {
         console.error("Error fetching cases:", error);
@@ -356,13 +328,13 @@ const Publist = () => {
       data: cases,
       path: "/admin/case",
     },
-    {
-      id: "bestCase",
-      title: "Раздел «Лучшие кейсы»",
-      columns: bestCaseColumns,
-      data: bestCases,
-      path: "/admin/case",
-    },
+    // {
+    //   id: "bestCase",
+    //   title: "Раздел «Лучшие кейсы»",
+    //   columns: bestCaseColumns,
+    //   data: bestCases,
+    //   path: "/admin/case",
+    // },
     {
       id: "newSite",
       title: "Каталог площадок",
@@ -416,19 +388,34 @@ const Publist = () => {
 
   return (
     <div className="adminPage">
-      <AdminDataBox /> <br /> <br /> <br />
-      {adminSections.map((section) => (
-        <AdminSection
-          key={section.id}
-          id={section.id}
-          title={section.title}
-          columns={section.columns}
-          data={section.data}
-          dataType={caseType}
-          handle={handleSelBestCase}
-          handleNewCreate={() => handleNewCreate(section.path)}
-        />
-      ))}
+      <AdminDataBox userInfo={userInfo} /> <br /> <br /> <br />
+      {adminSections.map((section) =>
+        section.title === "Репетиционная база" ? (
+          <AdminSection1
+            key={section.id}
+            adding={userInfo?.adding}
+            id={section.id}
+            title={section.title}
+            columns={section.columns}
+            data={section.data}
+            dataType={caseType}
+            handle={handleSelBestCase}
+            handleNewCreate={() => handleNewCreate(section.path)}
+          />
+        ) : (
+          <AdminSection
+            key={section.id}
+            adding={userInfo?.adding}
+            id={section.id}
+            title={section.title}
+            columns={section.columns}
+            data={section.data}
+            dataType={caseType}
+            handle={handleSelBestCase}
+            handleNewCreate={() => handleNewCreate(section.path)}
+          />
+        )
+      )}
       <FormDialog
         opened={openDialog}
         idd={selectedId}

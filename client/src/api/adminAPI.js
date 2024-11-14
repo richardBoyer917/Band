@@ -2,7 +2,7 @@ import { handleError, apiClient } from "../utils";
 
 export const register = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/admin/register", formdata, {
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export const register = async (formdata) => {
 
 export const getUsers = async () => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.get("/admin", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -37,7 +37,7 @@ export const getUsers = async () => {
 
 export const getUserById = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.get(`/admin/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -52,9 +52,25 @@ export const getUserById = async (id) => {
   }
 };
 
+export const getUserInfo = async () => {
+  try {
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.get("/user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status !== 200)
+      throw new Error(`Unexpected response status: ${response.status}`);
+    return response.data;
+  } catch (err) {
+    handleError("Error fetching user info:", err);
+  }
+};
+
 export const updateUser = async (id, formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/admin/${id}`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -72,7 +88,7 @@ export const updateUser = async (id, formdata) => {
 
 export const deleteUser = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.delete(`/admin/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -89,7 +105,7 @@ export const deleteUser = async (id) => {
 
 export const changeEmail = async (formdata, id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(
       `/admin/${id}/change-email`,
       formdata,
@@ -106,27 +122,5 @@ export const changeEmail = async (formdata, id) => {
     return response.data;
   } catch (err) {
     handleError("Error changing email:", err);
-  }
-};
-
-export const sendPasswordResetEmail = async (formdata, id) => {
-  try {
-    const token = localStorage.getItem("token");
-    const response = await apiClient.post(
-      `/admin/${id}/send-password-email`,
-      formdata,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (response.status !== 200)
-      throw new Error(`Unexpected response status: ${response.status}`);
-
-    return response.data;
-  } catch (err) {
-    handleError("Error sending password reset email:", err);
   }
 };

@@ -4,6 +4,8 @@ import { DefaultButton, ScrollSpyButton } from "../components/Buttons";
 import HeaderWrapper from "./HeaderWrapp";
 import { adminUser, lightLogout, logo } from "../assets";
 import "../styles/layouts/layout.css";
+import { logout } from "../api/authAPI";
+import { getUserInfo } from "../api/adminAPI";
 
 const NewHeader = ({ setIsAdminPage }) => {
   const navigate = useNavigate();
@@ -44,14 +46,23 @@ const NewHeader = ({ setIsAdminPage }) => {
   };
 
   const [addLink, setAddLink] = useState(adminLinkInfo.admin);
+  const [userInfo, setUserInfo] = useState({});
 
   const handleLogout = () => {
-    alert("logout");
+    logout().then(() => {
+      navigate("/");
+    });
   };
 
   const handleSetting = () => {
     navigate("/admin/setting");
   };
+
+  useEffect(() => {
+    getUserInfo().then((data) => {
+      data && setUserInfo(data);
+    });
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -115,7 +126,9 @@ const NewHeader = ({ setIsAdminPage }) => {
             </div>
             <div className="requestBtn alignCenter" style={{ gap: "15px" }}>
               <div className="adminHeaderLink">
-                <span style={{ fontSize: "12px" }}>Иван И.</span>
+                <span style={{ fontSize: "12px" }}>
+                  {userInfo.name} {userInfo.lastname}
+                </span>
               </div>
               <img
                 className="headerAvatar"

@@ -51,16 +51,13 @@ const PublicationCard = ({ item }) => {
   const navigate = useNavigate();
   const handleLink = () => {
     console.log("sdfsdf");
-    navigate(`site-one/${item._id}`);
+    navigate(`site-one/${item.id}`);
   };
 
   return (
     <div className="publicationCard">
       <div style={{ position: "relative" }}>
-        <video
-          src={`${endpoint}/uploads/site/${item.video}`}
-          alt="publicationImage"
-        />
+        <video src={`${item.video}`} alt="publicationImage" />
         <CardViewNumber value={item.capacity} />
       </div>
       <div
@@ -118,10 +115,7 @@ const VideoBlogCard = ({ item }) => {
               borderRadius: "5px",
             }}
           >
-            <source
-              src={`${endpoint}/uploads/factory/${item.video}`}
-              type="video/mp4"
-            />
+            <source src={`${item.video}`} type="video/mp4" />
           </video>
           <img
             src={whitePlay}
@@ -142,11 +136,7 @@ const VideoBlogCard = ({ item }) => {
           </a>
         </div>
       </div>
-      <VideoPreview
-        open={open}
-        setOpen={setOpen}
-        avatar={`${endpoint}/uploads/factory/${item.video}`}
-      />
+      <VideoPreview open={open} setOpen={setOpen} avatar={`${item.video}`} />
     </>
   );
 };
@@ -233,9 +223,9 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
         <video
           src={
             type === "case"
-              ? `${endpoint}/uploads/cases/${item?.video}`
+              ? `${item?.video}`
               : type === "platform"
-              ? `${endpoint}/uploads/site/${item?.video}`
+              ? `${item?.video}`
               : ""
           }
           style={{ width: "100%", height: "175px", objectFit: "cover" }}
@@ -252,9 +242,7 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
           }}
         >
           <img
-            src={`${endpoint}/uploads/equipment/${
-              item?.images.length > 0 && item.images[0]
-            }`}
+            src={`${item?.images.length > 0 && item.images[0]}`}
             style={{ maxWidth: "100%", maxHeight: "175px", objectFit: "cover" }}
             onClick={onClick}
             alt="img"
@@ -385,6 +373,7 @@ const EquipmentImageCaptionCard = ({ title, text }) => (
 );
 
 const DataTableActionCard = ({
+  userInfo,
   params,
   type,
   handleDelete,
@@ -405,7 +394,7 @@ const DataTableActionCard = ({
         }
       }, 300);
     } else {
-      navigate(`/${type}-one/${params.row._id}`);
+      navigate(`/${type}-one/${params.row.id}`);
     }
   };
 
@@ -416,16 +405,23 @@ const DataTableActionCard = ({
   };
 
   return (
-    <div className="spaceAround adminDirectoryEdit" style={{ height: "100%" }}>
+    <div
+      className="spaceAround adminDirectoryEdit"
+      style={{ height: "100%", width: "100%" }}
+    >
       {type !== "three" && (
         <img onClick={() => handlePreview()} src={greyArrow} alt="greyArrow" />
       )}
-      <img onClick={() => handleUpdate()} src={greyPencil} alt="greyPencil" />
-      <img
-        onClick={() => handleDelete(params.row._id)}
-        src={redTrash}
-        alt="redTrash"
-      />
+      {userInfo?.editing !== 0 && (
+        <img onClick={() => handleUpdate()} src={greyPencil} alt="greyPencil" />
+      )}
+      {userInfo?.deleting !== 0 && (
+        <img
+          onClick={() => handleDelete(params.row.id)}
+          src={redTrash}
+          alt="redTrash"
+        />
+      )}
     </div>
   );
 };

@@ -33,7 +33,7 @@ class ReviewController extends Controller
                 ? url('storage/' . $request->file('files')->store('uploads/review', 'public')) 
                 : $existingReview->file;
 
-                if ($existingReview->file) {
+                if ($request->file('files')) {
                     \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $existingReview->file));
                 }
             $existingReview->update($data);

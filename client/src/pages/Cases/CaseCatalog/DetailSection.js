@@ -361,10 +361,10 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
             onClick={() => {
               navigate(
                 type === "case"
-                  ? `/case-one/${item?._id}`
+                  ? `/case-one/${item?.id}`
                   : type === "platform"
-                  ? `/site-one/${item?._id}`
-                  : `/equipment-one/${item?._id}`
+                  ? `/site-one/${item?.id}`
+                  : `/equipment-one/${item?.id}`
               );
             }}
           />

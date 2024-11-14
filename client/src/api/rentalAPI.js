@@ -15,7 +15,7 @@ export const getRental = async () => {
 
 export const insertRental = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/rental", formdata, {
       headers: {
         Authorization: `Bearer ${token}`,

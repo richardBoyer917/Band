@@ -14,6 +14,7 @@ class Site extends Model
     protected $fillable = [
         'name',
         'type',
+        'type_equipment',
         'capacity',
         'address',
         'link_page',
@@ -23,6 +24,7 @@ class Site extends Model
     ];
 
     protected $casts = [
+        'type_equipment' =>'array',
         'tags' => 'array',
     ];
 
@@ -31,42 +33,5 @@ class Site extends Model
         return $this->hasMany(Blog::class);
     }
 
-    public static function getTopSixSites()
-    {
-        return self::orderBy('queue', 'desc')
-            ->limit(6)
-            ->get(['video', 'name', 'type', 'capacity', 'address', 'link_page']);
-    }
-
-    public static function createSite(array $data)
-    {
-        if (isset($data['video']) && is_object($data['video'])) {
-            $data['video'] = $data['video']->store('uploads/site', 'public'); // Adjust the path as needed
-        }
-
-        return self::create($data);
-    }
-
-    public static function updateSite(array $data, Site $existingSite)
-    {
-        if (isset($data['video']) && is_object($data['video'])) {
-            if ($existingSite->video) {
-                \Storage::disk('public')->delete($existingSite->video);
-            }
-
-            $data['video'] = $data['video']->store('uploads/site', 'public'); // Adjust the path as needed
-        } else {
-            $data['video'] = $existingSite->video;
-        }
-        return $existingSite->update($data);
-    }
-
-    public function deleteSite()
-    {
-        if ($this->video) {
-            \Storage::disk('public')->delete($this->video);
-        }
-        return $this->delete();
-    }
 }
 

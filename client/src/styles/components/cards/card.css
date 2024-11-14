@@ -149,6 +149,13 @@
   transition: flex-basis 0.5s ease;
 }
 
+.equipmentCard .itemCenter img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: clamp(5px, 1vw, 10px);
+}
+
 .rentalBox {
   max-width: 484px;
   width: 100%;

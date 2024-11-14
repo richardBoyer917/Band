@@ -77,10 +77,7 @@ const CaseCards = ({ solution, feature }) => {
                                 borderRadius: "10px",
                               }}
                             >
-                              <img
-                                src={`${endpoint}/uploads/cases/solution/${item.image}`}
-                                alt={idx}
-                              />
+                              <img src={`${item.image}`} alt={idx} />
                               {item?.title && (
                                 <p className="x18_3">{item.title}</p>
                               )}

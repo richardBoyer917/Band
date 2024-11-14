@@ -25,7 +25,7 @@ export const getTopFactorys = async () => {
 
 export const insertFactory = async (formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post("/factorys", formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ export const insertFactory = async (formdata) => {
 
 export const updateFactory = async (id, formdata) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.post(`/factorys/${id}`, formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -59,7 +59,7 @@ export const updateFactory = async (id, formdata) => {
 
 export const deleteFactory = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await apiClient.delete(`/factorys/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,

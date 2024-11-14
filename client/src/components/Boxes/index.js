@@ -16,6 +16,8 @@ import { adminDirectoryInfo } from "../../constant/group";
 import { PermissionBadge } from "../Badges";
 import "../../styles/components/box.css";
 import { TitleAdminUserEdit } from "../Titles";
+import { logout } from "../../api/authAPI";
+import { changeEmail } from "../../api/adminAPI";
 
 const BigVideoBox = ({ item }) => {
   const videoRef = useRef(null);
@@ -56,7 +58,7 @@ const BigVideoBox = ({ item }) => {
           onPause={() => setIsPlaying(false)}
           src={item.src}
         >
-          {/* <source src={`${endpoint}/uploads/cases/${item.src}`} type="video/mp4" /> */}
+          {/* <source src={`${item.src}`} type="video/mp4" /> */}
         </video>
         {!isPlaying && (
           <img
@@ -168,17 +170,18 @@ const TabBox = ({ title }) => (
   <button className="caseEventTab itemCenter x14_1">{title}</button>
 );
 
-const AdminDataBox = ({ selData }) => {
+const AdminDataBox = ({ userInfo }) => {
+  const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
-  const [userData, setUserData] = useState({
-    firstName: "Иван",
-    lastName: "Иванов",
-    email: "ivanov@zavodshow.ru",
-    permission: [""],
-  });
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    setUserData(userInfo);
+  }, [userInfo]);
 
   const handleLogout = () => {
-    alert("logout");
+    logout().then(() => {
+      navigate("/");
+    });
   };
 
   const handleChange = (e) => {
@@ -186,7 +189,11 @@ const AdminDataBox = ({ selData }) => {
   };
 
   const handleSend = () => {
-    alert("Send your secrect number to " + userData.email);
+    changeEmail({ email: userData?.email }, userData?.id).then((data) => {
+      data
+        ? alert("Письмо отправлено на почту")
+        : alert("Ошибка отправки письма");
+    });
   };
 
   return (
@@ -200,19 +207,19 @@ const AdminDataBox = ({ selData }) => {
         <div className="alignCenter">
           <img src={adminUser} alt="adminUser" />
           <div>
-            {userData.permission.map((title, index) => (
-              <PermissionBadge key={index} title={title} />
-            ))}
+            {userData?.adding !== 0 && <PermissionBadge title="добавить" />}
+            {userData?.editing !== 0 && <PermissionBadge title="изменить" />}
+            {userData?.deleting !== 0 && <PermissionBadge title="удалить" />}
           </div>
         </div>
         <div className="adminInfoSquare">
           <p className="x20Font_1">
-            {userData.firstName}
+            {userData?.name}
             <br />
-            {userData.lastName}
+            {userData?.lastname}
           </p>
           <p className="adminCaptionTitle" style={{ paddingTop: "5px" }}>
-            {selData ? "Пользователь" : "Суперадминистратор"}
+            {userData?.role === "user" ? "Пользователь" : "Суперадминистратор"}
           </p>
         </div>
         <div>
@@ -242,7 +249,7 @@ const AdminDataBox = ({ selData }) => {
               background: "transparent",
             }}
             onChange={handleChange}
-            value={userData.email || ""}
+            value={userData?.email || ""}
             disabled={!disabled}
           />
           <TabButton1

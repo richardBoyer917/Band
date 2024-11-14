@@ -21,24 +21,16 @@ const EquipmentTopPage = ({ equipment }) => {
           <div className="equipmentGallery chichaShow">
             {equipment.images && equipment.images.length > 0 && (
               <>
-                <BigEquipmentImageCard
-                  url={`${endpoint}/uploads/equipment/${equipment.images[1]}`}
-                />
-                <BigEquipmentImageCard
-                  url={`${endpoint}/uploads/equipment/${equipment.images[1]}`}
-                />
+                <BigEquipmentImageCard url={`${equipment.images[1]}`} />
+                <BigEquipmentImageCard url={`${equipment.images[1]}`} />
               </>
             )}
             <div className="equipmentSmallImage" style={{ gap: "17px" }}>
               {equipment.images && equipment.images.length > 1 && (
-                <SmallEquipmentImageCard
-                  url={`${endpoint}/uploads/equipment/${equipment.images[1]}`}
-                />
+                <SmallEquipmentImageCard url={`${equipment.images[1]}`} />
               )}
               {equipment.images && equipment.images.length > 2 && (
-                <SmallEquipmentImageCard
-                  url={`${endpoint}/uploads/equipment/${equipment.images[2]}`}
-                />
+                <SmallEquipmentImageCard url={`${equipment.images[2]}`} />
               )}
             </div>
           </div>
@@ -56,20 +48,14 @@ const EquipmentTopPage = ({ equipment }) => {
             <p className="x18Font_5">{equipment?.description}</p>
             <div className="equipmentGallery chichaHidden">
               {equipment.images && equipment.images.length > 0 && (
-                <BigEquipmentImageCard
-                  url={`${endpoint}/uploads/equipment/${equipment.images[1]}`}
-                />
+                <BigEquipmentImageCard url={`${equipment.images[1]}`} />
               )}
               <div className="equipmentSmallImage" style={{ gap: "17px" }}>
                 {equipment.images && equipment.images.length > 1 && (
-                  <SmallEquipmentImageCard
-                    url={`${endpoint}/uploads/equipment/${equipment.images[1]}`}
-                  />
+                  <SmallEquipmentImageCard url={`${equipment.images[1]}`} />
                 )}
                 {equipment.images && equipment.images.length > 2 && (
-                  <SmallEquipmentImageCard
-                    url={`${endpoint}/uploads/equipment/${equipment.images[2]}`}
-                  />
+                  <SmallEquipmentImageCard url={`${equipment.images[2]}`} />
                 )}
               </div>
             </div>
