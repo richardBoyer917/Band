@@ -32,7 +32,6 @@ class EquipmentController extends Controller
     public function insertEquipment(Request $request)
     {
         $data = $request->all();
-
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
                 $filePath[] = url('storage/' . $file->store('uploads/equipment', 'public'));

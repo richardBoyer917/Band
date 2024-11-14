@@ -25,7 +25,13 @@ export const getTopFactorys = async () => {
 
 export const insertFactory = async (formdata) => {
   try {
-    const response = await apiClient.post("/factorys", formdata);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post("/factorys", formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -36,8 +42,12 @@ export const insertFactory = async (formdata) => {
 
 export const updateFactory = async (id, formdata) => {
   try {
-    const response = await apiClient.put(`/factorys/${id}`, formdata, {
-      headers: { "Content-Type": "multipart/form-data" },
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post(`/factorys/${id}`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
@@ -47,9 +57,14 @@ export const updateFactory = async (id, formdata) => {
   }
 };
 
-export const deleteFactory = async (_id) => {
+export const deleteFactory = async (id) => {
   try {
-    const response = await apiClient.delete(`/factorys/${_id}`);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.delete(`/factorys/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;

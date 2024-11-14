@@ -171,7 +171,7 @@ const NewCase = () => {
         );
       } else if (key === "images") {
         formData[key].forEach((file) =>
-          newFormData.append("images", file.file)
+          newFormData.append("images[]", file.file)
         );
       } else if (key === "checkbox") {
         formData[key].forEach((item) => newFormData.append("checkbox[]", item));
@@ -182,7 +182,7 @@ const NewCase = () => {
       }
     });
     Data
-      ? updateCase(Data?._id, newFormData).then((data) => {
+      ? updateCase(Data?.id, newFormData).then((data) => {
           if (data && data.error) {
             console.log(data.error);
           } else {
@@ -248,8 +248,8 @@ const NewCase = () => {
           )}
 
           <Dropzone onChange={updateFiles} value={formData.images}>
-            {formData.images.map((file) => (
-              <FileMosaic {...file} preview />
+            {formData.images.map((file, index) => (
+              <FileMosaic key={index} {...file} preview />
             ))}
           </Dropzone>
 
@@ -442,7 +442,7 @@ const NewCase = () => {
                 {site?.map((item, index) => (
                   <FormControlLabel
                     key={index}
-                    value={item._id}
+                    value={item.id}
                     control={
                       <Radio
                         sx={{
@@ -456,7 +456,7 @@ const NewCase = () => {
                     label={
                       <div className="alignCenter">
                         <video
-                          src={`${endpoint}/uploads/site/${item.video}`}
+                          src={`${item.video}`}
                           alt={item.name}
                           style={{ width: 80, height: 80, marginRight: 8 }}
                           controls
@@ -482,8 +482,8 @@ const NewCase = () => {
                     key={index}
                     control={
                       <Checkbox
-                        checked={formData.equipment?.includes(item._id)}
-                        onChange={(e) => handleEquipmentChange(e, item._id)}
+                        checked={formData.equipment?.includes(item.id)}
+                        onChange={(e) => handleEquipmentChange(e, item.id)}
                         sx={{
                           "& .MuiSvgIcon-root": {
                             fontSize: "20px",
@@ -495,7 +495,7 @@ const NewCase = () => {
                     label={
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <img
-                          src={`${endpoint}/uploads/equipment/${item.images[0]}`}
+                          src={`${item.images[0]}`}
                           alt={item.name}
                           style={{ width: 40, height: 40, marginRight: 8 }}
                         />
@@ -523,7 +523,7 @@ const NewCase = () => {
                 {dData?.map((item, index) => (
                   <FormControlLabel
                     key={index}
-                    value={item._id}
+                    value={item.id}
                     control={
                       <Radio
                         sx={{
@@ -537,7 +537,7 @@ const NewCase = () => {
                     label={
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <video
-                          src={`${endpoint}/uploads/three_d/${item.video}`}
+                          src={`${item.video}`}
                           alt={index}
                           style={{ width: 80, height: 80, marginRight: 8 }}
                           controls

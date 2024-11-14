@@ -34,9 +34,9 @@ export default function CaseEventSwiper({ images }) {
         {images?.map((item, index) => (
           <SwiperSlide key={index} className="swiperAuto">
             <img
-              src={`${endpoint}/uploads/cases/${item}`}
+              src={`${item}`}
               style={{ cursor: "pointer" }}
-              onClick={() => handleClick(`${endpoint}/uploads/cases/${item}`)}
+              onClick={() => handleClick(`${item}`)}
               alt={index}
               className="eventImg"
             />

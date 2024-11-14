@@ -38,7 +38,7 @@ const UserList = ({ title, userListInfo }) => {
           <div key={index}>
             <img
               className="userListAvatar"
-              src={`${endpoint}/uploads/participant/${item.image}`}
+              src={`${item.image}`}
               style={{ borderRadius: "50%", objectFit: "cover" }}
               alt={item.image}
             />

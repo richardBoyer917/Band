@@ -138,7 +138,7 @@ const NewEquip = () => {
         formData[key].forEach((item) => newFormData.append("tags[]", item));
       } else if (key === "images") {
         formData[key].forEach((file) =>
-          newFormData.append("images", file.file)
+          newFormData.append("images[]", file.file)
         );
       } else if (key === "dimension") {
         newFormData.append("dimension", JSON.stringify(formData[key]));

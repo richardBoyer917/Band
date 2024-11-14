@@ -23,11 +23,11 @@ const SitePage = () => {
     <section className="wrapper">
       <div className="container">
         <TopSiteEventSection siteOne={siteOne} />
-        <BigCaseVideoBox src={`${endpoint}/uploads/site/${siteOne?.video}`} />
+        <BigCaseVideoBox src={`${siteOne?.video}`} />
         <UserBtnList />
         <EquipmentUsed
           title="На этой площадке проводились"
-          cases={siteOne?.cases}
+          cases={siteOne?.blogs}
         />
         <ContactSection title="Рассчитать cобытие на этой площадке" />
       </div>

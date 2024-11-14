@@ -107,13 +107,19 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
         case "startDate":
         case "venue":
         case "name":
-        case "equipment":
         case "series":
         case "categoryType":
           return {
             ...field,
             option: Array.from(new Set(data.map((item) => item[field.name]))),
           };
+        // case "equipment":
+        //   return {
+        //     ...field,
+        //     option: Array.from(
+        //       new Set(data.map((item) => item[field.name]).flat())
+        //     ),
+        //   };
         case "city":
           return {
             ...field,
@@ -126,6 +132,7 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
     setResult(data);
     setFieldData(newFieldInfo);
     setSliceData(data.slice(0, 8));
+    console.log("fieldData: ", fieldData);
   }, [data, fieldInfo]);
 
   const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -361,10 +368,10 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
             onClick={() => {
               navigate(
                 type === "case"
-                  ? `/case-one/${item?._id}`
+                  ? `/case-one/${item?.id}`
                   : type === "platform"
-                  ? `/site-one/${item?._id}`
-                  : `/equipment-one/${item?._id}`
+                  ? `/site-one/${item?.id}`
+                  : `/equipment-one/${item?.id}`
               );
             }}
           />

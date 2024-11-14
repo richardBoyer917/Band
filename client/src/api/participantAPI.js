@@ -14,7 +14,7 @@ export const getParticipant = async () => {
 export const getShowParticipant = async (num) => {
   try {
     const response = await apiClient.get(
-      `/showparticipant?participantNum=${num}`
+      `/participant/showparticipant?participantNum=${num}`
     );
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
@@ -27,7 +27,13 @@ export const getShowParticipant = async (num) => {
 
 export const insertParticipant = async (formdata) => {
   try {
-    const response = await apiClient.post("/participant", formdata);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post("/participant", formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -38,8 +44,12 @@ export const insertParticipant = async (formdata) => {
 
 export const updateParticipant = async (id, formdata) => {
   try {
-    const response = await apiClient.put(`/participant/${id}`, formdata, {
-      headers: { "Content-Type": "multipart/form-data" },
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post(`/participant/${id}`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
@@ -49,9 +59,14 @@ export const updateParticipant = async (id, formdata) => {
   }
 };
 
-export const deleteParticipant = async (_id) => {
+export const deleteParticipant = async (id) => {
   try {
-    const response = await apiClient.delete(`/participant/${_id}`);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.delete(`/participant/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 

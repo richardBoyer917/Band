@@ -25,27 +25,23 @@ const NewSite = () => {
     address: Data?.address || "",
     link_page: Data?.link_page || "",
     tags: Data?.tags || [],
+    type_equipment: Data?.type_equipment || [],
     queue: Data?.queue || 0,
   });
 
   const inputinfo = [
     {
-      title: "Название",
+      title: "ФИО",
       name: "name",
       type: "text",
-      placeholder: "ВХОДНАЯ Название",
+      placeholder: "ВХОДНАЯ ФИО",
     },
     {
-      title: "ТИП ",
+      title: "ТИП",
       name: "type",
       type: "text",
       placeholder: "ВХОДНАЯ ТИП",
-      option: [
-        "Рестораны",
-        "Конференц-залы",
-        "Загородные площадки",
-        "Концертные залы",
-      ],
+      option: ["ресторан", "конц. зал", "клуб", "Банкетный зал"],
     },
     {
       title: "ЕМКОСТЬ",

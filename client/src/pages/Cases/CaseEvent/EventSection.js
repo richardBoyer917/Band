@@ -35,7 +35,7 @@ const EventSection = ({ dData }) => {
           <ChichaBoxVideoCard
             width="clamp(240px, 46vw, 700px)"
             height="clamp(154px, 30vw, 410px)"
-            video={`${endpoint}/uploads/three_d/${dData?.video}`}
+            video={`${dData?.video}`}
             onClick={handleOpen}
           />
           <p

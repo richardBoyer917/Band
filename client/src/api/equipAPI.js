@@ -28,7 +28,13 @@ export const getEquipsByType = async (equipmentType) => {
 
 export const insertEquip = async (formdata) => {
   try {
-    const response = await apiClient.post("/equipments", formdata);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post("/equipments", formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
 
@@ -40,8 +46,12 @@ export const insertEquip = async (formdata) => {
 
 export const updateEquip = async (id, formdata) => {
   try {
-    const response = await apiClient.put(`/equipments/${id}`, formdata, {
-      headers: { "Content-Type": "multipart/form-data" },
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post(`/equipments/${id}`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
@@ -52,12 +62,17 @@ export const updateEquip = async (id, formdata) => {
   }
 };
 
-export const deleteEquip = async (_id) => {
+export const deleteEquip = async (id) => {
   try {
-    const response = await apiClient.delete(`/equipments/${_id}`);
-    if (response.status !== 200)
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.delete(`/equipments/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
-
+    }
     return response.data;
   } catch (err) {
     handleError("Error deleting equipment:", err);

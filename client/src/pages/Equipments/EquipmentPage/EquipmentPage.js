@@ -21,7 +21,7 @@ const EquipmentPage = () => {
         <EquipmentTopPage equipment={equipment} />
         <EquipmentUsed
           title="Это оборудование использовалось"
-          cases={equipment?.cases}
+          cases={equipment?.blogs}
         />
         <ContactSection title="Узнать об аренде оборудования" />
       </div>

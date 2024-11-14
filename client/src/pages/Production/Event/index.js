@@ -46,7 +46,7 @@ const Event = () => {
           item={{
             titleCenter: false,
             title: "Видео с мероприятия",
-            src: `${endpoint}/uploads/cases/${caseData?.video}`,
+            src: `${caseData?.video}`,
             videoTitle: caseData?.venue,
             videoDescription: caseData?.name,
           }}

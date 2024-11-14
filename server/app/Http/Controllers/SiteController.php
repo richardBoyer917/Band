@@ -33,7 +33,7 @@ class SiteController extends Controller
         $data = $request->all();
         $data['video'] = $request->file('video')? url('storage/' . $request->file('video')->store('uploads/site','public')):'';
         try {
-            $site = Site::createSite($data);
+            $site = Site::create($data);
             return response()->json(['message' => 'Successfully saved!'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error saving data'], 400);
@@ -49,7 +49,7 @@ class SiteController extends Controller
                 ? url('storage/' . $request->file('video')->store('uploads/site', 'public')) // Adjust path as needed
                 : $site->video;
 
-                if ($site->video) {
+                if ($request->file('video')) {
                     \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $site->video));
                 }
             $site->update($data);

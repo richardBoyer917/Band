@@ -34,7 +34,6 @@ class AdminAuthController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'An error occurred during login',
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -64,13 +63,10 @@ class AdminAuthController extends Controller
                 'deleting' => $validatedData['deleting'],
             ]);
 
-            $token = $admin->createToken('AdminAccess')->plainTextToken;
-
             Mail::to($admin->email)->send(new AdminPasswordMail($admin, $generatedPassword));
 
             return response()->json([
                 'message' => 'Registration successful',
-                'token' => $token,
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
@@ -173,20 +169,13 @@ class AdminAuthController extends Controller
     public function updateEmail(Request $request)
     {
         $user = Auth::user();
-        return response()->json(['message' => $user], 200);
         $request->validate(['email' => 'required|email|unique:users,email,' . $user->id]);
         $user->email = $request->email;
+        $generatedPassword = Str::random(8);
+        $user->password = Hash::make($generatedPassword);
+        Mail::to($user->email)->send(new AdminPasswordMail($user, $generatedPassword));
         $user->save();
 
         return response()->json(['message' => 'Email updated successfully'], 200);
-    }
-
-    public function sendPasswordByEmail()
-    {
-        $user = Auth::user();
-        $password = decrypt($user->password); // Ensure proper encryption
-        Mail::to($user->email)->send(new AdminPasswordMail($user,$password));
-
-        return response()->json(['message' => 'Password sent to email'], 200);
     }
 }

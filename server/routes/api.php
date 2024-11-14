@@ -21,28 +21,27 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('admin')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('admin')->middleware('throttle:5000,1')->group(function () {
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->middleware('auth:sanctum');
     Route::get('/{id}', [AdminAuthController::class, 'show']);
 });
-Route::prefix('admin')->middleware(['auth:sanctum','super_admin','throttle:2000,1'])->group(function () {
+Route::prefix('admin')->middleware(['auth:sanctum','super_admin','throttle:5000,1'])->group(function () {
     Route::post('/register', [AdminAuthController::class, 'register']);
     Route::get('/', [AdminAuthController::class, 'index']);
     Route::post('/{id}', [AdminAuthController::class, 'update']);
     Route::delete('/{id}', [AdminAuthController::class, 'destroy']);
     Route::post('/{id}/change-email', [AdminAuthController::class, 'updateEmail'])->name('user.change-email');
-    Route::post('/{id}/send-password-email', [AdminAuthController::class, 'sendPasswordByEmail'])->name('user.send-password-email');
 });
 
 //Blogs Routes
-Route::prefix('blogs')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('blogs')->middleware('throttle:5000,1')->group(function () {
     Route::get('/', [BlogController::class, 'getBlogs']);
     Route::get('/checkbox', [BlogController::class, 'getBlogsWithCheckbox']);
     Route::get('/type', [BlogController::class, 'getBlogByType']);
     Route::get('/{id}', [BlogController::class, 'getBlogByID']);
 });
-Route::prefix('blogs')->middleware(['auth:sanctum','throttle:2000,1'])->group(function () {
+Route::prefix('blogs')->middleware(['auth:sanctum','throttle:5000,1'])->group(function () {
     Route::post('/',[BlogController::class,'insertBlog'])->middleware('admin:adding');
     Route::post('/solution',[BlogController::class,'insertSolution'])->middleware('admin:adding');
     Route::delete('/{id}', [BlogController::class, 'deleteBlog'])->middleware('admin:deleting');
@@ -50,12 +49,12 @@ Route::prefix('blogs')->middleware(['auth:sanctum','throttle:2000,1'])->group(fu
 });
 
 // Sites Routes
-Route::prefix('sites')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('sites')->middleware('throttle:5000,1')->group(function () {
     Route::get('/', [SiteController::class, 'index']);
     Route::get('/six', [SiteController::class, 'getSixSites']);
     Route::get('/{id}', [SiteController::class, 'show']);
 });
-Route::prefix('sites')->middleware(['auth:sanctum','throttle:2000,1'])->group(function () {
+Route::prefix('sites')->middleware(['auth:sanctum','throttle:5000,1'])->group(function () {
     Route::post('/',[SiteController::class,'store'])->middleware('admin:adding');
     Route::delete('/{id}', [SiteController::class, 'destroy'])->middleware('admin:deleting');
     Route::post('/{id}', [SiteController::class, 'update'])->middleware('admin:editing');
@@ -63,12 +62,12 @@ Route::prefix('sites')->middleware(['auth:sanctum','throttle:2000,1'])->group(fu
 
 
 // Equipments Routes
-Route::prefix('equipments')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('equipments')->middleware('throttle:5000,1')->group(function () {
     Route::get('/', [EquipmentController::class, 'getEquipments']);
     Route::get('/type', [EquipmentController::class, 'getEquipmentsByType']);
     Route::get('/{id}', [EquipmentController::class, 'getEquipmentByID']);
 });
-Route::prefix('equipments')->middleware(['auth:sanctum','throttle:2000,1'])->group(function () {
+Route::prefix('equipments')->middleware(['auth:sanctum','throttle:5000,1'])->group(function () {
     Route::post('/',[EquipmentController::class,'insertEquipment'])->middleware('admin:adding');
     Route::delete('/{id}', [EquipmentController::class, 'deleteEquipment'])->middleware('admin:deleting');
     Route::post('/{id}', [EquipmentController::class, 'updateEquipment'])->middleware('admin:editing');
@@ -76,12 +75,12 @@ Route::prefix('equipments')->middleware(['auth:sanctum','throttle:2000,1'])->gro
 
 
 // Reviews Routes
-Route::prefix('reviews')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('reviews')->middleware('throttle:5000,1')->group(function () {
     Route::get('/', [ReviewController::class, 'getReviews']);
     Route::get('/reviewsBytype', [ReviewController::class, 'getReviewsBytype']);
     Route::get('/{id}', [ReviewController::class, 'getReviewByID']);
 });
-Route::prefix('reviews')->middleware(['auth:sanctum','throttle:2000,1'])->group(function () {
+Route::prefix('reviews')->middleware(['auth:sanctum','throttle:5000,1'])->group(function () {
     Route::post('/',[ReviewController::class,'createReview'])->middleware('admin:adding');
     Route::delete('/{id}', [ReviewController::class, 'deleteReview'])->middleware('admin:deleting');
     Route::post('/{id}', [ReviewController::class, 'updateReview'])->middleware('admin:editing');
@@ -89,12 +88,12 @@ Route::prefix('reviews')->middleware(['auth:sanctum','throttle:2000,1'])->group(
 
 
 // Factories Routes
-Route::prefix('factorys')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('factorys')->middleware('throttle:5000,1')->group(function () {
     Route::get('/', [FactoryController::class, 'index']);
     Route::get('/top', [FactoryController::class, 'top']);
     Route::get('/{id}', [FactoryController::class, 'show']);
 });
-Route::prefix('factorys')->middleware(['auth:sanctum','throttle:2000,1'])->group(function () {
+Route::prefix('factorys')->middleware(['auth:sanctum','throttle:5000,1'])->group(function () {
     Route::post('/',[FactoryController::class,'store'])->middleware('admin:adding');
     Route::post('/{id}', [FactoryController::class, 'update'])->middleware('admin:editing');
     Route::delete('/{id}', [FactoryController::class, 'destroy'])->middleware('admin:deleting');
@@ -102,11 +101,11 @@ Route::prefix('factorys')->middleware(['auth:sanctum','throttle:2000,1'])->group
 
 
 // Threes Routes
-Route::prefix('threes')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('threes')->middleware('throttle:5000,1')->group(function () {
     Route::get('/', [ThreeController::class, 'index']);
     Route::get('/{id}', [ThreeController::class, 'show']);
 });
-Route::prefix('threes')->middleware(['auth:sanctum','throttle:2000,1'])->group(function () {
+Route::prefix('threes')->middleware(['auth:sanctum','throttle:5000,1'])->group(function () {
     Route::post('/',[ThreeController::class,'store'])->middleware('admin:adding');
     Route::post('/{id}', [ThreeController::class, 'update'])->middleware('admin:editing');
     Route::delete('/{id}', [ThreeController::class, 'destroy'])->middleware('admin:deleting');
@@ -114,12 +113,12 @@ Route::prefix('threes')->middleware(['auth:sanctum','throttle:2000,1'])->group(f
 
 
 // Participant Routes
-Route::prefix('participant')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('participant')->middleware('throttle:5000,1')->group(function () {
     Route::get('/', [ParticipantController::class, 'index']);
     Route::get('/showparticipant', [ParticipantController::class, 'indexNum']);
     Route::get('/{id}', [ParticipantController::class, 'show']);
 });
-Route::prefix('participant')->middleware(['auth:sanctum','throttle:2000,1'])->group(function () {
+Route::prefix('participant')->middleware(['auth:sanctum','throttle:5000,1'])->group(function () {
     Route::post('/',[ParticipantController::class,'store'])->middleware('admin:adding');
     Route::post('/{id}', [ParticipantController::class, 'update'])->middleware('admin:editing');
     Route::delete('/{id}', [ParticipantController::class, 'destroy'])->middleware('admin:deleting');
@@ -127,26 +126,26 @@ Route::prefix('participant')->middleware(['auth:sanctum','throttle:2000,1'])->gr
 
 
 // Rental Routes
-Route::prefix('rental')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('rental')->middleware('throttle:5000,1')->group(function () {
     Route::get('/', [RentalController::class, 'index']);
     Route::get('/{id}', [RentalController::class, 'show']);
 });
-Route::prefix('rental')->middleware(['auth:sanctum','throttle:2000,1'])->group(function () {
+Route::prefix('rental')->middleware(['auth:sanctum','throttle:5000,1'])->group(function () {
     Route::post('/',[RentalController::class,'store'])->middleware('admin:adding');
 });
 
 
 // Team Routes
-Route::prefix('team')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('team')->middleware('throttle:5000,1')->group(function () {
     Route::get('/', [TeamController::class, 'getTeam']);
 });
-Route::prefix('team')->middleware(['auth:sanctum','throttle:2000,1'])->group(function () {
+Route::prefix('team')->middleware(['auth:sanctum','throttle:5000,1'])->group(function () {
     Route::post('/', [TeamController::class, 'createOrUpdateTeam'])->middleware('admin:editing');
 });
 
 // Send Email
-Route::prefix('sendEmail')->middleware('throttle:2000,1')->group(function () {
+Route::prefix('sendEmail')->middleware('throttle:5000,1')->group(function () {
     Route::post('/', [ContactController::class, 'sendEmail']);
 });
 
-// ['auth:sanctum','admin','throttle:2000,1']
+// ['auth:sanctum','admin','throttle:5000,1']

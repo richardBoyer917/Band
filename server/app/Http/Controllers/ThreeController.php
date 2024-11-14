@@ -46,13 +46,12 @@ class ThreeController extends Controller
     {
         try {
             $three = Three::findOrFail($id);
-
             $data = $request->all();
             $data['video'] = $request->file('video')
                 ? url('storage/' . $request->file('video')->store('uploads/three', 'public')) // Adjust path as needed
                 : $three->video;
 
-                if ($three->video) {
+                if ($request->file('video')) {
                     \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $three->video));
                 }
             $three->update($data);

@@ -36,6 +36,7 @@ const AdminPageWrapper = ({ content }) => {
 
 const AdminSection = ({
   id,
+  adding,
   title,
   columns,
   data,
@@ -43,33 +44,6 @@ const AdminSection = ({
   handle,
   handleNewCreate,
 }) => {
-  const [rental, setRental] = useState({ cost: "", files: [] });
-  useEffect(() => {
-    getRental().then((data) => {
-      setRental(data);
-    });
-  }, []);
-
-  const handleFileChange = (e, index) => {
-    const file = e.target.files[0];
-    // setRental((prevState) => ({ ...prevState, files: { ...prevState.files, [index]: file, } }));
-    setRental((prevState) => {
-      const updatedFiles = [...prevState.files];
-      updatedFiles[index] = file;
-      return {
-        ...prevState,
-        files: updatedFiles,
-      };
-    });
-  };
-
-  const inputinfo = {
-    title: "Стоимость аренды",
-    name: "cost",
-    type: "text",
-    placeholder: "Введите Стоимость аренды",
-  };
-
   const bestCaseInfo = [
     { title: "Главная", galleryType: "Home" },
     { title: "События", galleryType: "Events" },
@@ -79,28 +53,6 @@ const AdminSection = ({
     { title: "Видео", galleryType: "Video" },
     { title: "Одежда сцены", galleryType: "Stage" },
   ];
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setRental({ ...rental, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let newFormData = new FormData();
-    Object.keys(rental).forEach((key) => {
-      if (key === "files") {
-        rental[key].forEach((file) => newFormData.append("files", file));
-      } else {
-        newFormData.append(key, rental[key]);
-      }
-    });
-    insertRental(newFormData).then((data) => {
-      console.log("data", data);
-    });
-  };
-
-  const fileList = ["3D-макеты сцены", "Тех.райдер площадки", " Архив фото"];
 
   return (
     <ChichaBox
@@ -126,58 +78,154 @@ const AdminSection = ({
           </div>
 
           <DataTable id={id} columns={columns} data={data} />
-          {id === "bestCase" ? (
-            <div className="spaceBetween">
-              <div className="alignCenter">
-                <BlackButton
-                  onClick={handleNewCreate}
-                  title={`Новый ${title}`}
-                />
-                <span style={{ marginLeft: "25px" }}>
-                  Можно добавить еще {9 - data.length} кейса
+          {adding !== 0 &&
+            (id === "bestCase" ? (
+              <div className="spaceBetween">
+                <div className="alignCenter">
+                  <BlackButton
+                    onClick={handleNewCreate}
+                    title={`Новый ${title}`}
+                  />
+                  <span style={{ marginLeft: "25px" }}>
+                    Можно добавить еще {9 - data.length} кейса
+                  </span>
+                </div>
+                <span style={{ paddingRight: "10px" }}>
+                  <b>На странице:</b> {data.length} кейсов
                 </span>
               </div>
-              <span style={{ paddingRight: "10px" }}>
-                <b>На странице:</b> {data.length} кейсов
-              </span>
-            </div>
-          ) : (
-            <BlackButton onClick={handleNewCreate} title={`Новый ${title}`} />
-          )}
+            ) : (
+              <BlackButton onClick={handleNewCreate} title={`Новый ${title}`} />
+            ))}
+        </Box>
+      }
+    />
+  );
+};
 
-          {title === "Репетиционная база" && (
-            <form
-              onSubmit={handleSubmit}
-              style={{ gap: "18px" }}
-              className="itemCenter"
+const AdminSection1 = ({
+  adding,
+  title,
+  columns,
+  data,
+  handle,
+  handleNewCreate,
+  id,
+}) => {
+  const [rental, setRental] = useState({ cost: "", files: [] });
+
+  useEffect(() => {
+    getRental()
+      .then((data) => {
+        if (data) {
+          setRental(data);
+        } else {
+          setRental({ cost: "", files: [] });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching rental data: ", error);
+        setRental({ cost: "", files: [] });
+      });
+  }, []);
+
+  const handleFileChange = (e, index) => {
+    const file = e.target.files[0];
+    setRental((prevState) => {
+      const updatedFiles = [...(prevState.files || [])]; // Ensure files is always an array
+      updatedFiles[index] = file;
+      return {
+        ...prevState,
+        files: updatedFiles,
+      };
+    });
+  };
+
+  const inputinfo = {
+    title: "Стоимость аренды",
+    name: "cost",
+    type: "text",
+    placeholder: "Введите Стоимость аренды",
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRental({ ...rental, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let newFormData = new FormData();
+    Object.keys(rental).forEach((key) => {
+      if (key === "files") {
+        rental[key].forEach((file) => newFormData.append("files[]", file));
+      } else {
+        newFormData.append(key, rental[key]);
+      }
+    });
+    insertRental(newFormData).then((data) => {
+      console.log("data", data);
+    });
+  };
+
+  const fileList = ["3D-макеты сцены", "Тех.райдер площадки", "Архив фото"];
+
+  return (
+    <ChichaBox
+      content={
+        <Box id={id}>
+          <div className="sectionHeader">
+            <p
+              className="sectionTitle"
+              style={{ color: `var(--primaryBgColor)` }}
             >
-              <div style={{ gap: "10px" }} className="itemCenter">
-                <p className="x16">{inputinfo.title}:</p>
-                <Input
-                  value={rental.cost}
-                  item={inputinfo}
-                  handleChange={handleChange}
-                />
-              </div>
-              <div style={{ display: "flex", gap: "10px" }}>
-                {fileList.map((item, index) => (
-                  <div key={index}>
-                    <TabButton
-                      icon={darkAdd}
-                      title={item}
-                      onChange={(e) => handleFileChange(e, index)}
-                    />
-                    {rental.files[index] && (
-                      <Typography>
-                        {" "}
-                        Выбранный файл: {rental.files[index].name}
-                      </Typography>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <OutLinedButton type="submit" title="Применять" />
-            </form>
+              {title}
+            </p>
+          </div>
+          <DataTable columns={columns} data={data} />
+          {adding !== 0 && (
+            <BlackButton title={`Новый ${title}`} onClick={handleNewCreate}>
+              Новый {title}
+            </BlackButton>
+          )}
+          {title === "Репетиционная база" && (
+            <div>
+              <form
+                onSubmit={handleSubmit}
+                style={{ display: "flex", gap: "18px" }}
+                className="itemCenter"
+              >
+                <div
+                  style={{ display: "flex", gap: "10px" }}
+                  className="itemCenter"
+                >
+                  <p className="x16">{inputinfo.title}:</p>
+                  <Input
+                    value={rental.cost}
+                    item={inputinfo}
+                    handleChange={handleChange}
+                  />
+                </div>
+                <div style={{ display: "flex", gap: "10px" }}>
+                  {fileList.map((item, index) => (
+                    <div key={index}>
+                      <TabButton
+                        icon={darkAdd}
+                        title={item}
+                        onChange={(e) => handleFileChange(e, index)}
+                      />
+                      {rental.files && rental.files[index] && (
+                        <Typography>
+                          {" "}
+                          Выбранный файл: {rental.files[index].name}
+                        </Typography>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <OutLinedButton type="submit" title="Применять" />
+              </form>
+            </div>
           )}
         </Box>
       }
@@ -221,4 +269,4 @@ const CreatePageWrapper = ({ title, content, handleSubmit }) => {
   );
 };
 
-export { AdminPageWrapper, AdminSection, CreatePageWrapper };
+export { AdminPageWrapper, AdminSection, AdminSection1, CreatePageWrapper };

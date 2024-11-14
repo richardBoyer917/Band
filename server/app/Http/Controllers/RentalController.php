@@ -28,7 +28,7 @@ class RentalController extends Controller
     {
         $request->validate([
             'cost' => 'nullable|string|max:255',
-            'files.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx',
+            'files.*' => 'nullable|file',
         ]);
 
         $rental = Rental::first();

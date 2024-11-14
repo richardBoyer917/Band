@@ -12,6 +12,7 @@ const TeamPage = () => {
 
   useEffect(() => {
     getTeam().then((data) => {
+      console.log("team:", data);
       data && setData(data);
     });
   }, []);
