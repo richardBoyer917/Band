@@ -7,7 +7,6 @@ import { WhiteBox } from "../../../components/WhiteBox/WhiteBox";
 
 import { ArrowBlackButton } from "../../../components/Buttons";
 import { eventVideo } from "../../../assets";
-import endpoint from "../../../config/config";
 import VideoPreview from "../../../components/Cards/UserCard/Preview/VideoPreview";
 
 const EventSection = ({ dData }) => {

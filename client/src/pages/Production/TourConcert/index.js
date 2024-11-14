@@ -9,7 +9,6 @@ import GallerySection from "../../Home/GallerySection";
 import PendingSection from "../../Home/PendingSection";
 import WorkProcess from "../../Services/Visualization/WorkProcess";
 import { getCasesByType } from "../../../api/caseAPI";
-import endpoint from "../../../config/config";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const TourConcert = () => {

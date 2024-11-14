@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { gallery } from "../../constant/group";
 import { ArrowDefaultButton } from "../../components/Buttons";
 import { getCasesWithCheckbox } from "../../api/caseAPI";
-import endpoint from "../../config/config";
 import { useNavigate } from "react-router-dom";
 
 const GallerySection = ({ title, galleryType }) => {

@@ -107,12 +107,18 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
         case "startDate":
         case "venue":
         case "name":
-        case "equipment":
         case "series":
         case "categoryType":
           return {
             ...field,
             option: Array.from(new Set(data.map((item) => item[field.name]))),
+          };
+        case "equipment":
+          return {
+            ...field,
+            option: Array.from(
+              new Set(data.map((item) => item.equipment_names).flat())
+            ),
           };
         case "city":
           return {
@@ -178,11 +184,10 @@ const DetailSection = ({ type, data, progress, fieldInfo, checkText }) => {
             city.toUpperCase().includes(searchData.city.toUpperCase())
           )) &&
         (!searchData.equipment ||
-          item.equipment
-            .toUpperCase()
-            .includes(searchData.equipment.toUpperCase())) &&
-        (!searchData.name ||
-          item.name.toUpperCase().includes(searchData.name.toUpperCase())) &&
+          item.equipment_names.some((equipment) =>
+            equipment.toUpperCase().includes(searchData.equipment.toUpperCase())
+          )) &&
+        (!searchData.name || item.name.includes(searchData.name)) &&
         (!searchData.visualization || item.tags.includes("3D")) &&
         (!searchData.generator || item.generator === searchData.generator) &&
         (!searchData.capacity || item.capacity >= searchData.capacity) &&

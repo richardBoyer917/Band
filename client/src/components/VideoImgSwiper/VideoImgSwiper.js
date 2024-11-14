@@ -3,7 +3,6 @@ import { whitePlay } from "../../assets";
 import { UserCardNumber } from "../Badges";
 import { ArrowBlackButton, Banquet } from "../Buttons";
 import VideoPreview from "../Cards/UserCard/Preview/VideoPreview";
-import endpoint from "../../config/config";
 import { useNavigate } from "react-router-dom";
 
 const VideoImgSwiper = ({ item }) => {

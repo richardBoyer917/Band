@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowDefaultButton, Banquet } from "../../../components/Buttons";
 import { getEquipsByType } from "../../../api/equipAPI";
-import endpoint from "../../../config/config";
 import { useNavigate } from "react-router-dom";
 
 const EquipmentCategorySection = ({ type }) => {

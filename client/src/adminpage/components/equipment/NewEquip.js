@@ -174,7 +174,7 @@ const NewEquip = () => {
     });
 
     Data
-      ? updateEquip(Data?.id, newFormData).then((data) => {
+      ? updateEquip(Data?._id, newFormData).then((data) => {
           if (data && data.error) {
             console.log(data.error);
           } else {
@@ -285,8 +285,8 @@ const NewEquip = () => {
             />
           </Box>
           <Dropzone onChange={updateFiles} value={formData.images}>
-            {formData.images.map((file, index) => (
-              <FileMosaic key={index} {...file} preview />
+            {formData.images.map((file) => (
+              <FileMosaic {...file} preview />
             ))}
           </Dropzone>
         </>

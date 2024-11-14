@@ -17,7 +17,6 @@ import "react-datepicker/dist/react-datepicker.module.css";
 import { insertCase, updateCase } from "../../../api/caseAPI";
 import { getSite } from "../../../api/siteAPI";
 import { getEquips } from "../../../api/equipAPI";
-import endpoint from "../../../config/config";
 import MultipleValueTextInput from "react-multivalue-text-input";
 import { Dropzone, FileMosaic } from "@files-ui/react";
 import { getThrees } from "../../../api/threeAPI";

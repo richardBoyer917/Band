@@ -50,6 +50,7 @@ const NewHeader = ({ setIsAdminPage }) => {
 
   const handleLogout = () => {
     logout().then(() => {
+      setIsAdminPage(false);
       navigate("/");
     });
   };
@@ -90,80 +91,86 @@ const NewHeader = ({ setIsAdminPage }) => {
   }, [location.pathname]);
 
   return (
-    <HeaderWrapper
-      content={
-        <>
-          <div
-            className={`spaceBetween topHeader ${isShrunk ? "scrolled" : ""}`}
-          >
-            <div className="alignCenter">
-              <img
-                onClick={() => {
-                  setIsAdminPage(false);
-                  navigate("/");
-                }}
-                src={logo}
-                alt="Company Logo"
-                style={{ cursor: "pointer", width: "98px" }}
-              />
-              <div className="adminHeaderLink">
-                <RouterLink to="/admin">Страница администратора</RouterLink>
-                {(addLink.link === "create" || addLink.link === "edit") && (
-                  <>
-                    <span>&nbsp;&nbsp; / &nbsp;&nbsp;</span>
-                    <RouterLink to="/admin/setting">
-                      Настройки аккаунта
-                    </RouterLink>
-                  </>
-                )}
-                {addLink.link !== "" && (
-                  <>
-                    <span>&nbsp;&nbsp; / &nbsp;&nbsp;</span>
-                    <RouterLink to={`/admin/${addLink.link}`}>
-                      {addLink.title}
-                    </RouterLink>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="requestBtn alignCenter" style={{ gap: "15px" }}>
-              <div className="adminHeaderLink">
-                <span style={{ fontSize: "12px" }}>
-                  {userInfo.name} {userInfo.lastname}
-                </span>
-              </div>
-              <img
-                className="headerAvatar"
-                src={adminUser}
-                alt="Admin User Avatar"
-              />
-              <DefaultButton onClick={handleSetting} title="настройки" />
-              <img
-                src={lightLogout}
-                alt="Logout Icon"
-                onClick={handleLogout}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-          </div>
-          <hr />
-          {addLink.smallLink && (
-            <div className="container">
-              <div className="adminHeaderScrollLink">
-                {addLink.smallLink.map((item, index) => (
-                  <ScrollSpyButton
-                    key={index}
-                    to={item.link}
-                    content={item.title}
+    <>
+      {userInfo.name && (
+        <HeaderWrapper
+          content={
+            <>
+              <div
+                className={`spaceBetween topHeader ${
+                  isShrunk ? "scrolled" : ""
+                }`}
+              >
+                <div className="alignCenter">
+                  <img
+                    onClick={() => {
+                      setIsAdminPage(false);
+                      navigate("/");
+                    }}
+                    src={logo}
+                    alt="Company Logo"
+                    style={{ cursor: "pointer", width: "98px" }}
                   />
-                ))}
+                  <div className="adminHeaderLink">
+                    <RouterLink to="/admin">Страница администратора</RouterLink>
+                    {(addLink.link === "create" || addLink.link === "edit") && (
+                      <>
+                        <span>&nbsp;&nbsp; / &nbsp;&nbsp;</span>
+                        <RouterLink to="/admin/setting">
+                          Настройки аккаунта
+                        </RouterLink>
+                      </>
+                    )}
+                    {addLink.link !== "" && (
+                      <>
+                        <span>&nbsp;&nbsp; / &nbsp;&nbsp;</span>
+                        <RouterLink to={`/admin/${addLink.link}`}>
+                          {addLink.title}
+                        </RouterLink>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div className="requestBtn alignCenter" style={{ gap: "15px" }}>
+                  <div className="adminHeaderLink">
+                    <span style={{ fontSize: "12px" }}>
+                      {userInfo.name} {userInfo.lastname}
+                    </span>
+                  </div>
+                  <img
+                    className="headerAvatar"
+                    src={adminUser}
+                    alt="Admin User Avatar"
+                  />
+                  <DefaultButton onClick={handleSetting} title="настройки" />
+                  <img
+                    src={lightLogout}
+                    alt="Logout Icon"
+                    onClick={handleLogout}
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
               </div>
-            </div>
-          )}
-          {isShrunk && <hr />}
-        </>
-      }
-    />
+              <hr />
+              {addLink.smallLink && (
+                <div className="container">
+                  <div className="adminHeaderScrollLink">
+                    {addLink.smallLink.map((item, index) => (
+                      <ScrollSpyButton
+                        key={index}
+                        to={item.link}
+                        content={item.title}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+              {isShrunk && <hr />}
+            </>
+          }
+        />
+      )}
+    </>
   );
 };
 

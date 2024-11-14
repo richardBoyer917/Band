@@ -1,6 +1,5 @@
 import { getCasesWithCheckbox } from "../../../api/caseAPI";
 import { useEffect, useState } from "react";
-import endpoint from "../../../config/config";
 import { useNavigate } from "react-router-dom";
 
 const ExampleCase = () => {

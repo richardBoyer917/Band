@@ -7,7 +7,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { leftArrow, rightArrow } from "../../../assets";
-import endpoint from "../../../config/config";
 import CustomerModal from "../../../components/Modals";
 
 export default function CaseEventSwiper({ images }) {

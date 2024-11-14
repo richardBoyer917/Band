@@ -7,7 +7,6 @@ import CristalRoom from "./CristalRoom";
 import CaseCards from "./caseCards";
 import EventSection from "./EventSection";
 import { getCaseById } from "../../../api/caseAPI";
-import endpoint from "../../../config/config";
 import ChichaSmallBox from "../../../components/ChichaSmallBox";
 import EquipmentUsed from "./EquipmentUsed";
 import ContactSection from "../../Home/ContactSection";

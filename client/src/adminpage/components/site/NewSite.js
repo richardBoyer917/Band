@@ -129,7 +129,7 @@ const NewSite = () => {
     });
 
     Data
-      ? updateSite(Data.id, newFormData).then((data) => {
+      ? updateSite(Data._id, newFormData).then((data) => {
           if (data && data.error) {
             console.log(data.error);
           } else {
@@ -185,7 +185,7 @@ const NewSite = () => {
           )}
 
           <Box sx={{ width: "100%" }}>
-            <Typography variant="h6">Теги вместимости</Typography>
+            <Typography variant="h6">Event Cases CheckBox</Typography>
             <Autocomplete
               multiple
               id="tags-outlined"

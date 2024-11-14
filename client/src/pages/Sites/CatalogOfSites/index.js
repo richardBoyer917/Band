@@ -18,8 +18,8 @@ const CatalogOfSites = ({ progress, type, catalogInfo }) => {
     const filtered = sites.filter(
       (item) =>
         item.type.toLowerCase().includes(value) ||
-        item.address.toLowerCase().includes(value)
-      // item.cities.some((city) => city.toLowerCase().includes(value))
+        item.address.toLowerCase().includes(value) ||
+        item.cities.some((city) => city.toLowerCase().includes(value))
     );
     setFilteredData(filtered);
   };

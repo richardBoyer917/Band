@@ -1,6 +1,5 @@
 import { DefaultButton } from "../../../components/Buttons";
 import { useEffect, useState } from "react";
-import endpoint from "../../../config/config";
 
 const UserList = ({ title, userListInfo }) => {
   const [users, setUsers] = useState([]);

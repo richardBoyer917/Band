@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowDefaultButton, Banquet } from "../../../components/Buttons";
-import endpoint from "../../../config/config";
 
 const EquipmentUsed = ({ equipment }) => {
   const navigate = useNavigate();
