@@ -12,11 +12,16 @@ import { deleteParticipant, getParticipant } from "../../api/participantAPI";
 import { getTeam } from "../../api/teamAPI";
 import FormDialog from "../../components/Modal";
 import { AdminDataBox } from "../../components/Boxes";
-import {
-  DataTableActionCard,
-  DataTableMoveRowCard,
-} from "../../components/Cards";
+import { DataTableActionCard } from "../../components/Cards";
 import { getUserInfo } from "../../api/adminAPI";
+import MoveableDataTable from "../Test";
+import {
+  greyArrow,
+  greyPencil,
+  moveDown,
+  moveUp,
+  redTrash,
+} from "../../assets";
 
 const Publist = () => {
   const navigate = useNavigate();
@@ -89,25 +94,14 @@ const Publist = () => {
     setCaseType(type);
   };
 
-  const moveRow = (id, direction) => {
-    console.log("moveRow", id, direction);
-    const index = bestCases.findIndex((row) => row.id === id);
-    if (index === -1) return;
-
-    const newRows = [...bestCases];
-    const [movedRow] = newRows.splice(index, 1);
-
-    if (direction === "up" && index > 0) {
-      newRows.splice(index - 1, 0, movedRow);
-    } else if (direction === "down" && index < bestCases.length - 1) {
-      newRows.splice(index + 1, 0, movedRow);
+  const moveRow = (tableData, setTableData, fromIndex, toIndex) => {
+    if (toIndex >= 0 && toIndex < tableData?.length) {
+      const updatedRows = [...tableData];
+      const [movedRow] = updatedRows.splice(fromIndex, 1);
+      updatedRows.splice(toIndex, 0, movedRow);
+      setTableData(updatedRows);
     }
-
-    setBestCases(newRows);
   };
-
-  const handleArrowUp = (id) => moveRow(id, "up");
-  const handleArrowDown = (id) => moveRow(id, "down");
 
   const createMediaColumn = (field, headerName) => ({
     field,
@@ -115,7 +109,6 @@ const Publist = () => {
     flex: 1,
     renderCell: (params) => {
       const src = field === "images" ? `${params.value[0]}` : `${params.value}`;
-
       const style =
         field === "video"
           ? { width: 70, height: 50, marginRight: 8, objectFit: "cover" }
@@ -128,22 +121,86 @@ const Publist = () => {
       );
     },
   });
-  const createActionColumn = (type, handleDelete, link, scrollSpy) => ({
+
+  const createActionColumn = (
+    type,
+    tableData,
+    setTableData,
+    handleDelete,
+    link,
+    scrollSpy
+  ) => ({
     field: "action",
     headerName: "Действие",
     flex: 2,
-    renderCell: (params) => (
-      <DataTableActionCard
-        userInfo={userInfo}
-        params={params}
-        type={type}
-        handleDelete={handleDelete}
-        link={link}
-        scrollSpy={scrollSpy}
-        handleMoveUp={handleArrowUp}
-        handleMoveDown={handleArrowDown}
-      />
-    ),
+    renderCell: (params) => {
+      const rowIndex = tableData.findIndex((row) => row.id === params.row.id);
+
+      const handlePreview = () => {
+        if (link) {
+          navigate(link);
+          setTimeout(() => {
+            const section = document.getElementById(scrollSpy);
+            if (section) {
+              const sectionY =
+                section.getBoundingClientRect().top + window.pageYOffset - 200;
+              window.scrollTo({ top: sectionY, behavior: "smooth" });
+            }
+          }, 300);
+        } else {
+          navigate(`/${type}-one/${params.row.id}`);
+        }
+      };
+
+      const handleUpdate = () => {
+        let url = `/admin/${type}`;
+        let Data = params.row;
+        navigate(url, { state: { Data } });
+      };
+
+      return (
+        <div
+          className="spaceAround adminDirectoryEdit"
+          style={{ height: "100%", width: "100%" }}
+        >
+          {type !== "three" && (
+            <img
+              onClick={() => handlePreview()}
+              src={greyArrow}
+              alt="greyArrow"
+            />
+          )}
+          {userInfo?.editing !== 0 && (
+            <img
+              onClick={() => handleUpdate()}
+              src={greyPencil}
+              alt="greyPencil"
+            />
+          )}
+          {userInfo?.deleting !== 0 && (
+            <img
+              onClick={() => handleDelete(params.row.id)}
+              src={redTrash}
+              alt="redTrash"
+            />
+          )}
+          <img
+            onClick={() =>
+              moveRow(tableData, setTableData, rowIndex, rowIndex - 1)
+            }
+            src={moveUp}
+            alt="moveUp"
+          />
+          <img
+            onClick={() =>
+              moveRow(tableData, setTableData, rowIndex, rowIndex + 1)
+            }
+            src={moveDown}
+            alt="moveDown"
+          />
+        </div>
+      );
+    },
   });
 
   const [cases, setCases] = useState([]);
@@ -155,7 +212,7 @@ const Publist = () => {
     { field: "venue", headerName: "Адрес", flex: 1 },
     { field: "guests", headerName: "Гости", flex: 0.5 },
     createMediaColumn("video", "Дело"),
-    createActionColumn("case", handleDelete),
+    createActionColumn("case", cases, setCases, handleDelete),
     {
       field: "addAction",
       headerName: "Добавить решение",
@@ -178,20 +235,7 @@ const Publist = () => {
     { field: "name", headerName: "Кейс", flex: 3.5 },
     { field: "type", headerName: "Тип", flex: 1.5 },
     createMediaColumn("video", "Дело"),
-    createActionColumn("case", handleDelete),
-    {
-      field: "moveRow",
-      headerName: "",
-      flex: 1,
-      renderCell: (params) => (
-        <DataTableMoveRowCard
-          params={params}
-          handleMoveUp={handleArrowUp}
-          handleMoveDown={handleArrowDown}
-          handleDelete={handleDelete}
-        />
-      ),
-    },
+    createActionColumn("case", bestCases, setBestCases, handleDelete),
   ];
 
   const [sites, setSites] = useState([]);
@@ -204,7 +248,7 @@ const Publist = () => {
     { field: "address", headerName: "Адрес", flex: 1 },
     { field: "link_page", headerName: "Ссылка Страница", flex: 1 },
     createMediaColumn("video", "Сайт"),
-    createActionColumn("site", handleSiteDelete),
+    createActionColumn("site", sites, setSites, handleSiteDelete),
   ];
 
   const [equipment, setEquipment] = useState([]);
@@ -216,7 +260,7 @@ const Publist = () => {
     { field: "description", headerName: "Описание", flex: 2 },
     { field: "manufacturer", headerName: "Производитель", flex: 1 },
     createMediaColumn("images", "Оборудование"),
-    createActionColumn("equipment", handleEquipDelete),
+    createActionColumn("equipment", equipment, setEquipment, handleEquipDelete),
   ];
 
   const [revlist, setRevlist] = useState([]);
@@ -229,6 +273,8 @@ const Publist = () => {
     { field: "content", headerName: "Содержание", flex: 2 },
     createActionColumn(
       "review",
+      revlist,
+      setRevlist,
       handleRevDelete,
       "/services/visualization",
       "customerReviewSection"
@@ -242,7 +288,14 @@ const Publist = () => {
     { field: "queue", headerName: "Очередь", flex: 1 },
     { field: "description", headerName: "Описание", flex: 3 },
     createMediaColumn("video", "Завод Показать"),
-    createActionColumn("factory", handleFactoryDelete, "/", "blogSection"),
+    createActionColumn(
+      "factory",
+      factory,
+      setFactory,
+      handleFactoryDelete,
+      "/",
+      "blogSection"
+    ),
   ];
 
   const [participant, setParticipant] = useState([]);
@@ -252,6 +305,8 @@ const Publist = () => {
     createMediaColumn("image", "Avatar"),
     createActionColumn(
       "participant",
+      participant,
+      setParticipant,
       handleParticipantDelete,
       "/services/showdevelopment",
       "userLists"
@@ -264,7 +319,7 @@ const Publist = () => {
     { field: "title1", headerName: "Название1", flex: 2 },
     { field: "title2", headerName: "Название2", flex: 2 },
     createMediaColumn("video", "3D-визуализация"),
-    createActionColumn("three", handleThreeDelete),
+    createActionColumn("three", three, setThree, handleThreeDelete),
   ];
 
   const [team, setTeam] = useState([]);
@@ -278,7 +333,7 @@ const Publist = () => {
     { field: "tag6", headerName: "Тег6", flex: 1 },
     { field: "tag7", headerName: "Тег7", flex: 1 },
     { field: "tag8", headerName: "Тег8", flex: 1 },
-    createActionColumn("team", () => {
+    createActionColumn("team", team, setTeam, () => {
       console.log("handleTeamDelete");
     }),
   ];
@@ -292,6 +347,7 @@ const Publist = () => {
     });
     getEquips().then((data) => {
       setEquipment(data);
+      console.log("equipment", data);
     });
     getThrees().then((data) => {
       setThree(data);

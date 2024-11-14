@@ -424,7 +424,12 @@ const DataTableActionCard = ({
           alt="redTrash"
         />
       )}
-      <img onClick={() => handleMoveUp(params.id)} src={moveUp} alt="moveUp" />
+      <button
+        onClick={() => handleMoveUp(params.id)}
+        disabled={params.id === 0}
+      >
+        <img src={moveUp} alt="moveUp" />
+      </button>
       <img
         onClick={() => handleMoveDown(params.id)}
         src={moveDown}
