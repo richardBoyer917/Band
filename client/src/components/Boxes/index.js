@@ -299,11 +299,11 @@ const AdminDirectoryBox = () => {
       headerName: "Права",
       flex: 2,
       renderCell: (params) => (
-        <>
+        <div className="alignCenter">
           {params?.row?.permission?.map((title, index) => (
             <PermissionBadge key={index} title={title} />
           ))}
-        </>
+        </div>
       ),
     },
     {
@@ -349,6 +349,7 @@ const AdminDirectoryBox = () => {
   useEffect(() => {
     let temp = addId(adminDirectoryInfo);
     setData(temp);
+    console.log("temp: ", temp);
   }, []);
 
   return (

@@ -2,7 +2,9 @@ import { darkSmallUser, whiteUser } from "../../assets";
 import "../../styles/components/badges.css";
 
 const PermissionBadge = ({ title }) => (
-  <span className="permissionBadge">{title}</span>
+  <div>
+    <span className="permissionBadge">{title}</span>
+  </div>
 );
 
 const CardViewNumber = ({ value }) => (
