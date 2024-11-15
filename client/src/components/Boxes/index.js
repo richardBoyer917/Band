@@ -17,7 +17,12 @@ import { PermissionBadge } from "../Badges";
 import "../../styles/components/box.css";
 import { TitleAdminUserEdit } from "../Titles";
 import { logout } from "../../api/authAPI";
-import { changeEmail } from "../../api/adminAPI";
+import {
+  changeEmail,
+  deleteUser,
+  getUserInfo,
+  getUsers,
+} from "../../api/adminAPI";
 
 const BigVideoBox = ({ item }) => {
   const videoRef = useRef(null);
@@ -170,13 +175,15 @@ const TabBox = ({ title }) => (
   <button className="caseEventTab itemCenter x14_1">{title}</button>
 );
 
-const AdminDataBox = ({ userInfo }) => {
+const AdminDataBox = () => {
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
   const [userData, setUserData] = useState({});
   useEffect(() => {
-    setUserData(userInfo);
-  }, [userInfo]);
+    getUserInfo().then((data) => {
+      data && setUserData(data);
+    });
+  }, []);
 
   const handleLogout = () => {
     logout().then(() => {
@@ -276,11 +283,12 @@ const AdminDataBox = ({ userInfo }) => {
 const AdminDirectoryBox = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
   const directoryColumns = [
     {
       field: "fullName",
       headerName: "Имя пользователя",
-      renderCell: (params) => params.row.firstName + " " + params.row.lastName,
+      renderCell: (params) => params.row.name + " " + params.row.lastname,
       flex: 2,
     },
     { field: "email", headerName: "Электронная почта", flex: 2 },
@@ -290,9 +298,9 @@ const AdminDirectoryBox = () => {
       flex: 2,
       renderCell: (params) => (
         <>
-          {params?.row?.permission?.map((title, index) => (
-            <PermissionBadge key={index} title={title} />
-          ))}
+          {params.row.adding !== 0 && <PermissionBadge title="добавить" />}
+          {params.row.editing !== 0 && <PermissionBadge title="изменить" />}
+          {params.row.deleting !== 0 && <PermissionBadge title="удалить" />}
         </>
       ),
     },
@@ -300,29 +308,30 @@ const AdminDirectoryBox = () => {
       field: "action",
       headerName: "",
       flex: 2,
-      renderCell: (params) => (
-        <div
-          className="alignCenter adminDirectoryEdit"
-          style={{ height: "100%" }}
-        >
-          <TitleAdminUserEdit
-            onClick={() => handleEdit(params.row)}
-            img={greyPencil}
-            title="Изменить данные пользователя"
-          />
-          <TitleAdminUserEdit
-            onClick={() => handleDelete(params.row.id)}
-            img={redTrash}
-            // title={"Удалить пользователя"}
-          />
-        </div>
-      ),
+      renderCell: (params) => {
+        return userInfo.role === "super_admin" ? (
+          <div
+            className="alignCenter adminDirectoryEdit"
+            style={{ height: "100%" }}
+          >
+            <TitleAdminUserEdit
+              onClick={() => handleEdit(params.row)}
+              img={greyPencil}
+              title="Изменить данные пользователя"
+            />
+            <TitleAdminUserEdit
+              onClick={() => handleDelete(params.row.id)}
+              img={redTrash}
+            />
+          </div>
+        ) : null;
+      },
     },
   ];
 
   const addId = (data) => {
     let temp = [];
-    data.map(
+    data?.map(
       (item, index) => ((temp[index] = item), (temp[index].id = index + 1))
     );
     return temp;
@@ -333,22 +342,36 @@ const AdminDirectoryBox = () => {
   };
 
   const handleDelete = (data) => {
-    console.log("deleteData: ", data);
+    deleteUser(data).then((data) => {
+      data && alert(data.message);
+      getUsers().then((data) => {
+        let temp;
+        temp = addId(data);
+        setData(temp);
+      });
+    });
   };
 
   useEffect(() => {
-    let temp = addId(adminDirectoryInfo);
-    setData(temp);
+    getUsers().then((data) => {
+      let temp = addId(data);
+      setData(temp);
+    });
+    getUserInfo().then((data) => {
+      data && setUserInfo(data);
+    });
   }, []);
 
   return (
     <div className="adminDirectorySection" id="adminDirectorySection">
       <div className="spaceBetween" style={{ width: "100%" }}>
         <p className="adminDirectoryTitle">Каталог пользователей</p>
-        <BlackButton
-          onClick={() => navigate("/admin/create")}
-          title="Добавить пользователя"
-        />
+        {userInfo?.role === "super_admin" && (
+          <BlackButton
+            onClick={() => navigate("/admin/create")}
+            title="Добавить пользователя"
+          />
+        )}
       </div>
       <div style={{ paddingTop: "20px" }}>
         <DataTable data={data} columns={directoryColumns} />

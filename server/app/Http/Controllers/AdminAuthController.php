@@ -67,7 +67,7 @@ class AdminAuthController extends Controller
 
             return response()->json([
                 'message' => 'Registration successful',
-            ], 201);
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Registration failed',
@@ -120,6 +120,7 @@ class AdminAuthController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'sometimes|required|string|max:255',
+            'lastname' => 'sometimes|required|string|max:255',
             'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $user->id,
             'adding' => 'sometimes|boolean',
             'editing' => 'sometimes|boolean',

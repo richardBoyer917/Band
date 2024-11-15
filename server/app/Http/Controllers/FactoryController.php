@@ -55,7 +55,7 @@ class FactoryController extends Controller
             return response()->json([
                 'message' => 'factory created successfully!',
                 'factory' => $factory
-            ], 201);
+            ], 200);
         }
 
         return response()->json(['error' => 'File upload failed'], 400);

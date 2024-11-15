@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ParticipantController extends Controller
 {
@@ -45,12 +46,38 @@ class ParticipantController extends Controller
             return response()->json([
                 'message' => 'participant created successfully!',
                 'participant' => $newParticipant
-            ], 201);
+            ], 200);
         }catch (\Exception $e) {
             \Log::error('Error saving data: ' . $e->getMessage());
             return response()->json(['error' => 'Error saving data'], 400);
         }
     }
+
+    // public function store(Request $request)
+    // {
+    //     $data = $request->all();
+    //     if ($request->hasFile('image')) {
+    //         try {
+    //             $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath(), [
+    //                 'folder' => 'uploads/participant',
+    //             ])->getSecurePath();
+
+    //             $data['image'] = $uploadedFileUrl;
+    //         } catch (\Exception $e) {
+    //             return response()->json(['error' => 'Error uploading image'], 400);
+    //         }
+    //     }
+
+    //     try {
+    //         $newParticipant = Participant::create($data);
+    //         return response()->json([
+    //             'message' => 'Participant created successfully!',
+    //             'participant' => $newParticipant
+    //         ], 200);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => 'Error saving data'], 400);
+    //     }
+    // }
 
     public function update(Request $request, $id)
     {

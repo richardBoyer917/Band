@@ -29,6 +29,7 @@ const GallerySection = ({ title, galleryType }) => {
   useEffect(() => {
     getCasesWithCheckbox(galleryType, 9)
       .then((data) => {
+        console.log("data", data);
         const updatedGalleryInfo = data.map((item, index) => ({
           ...item,
           width: gallery[index]?.width || "",

@@ -24,11 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('admin')->middleware('throttle:5000,1')->group(function () {
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::get('/', [AdminAuthController::class, 'index']);
     Route::get('/{id}', [AdminAuthController::class, 'show']);
 });
 Route::prefix('admin')->middleware(['auth:sanctum','super_admin','throttle:5000,1'])->group(function () {
     Route::post('/register', [AdminAuthController::class, 'register']);
-    Route::get('/', [AdminAuthController::class, 'index']);
     Route::post('/{id}', [AdminAuthController::class, 'update']);
     Route::delete('/{id}', [AdminAuthController::class, 'destroy']);
     Route::post('/{id}/change-email', [AdminAuthController::class, 'updateEmail'])->name('user.change-email');

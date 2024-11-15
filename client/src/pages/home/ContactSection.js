@@ -173,7 +173,7 @@ const ContactSection = ({ title }) => {
       }
 
       // If file is valid, update state and clear error
-      setSendData({ ...sendData, video: file });
+      setSendData({ ...sendData, file: file });
       setError(false);
     } else {
       // For non-file inputs

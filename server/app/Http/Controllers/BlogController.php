@@ -191,12 +191,9 @@ class BlogController extends Controller
             $case = Blog::find($validated['idd']);
             if ($case) {
                 $updatedSolutions = array_merge($case->solution ?? [], [$data]);
-                
-                $updatedImages = array_merge($case->images ?? [], $images);
 
                 $case->update([
                     'solution' => $updatedSolutions,
-                    'images' => $updatedImages,
                 ]);
 
                 return response()->json(['message' => 'Successfully saved!'], 200);
@@ -219,7 +216,7 @@ class BlogController extends Controller
         }
 
         try {
-            $blogs = Blog::whereJsonContains('checkbox', $checkboxValue)->select('video', 'name', 'venue')->orderBy('queue', 'desc')->limit($casesNum)->get();
+            $blogs = Blog::whereJsonContains('checkbox', $checkboxValue)->select('video', 'name', 'venue','id')->orderBy('queue', 'desc')->limit($casesNum)->get();
             return response()->json($blogs);
         } catch (\Exception $error) {
             \Log::error('Error fetching blogs: ', [$error]);

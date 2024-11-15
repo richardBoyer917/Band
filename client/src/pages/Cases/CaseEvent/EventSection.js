@@ -77,7 +77,7 @@ const EventSection = ({ dData }) => {
           width="clamp(240px, 45vw, 401px)"
         />
       </div>
-      <VideoPreview open={open} setOpen={setOpen} avatar={eventVideo} />
+      <VideoPreview open={open} setOpen={setOpen} avatar={dData?.video} />
     </section>
   );
 

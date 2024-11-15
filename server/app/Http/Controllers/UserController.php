@@ -43,7 +43,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password), // Hash the password
         ]);
 
-        return response()->json($user, 201);
+        return response()->json($user, 200);
     }
 
     public function update(Request $request, $id)

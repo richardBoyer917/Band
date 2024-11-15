@@ -59,7 +59,7 @@ class RentalController extends Controller
                     'files' => ($filePaths),
                 ]);
 
-                return response()->json(['message' => 'Rental created successfully!', 'rental' => $rental], 201);
+                return response()->json(['message' => 'Rental created successfully!', 'rental' => $rental], 200);
             } else {
                 return response()->json(['message' => 'Both cost and files are required to create a new rental'], 422);
             }

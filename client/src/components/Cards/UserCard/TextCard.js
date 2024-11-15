@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { swiperGeer } from "../../../assets";
+import { swiperGeer } from "../../../assets";
 import TextPreview from "./Preview/TextPreview";
 
 const TextCard = (props) => {
@@ -13,7 +13,7 @@ const TextCard = (props) => {
 
   return (
     <>
-      {/* <div className="textCard">
+      <div className="textCard">
         <div className="textCardTop">
           <img src={avatar} alt="avatar" />
           <div className="cardBigTitle">{name}</div>
@@ -23,8 +23,8 @@ const TextCard = (props) => {
           Читать полный отзыв
         </p>
         <img className="swiperGeer" src={swiperGeer} alt="swiperGeer" />
-      </div> */}
-      <div className="alignCenter" style={{ height: "330px" }}>
+      </div>
+      {/* <div className="alignCenter" style={{ height: "330px" }}>
         <div className="videoCard">
           <div className="videoActionArea">
             <img
@@ -40,7 +40,7 @@ const TextCard = (props) => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
       <TextPreview
         name={name}
         avatar={avatar}
