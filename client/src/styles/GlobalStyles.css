@@ -14,6 +14,10 @@
   display: none !important;
 }
 
+body {
+  margin: 0px !important;
+}
+
 .show {
   display: block !important;
 }
@@ -261,4 +265,9 @@ video {
 .MuiDataGrid-cell img,
 .MuiSvgIcon-root {
   cursor: pointer !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

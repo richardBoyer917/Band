@@ -14,8 +14,13 @@ import {
   whitePlay,
   starIcon1,
   positionIcon,
+  redTrash,
+  greyPencil,
+  greyArrow,
+  moveUp,
+  moveDown,
 } from "../../assets";
-import "../../styles/components/cards/card.css"
+import "../../styles/components/cards/card.css";
 import endpoint from "../../config/config";
 import { useNavigate } from "react-router-dom";
 
@@ -45,17 +50,13 @@ const PendingCard = ({ item }) => {
 const PublicationCard = ({ item }) => {
   const navigate = useNavigate();
   const handleLink = () => {
-    console.log("sdfsdf");
-    navigate(`site-one/${item._id}`);
+    navigate(`site-one/${item.id}`);
   };
 
   return (
     <div className="publicationCard">
       <div style={{ position: "relative" }}>
-        <video
-          src={`${endpoint}/uploads/site/${item.video}`}
-          alt="publicationImage"
-        />
+        <video src={`${item.video}`} alt="publicationImage" />
         <CardViewNumber value={item.capacity} />
       </div>
       <div
@@ -113,10 +114,7 @@ const VideoBlogCard = ({ item }) => {
               borderRadius: "5px",
             }}
           >
-            <source
-              src={`${endpoint}/uploads/factory/${item.video}`}
-              type="video/mp4"
-            />
+            <source src={`${item.video}`} type="video/mp4" />
           </video>
           <img
             src={whitePlay}
@@ -137,11 +135,7 @@ const VideoBlogCard = ({ item }) => {
           </a>
         </div>
       </div>
-      <VideoPreview
-        open={open}
-        setOpen={setOpen}
-        avatar={`${endpoint}/uploads/factory/${item.video}`}
-      />
+      <VideoPreview open={open} setOpen={setOpen} avatar={`${item.video}`} />
     </>
   );
 };
@@ -163,7 +157,7 @@ const EventWorksCard = ({ item }) => (
 const RentalCostCard = ({ cost }) => (
   <div className="rentalBox">
     <p className="sectionTitle" style={{ color: "var(--primaryBgColor)" }}>
-      от {cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} руб
+      от {cost?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} руб
     </p>
     <p className="rentalSmallText">за один репетиционный час</p>
   </div>
@@ -228,9 +222,9 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
         <video
           src={
             type === "case"
-              ? `${endpoint}/uploads/cases/${item?.video}`
+              ? `${item?.video}`
               : type === "platform"
-              ? `${endpoint}/uploads/site/${item?.video}`
+              ? `${item?.video}`
               : ""
           }
           style={{ width: "100%", height: "175px", objectFit: "cover" }}
@@ -247,9 +241,7 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
           }}
         >
           <img
-            src={`${endpoint}/uploads/equipment/${
-              item?.images.length > 0 && item.images[0]
-            }`}
+            src={`${item?.images.length > 0 && item.images[0]}`}
             style={{ maxWidth: "100%", maxHeight: "175px", objectFit: "cover" }}
             onClick={onClick}
             alt="img"
@@ -358,6 +350,107 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
   );
 };
 
+const BigEquipmentImageCard = ({ url }) => (
+  <div className="bigEquipmentImageWrappper itemCenter">
+    <img src={url} alt="cameraImg1" />
+  </div>
+);
+
+const SmallEquipmentImageCard = ({ url }) => (
+  <div className="smallEquipmentImageWrappper itemCenter">
+    <img src={url} alt="smailCameraImg1" />
+  </div>
+);
+
+const EquipmentImageCaptionCard = ({ title, text }) => (
+  <div style={{ width: "40%" }}>
+    <p className="x16Font_4" style={{ marginBottom: "10px" }}>
+      {title}
+    </p>
+    <p className="x18Font_4 ">{text}</p>
+  </div>
+);
+
+const DataTableActionCard = ({
+  userInfo,
+  params,
+  type,
+  handleDelete,
+  link,
+  scrollSpy,
+  handleMoveUp,
+  handleMoveDown,
+}) => {
+  const navigate = useNavigate();
+
+  const handlePreview = () => {
+    if (link) {
+      navigate(link);
+      setTimeout(() => {
+        const section = document.getElementById(scrollSpy);
+        if (section) {
+          const sectionY =
+            section.getBoundingClientRect().top + window.pageYOffset - 200;
+          window.scrollTo({ top: sectionY, behavior: "smooth" });
+        }
+      }, 300);
+    } else {
+      navigate(`/${type}-one/${params.row.id}`);
+    }
+  };
+
+  const handleUpdate = () => {
+    let url = `/admin/${type}`;
+    let Data = params.row;
+    navigate(url, { state: { Data } });
+  };
+
+  return (
+    <div
+      className="spaceAround adminDirectoryEdit"
+      style={{ height: "100%", width: "100%" }}
+    >
+      {type !== "three" && (
+        <img onClick={() => handlePreview()} src={greyArrow} alt="greyArrow" />
+      )}
+      {userInfo?.editing !== 0 && (
+        <img onClick={() => handleUpdate()} src={greyPencil} alt="greyPencil" />
+      )}
+      {userInfo?.deleting !== 0 && (
+        <img
+          onClick={() => handleDelete(params.row.id)}
+          src={redTrash}
+          alt="redTrash"
+        />
+      )}
+      <button
+        onClick={() => handleMoveUp(params.id)}
+        disabled={params.id === 0}
+      >
+        <img src={moveUp} alt="moveUp" />
+      </button>
+      <img
+        onClick={() => handleMoveDown(params.id)}
+        src={moveDown}
+        alt="moveDown"
+      />
+    </div>
+  );
+};
+
+const DataTableMoveRowCard = ({ params, handleMoveUp, handleMoveDown }) => {
+  return (
+    <div className="spaceAround adminDirectoryEdit" style={{ height: "100%" }}>
+      <img onClick={() => handleMoveUp(params.id)} src={moveUp} alt="moveUp" />
+      <img
+        onClick={() => handleMoveDown(params.id)}
+        src={moveDown}
+        alt="moveDown"
+      />
+    </div>
+  );
+};
+
 export {
   PendingCard,
   PublicationCard,
@@ -369,4 +462,9 @@ export {
   ChichaBoxVideoCard,
   ChichaBoxRightCard,
   CaseCatalogCard,
+  BigEquipmentImageCard,
+  SmallEquipmentImageCard,
+  EquipmentImageCaptionCard,
+  DataTableActionCard,
+  DataTableMoveRowCard,
 };

@@ -1,18 +1,17 @@
 import EventWorks from "./EventWorks";
-import useScrollToTop from "../../../scrollTo/ScrollToTop";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 import HeroSample from "../../../components/HeroSample/HeroSample";
-import GallerySection from "../../home/GallerySection";
+import GallerySection from "../../Home/GallerySection";
 import WorkProcess from "../../Services/Visualization/WorkProcess";
 import SwiperSection from "../../../components/Swiper/Swiper";
-import PendingSection from "../../home/PendingSection";
-import ContactSection from "../../home/ContactSection";
-import BlogSection from "../../home/BlogSection";
+import PendingSection from "../../Home/PendingSection";
+import ContactSection from "../../Home/ContactSection";
+import BlogSection from "../../Home/BlogSection";
 import { BigVideoBox } from "../../../components/Boxes";
 
 import { workProcessInfo3, heroSectionInfo } from "../../../constant/group";
 import { useEffect, useState } from "react";
 import { getCasesByType } from "../../../api/caseAPI";
-import endpoint from "../../../config/config";
 
 const Event = () => {
   useScrollToTop();
@@ -46,7 +45,7 @@ const Event = () => {
           item={{
             titleCenter: false,
             title: "Видео с мероприятия",
-            src: `${endpoint}/uploads/cases/${caseData?.video}`,
+            src: `${caseData?.video}`,
             videoTitle: caseData?.venue,
             videoDescription: caseData?.name,
           }}

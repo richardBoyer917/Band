@@ -3,14 +3,13 @@ import { BigVideoBox } from "../../../components/Boxes";
 import HeroSample from "../../../components/HeroSample/HeroSample";
 import SwiperSection from "../../../components/Swiper/Swiper";
 import { heroSectionInfo, workProcessInfo4 } from "../../../constant/group";
-import BlogSection from "../../home/BlogSection";
-import ContactSection from "../../home/ContactSection";
-import GallerySection from "../../home/GallerySection";
-import PendingSection from "../../home/PendingSection";
+import BlogSection from "../../Home/BlogSection";
+import ContactSection from "../../Home/ContactSection";
+import GallerySection from "../../Home/GallerySection";
+import PendingSection from "../../Home/PendingSection";
 import WorkProcess from "../../Services/Visualization/WorkProcess";
 import { getCasesByType } from "../../../api/caseAPI";
-import endpoint from "../../../config/config";
-import useScrollToTop from "../../../scrollTo/ScrollToTop";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const TourConcert = () => {
   useScrollToTop();
@@ -36,7 +35,7 @@ const TourConcert = () => {
           item={{
             titleCenter: false,
             title: "Видео из тура",
-            src: `${endpoint}/uploads/cases/${caseData?.video}`,
+            src: `${caseData?.video}`,
             videoTitle: caseData?.venue,
             videoDescription: caseData?.name,
           }}

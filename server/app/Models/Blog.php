@@ -13,7 +13,7 @@ class Blog extends Model
 
     protected $fillable = [
         'name',
-        'type',
+        'blog_type',
         'startDate',
         'endDate',
         'guests',
@@ -29,6 +29,8 @@ class Blog extends Model
         'three_id',
         'site_id',
         'checked',
+        'equipment_type',
+        'site_type',
     ];
 
     protected $casts = [
@@ -37,6 +39,9 @@ class Blog extends Model
         'checkbox' => 'array',
         'cities' => 'array',
         'solution' => 'array',
+        'blog_type' => 'array',
+        'site_type' => 'array',
+        'equipment_type' => 'array',
     ];
 
     public function site()

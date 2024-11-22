@@ -11,7 +11,7 @@ class SiteController extends Controller
     public function index()
     {
         try {
-            $data = Site::orderBy('queue', 'desc')->get();
+            $data = Site::orderBy('queue', 'desc')->with('blogs')->get();
             return response()->json($data);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching data'], 400);
@@ -21,7 +21,7 @@ class SiteController extends Controller
     public function getSixSites()
     {
         try {
-            $data = Site::getTopSixSites();
+            $data = Site::orderBy('queue', 'desc')->with('blogs')->take(6)->get();
             return response()->json($data);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching data'], 400);
@@ -31,9 +31,9 @@ class SiteController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['video'] = $request->file('video')? $request->file('video')->store('uploads/site','public'):'';
+        $data['video'] = $request->file('video')? url('storage/' . $request->file('video')->store('uploads/site','public')):'';
         try {
-            $site = Site::createSite($data);
+            $site = Site::create($data);
             return response()->json(['message' => 'Successfully saved!'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error saving data'], 400);
@@ -46,11 +46,11 @@ class SiteController extends Controller
             $site = Site::findOrFail($id);
             $data = $request->all();
             $data['video'] = $request->file('video')
-                ? $request->file('video')->store('uploads/site', 'public') // Adjust path as needed
+                ? url('storage/' . $request->file('video')->store('uploads/site', 'public')) // Adjust path as needed
                 : $site->video;
 
-                if ($site->video) {
-                    \Storage::disk('public')->delete($site->video);
+                if ($request->file('video')) {
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $site->video));
                 }
             $site->update($data);
 
@@ -71,7 +71,7 @@ class SiteController extends Controller
             $siteToDelete = Site::findOrFail($id);
             
             if ($siteToDelete->video) {
-                \Storage::disk('public')->delete($siteToDelete->video);
+                \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $siteToDelete->video));
             }
             Blog::where('site_id', $id)->update(['site_id' => null]);
             $siteToDelete->delete();

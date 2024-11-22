@@ -11,7 +11,7 @@ class ReviewController extends Controller
     {
         $data = $request->all();
         $data['file'] = $request->file('files') 
-            ? $request->file('files')->store('uploads/review', 'public') 
+            ? url('storage/' . $request->file('files')->store('uploads/review', 'public')) 
             : '';
 
         try {
@@ -30,11 +30,11 @@ class ReviewController extends Controller
 
             $data = $request->all();
             $data['file'] = $request->file('files')
-                ? $request->file('files')->store('uploads/review', 'public') 
+                ? url('storage/' . $request->file('files')->store('uploads/review', 'public')) 
                 : $existingReview->file;
 
-                if ($existingReview->file) {
-                    \Storage::disk('public')->delete($existingReview->file);
+                if ($request->file('files')) {
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $existingReview->file));
                 }
             $existingReview->update($data);
 
@@ -88,7 +88,7 @@ class ReviewController extends Controller
         try {
             $review = Review::findOrFail($reviewId);
             if($review->file){
-                \Storage::disk('public')->delete($review->file);
+                \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $review->file));
             }
             $review->delete();
 

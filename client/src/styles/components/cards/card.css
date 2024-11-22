@@ -149,11 +149,18 @@
   transition: flex-basis 0.5s ease;
 }
 
+.equipmentCard .itemCenter img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: clamp(5px, 1vw, 10px);
+}
+
 .rentalBox {
   max-width: 484px;
   width: 100%;
   /* height: 242px; */
-  background: #EFEFEF;
+  background: #efefef;
   flex: 1 1 auto;
   transition: flex-basis 0.5s ease;
   display: grid;
@@ -166,7 +173,7 @@
 .auditoriumContentCard {
   width: 100%;
   padding: 18px 0;
-  border-bottom: 1px solid #CFCFCF;
+  border-bottom: 1px solid #cfcfcf;
 }
 
 .rentalCostDocCard {
@@ -181,13 +188,6 @@
   font-size: 16px;
   letter-spacing: -0.01em;
   line-height: 20.08px;
-}
-
-.docuSizeText {
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15.06px;
-  letter-spacing: -0.03em;
 }
 
 .caseCatalogCard {
@@ -209,7 +209,7 @@
   background-color: transparent;
   border: none;
   outline: none;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .caseCatalogType {
@@ -219,7 +219,7 @@
   background-color: transparent;
   border: none;
   outline: none;
-  color: #B5B5B5;
+  color: #b5b5b5;
 }
 
 .caseCatalogAddress {
@@ -230,8 +230,7 @@
   background-color: transparent;
   border: none;
   outline: none;
-  color: #FFFFFF;
-
+  color: #ffffff;
 }
 
 .caseCatalogParagraph {
@@ -247,8 +246,7 @@
   align-items: center;
 }
 
-
-@media (max-width:850px) {
+@media (max-width: 850px) {
   .caseCatalogTopic {
     letter-spacing: -0.8px;
   }
@@ -265,9 +263,7 @@
   }
 }
 
-
 @media screen and (max-width: 768px) {
-
   .eventWorksCard {
     padding-bottom: 0;
   }

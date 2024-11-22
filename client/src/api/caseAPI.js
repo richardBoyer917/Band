@@ -2,7 +2,7 @@ import { handleError, apiClient } from "../utils";
 
 export const getCases = async () => {
   try {
-    const response = await apiClient.get(`/cases`);
+    const response = await apiClient.get(`/blogs`);
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -14,7 +14,7 @@ export const getCases = async () => {
 
 export const getCaseById = async (id) => {
   try {
-    const response = await apiClient.get(`/cases/${id}`);
+    const response = await apiClient.get(`/blogs/${id}`);
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -26,7 +26,13 @@ export const getCaseById = async (id) => {
 
 export const insertCase = async (formdata) => {
   try {
-    const response = await apiClient.post(`/cases`, formdata);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post(`/blogs`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -38,8 +44,12 @@ export const insertCase = async (formdata) => {
 
 export const updateCase = async (id, formdata) => {
   try {
-    const response = await apiClient.put(`/cases/${id}`, formdata, {
-      headers: { "Content-Type": "multipart/form-data" },
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post(`/blogs/${id}`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
@@ -50,9 +60,14 @@ export const updateCase = async (id, formdata) => {
   }
 };
 
-export const deleteCase = async (_id) => {
+export const deleteCase = async (id) => {
   try {
-    const response = await apiClient.delete(`/cases/${_id}`);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.delete(`/blogs/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -64,7 +79,13 @@ export const deleteCase = async (_id) => {
 
 export const insertSolution = async (formdata) => {
   try {
-    const response = await apiClient.post(`/cases/solution`, formdata);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post(`/blogs/solution`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
     if (response.status !== 200) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
@@ -76,7 +97,7 @@ export const insertSolution = async (formdata) => {
 
 export const getCasesWithCheckbox = async (checkboxValue, num) => {
   try {
-    const response = await apiClient.get(`/cases/checkbox`, {
+    const response = await apiClient.get(`/blogs/checkbox`, {
       params: { checkboxValue, casesNum: num },
     });
     if (response.status !== 200) {
@@ -90,7 +111,7 @@ export const getCasesWithCheckbox = async (checkboxValue, num) => {
 
 export const getCasesByType = async (caseType) => {
   try {
-    const response = await apiClient.get(`/cases/type`, {
+    const response = await apiClient.get(`/blogs/type`, {
       params: { caseType },
     });
     if (response.status !== 200) {
