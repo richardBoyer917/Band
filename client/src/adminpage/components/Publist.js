@@ -1,58 +1,216 @@
-import { useState, useEffect } from "react"
-import { deleteCase, getCases } from "../../api/caseAPI"
-import { Button, } from "@mui/material"
-import { deleteSite, getSite } from "../../api/siteAPI"
-import { deleteEquip, getEquips } from "../../api/equipAPI"
-import { deleteFactory, getFactorys } from "../../api/facAPI"
-import { deleteThree, getThrees } from "../../api/threeAPI"
-import { deleteReview, getReviews } from "../../api/reviewAPI"
-import endpoint from "../../config/config"
-import { useNavigate } from "react-router-dom"
-import { AdminSection } from "./AdminSection"
-import { deleteParticipant, getParticipant } from "../../api/participantAPI"
-import { getTeam } from "../../api/teamAPI"
-import FormDialog from "../../components/Modal"
-import { greyArrow, greyPencil } from "../../assets"
-import { AdminDataBox } from "../../components/Boxes"
-import { GridDeleteIcon } from "@mui/x-data-grid"
+import { useState, useEffect } from "react";
+import { deleteCase, getCases, getCasesWithCheckbox } from "../../api/caseAPI";
+import { Button } from "@mui/material";
+import { deleteSite, getSite } from "../../api/siteAPI";
+import { deleteEquip, getEquips } from "../../api/equipAPI";
+import { deleteFactory, getFactorys } from "../../api/facAPI";
+import { deleteThree, getThrees } from "../../api/threeAPI";
+import { deleteReview, getReviews } from "../../api/reviewAPI";
+import { useNavigate } from "react-router-dom";
+import { AdminSection, AdminSection1 } from "./AdminSection";
+import { deleteParticipant, getParticipant } from "../../api/participantAPI";
+import { getTeam } from "../../api/teamAPI";
+import FormDialog from "../../components/Modal";
+import { AdminDataBox } from "../../components/Boxes";
+import { getUserInfo } from "../../api/adminAPI";
+import {
+  greyArrow,
+  greyPencil,
+  moveDown,
+  moveUp,
+  redTrash,
+} from "../../assets";
 
 const Publist = () => {
+  const navigate = useNavigate();
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [caseType, setCaseType] = useState("Home");
+  const [userInfo, setUserInfo] = useState(null);
 
-  const navigate = useNavigate()
+  const handleOpenDialog = (id) => {
+    setSelectedId(id); // Set the selected row ID
+    setOpenDialog(true); // Open the dialog
+  };
 
-  const [cases, setCases] = useState([])
+  const handleCloseDialog = () => {
+    setOpenDialog(false); // Close the dialog
+    setSelectedId(null); // Reset the selected ID
+  };
+
+  const handleNewCreate = (url) => {
+    if (url === "/admin/case" && bestCases?.length >= 9) {
+      alert("Невозможно добавить более 9 кейсов в данный блок.");
+    } else {
+      navigate(url);
+    }
+  };
+
+  const handleDelete = (index) => {
+    deleteCase(index).then((data) => {
+      setCases(data);
+    });
+  };
+
+  const handleEquipDelete = (index) => {
+    deleteEquip(index).then((data) => {
+      setEquipment(data);
+    });
+  };
+
+  const handleSiteDelete = (index) => {
+    deleteSite(index).then((data) => {
+      setSites(data);
+    });
+  };
+
+  const handleRevDelete = (index) => {
+    deleteReview(index).then((data) => {
+      setRevlist(data);
+    });
+  };
+
+  const handleFactoryDelete = (index) => {
+    deleteFactory(index).then((data) => {
+      setFactory(data);
+    });
+  };
+
+  const handleThreeDelete = (index) => {
+    deleteThree(index).then((data) => {
+      setThree(data);
+    });
+  };
+
+  const handleParticipantDelete = (index) => {
+    deleteParticipant(index).then((data) => {
+      setParticipant(data);
+    });
+  };
+
+  const handleSelBestCase = (type) => {
+    setCaseType(type);
+  };
+
+  const moveRow = (tableData, setTableData, fromIndex, toIndex) => {
+    if (toIndex >= 0 && toIndex < tableData?.length) {
+      const updatedRows = [...tableData];
+      const [movedRow] = updatedRows.splice(fromIndex, 1);
+      updatedRows.splice(toIndex, 0, movedRow);
+      setTableData(updatedRows);
+    }
+  };
+
+  const createMediaColumn = (field, headerName) => ({
+    field,
+    headerName,
+    flex: 1,
+    renderCell: (params) => {
+      const src = field === "images" ? `${params.value[0]}` : `${params.value}`;
+      const style =
+        field === "video"
+          ? { width: 70, height: 50, marginRight: 8, objectFit: "cover" }
+          : { width: 50, height: 50, objectFit: "cover" };
+
+      return field === "video" ? (
+        <video src={src} alt="media" style={style} controls />
+      ) : (
+        <img src={src} alt="media" style={style} />
+      );
+    },
+  });
+
+  const createActionColumn = (
+    type,
+    tableData,
+    setTableData,
+    handleDelete,
+    link,
+    scrollSpy
+  ) => ({
+    field: "action",
+    headerName: "Действие",
+    flex: 2,
+    renderCell: (params) => {
+      const rowIndex = tableData.findIndex((row) => row.id === params.row.id);
+
+      const handlePreview = () => {
+        if (link) {
+          navigate(link);
+          setTimeout(() => {
+            const section = document.getElementById(scrollSpy);
+            if (section) {
+              const sectionY =
+                section.getBoundingClientRect().top + window.pageYOffset - 200;
+              window.scrollTo({ top: sectionY, behavior: "smooth" });
+            }
+          }, 300);
+        } else {
+          navigate(`/${type}-one/${params.row.id}`);
+        }
+      };
+
+      const handleUpdate = () => {
+        let url = `/admin/${type}`;
+        let Data = params.row;
+        navigate(url, { state: { Data } });
+      };
+
+      return (
+        <div
+          className="spaceAround adminDirectoryEdit"
+          style={{ height: "100%", width: "100%" }}
+        >
+          {type !== "three" && (
+            <img
+              onClick={() => handlePreview()}
+              src={greyArrow}
+              alt="greyArrow"
+            />
+          )}
+          {userInfo?.editing !== 0 && (
+            <img
+              onClick={() => handleUpdate()}
+              src={greyPencil}
+              alt="greyPencil"
+            />
+          )}
+          {userInfo?.deleting !== 0 && (
+            <img
+              onClick={() => handleDelete(params.row.id)}
+              src={redTrash}
+              alt="redTrash"
+            />
+          )}
+          <img
+            onClick={() =>
+              moveRow(tableData, setTableData, rowIndex, rowIndex - 1)
+            }
+            src={moveUp}
+            alt="moveUp"
+          />
+          <img
+            onClick={() =>
+              moveRow(tableData, setTableData, rowIndex, rowIndex + 1)
+            }
+            src={moveDown}
+            alt="moveDown"
+          />
+        </div>
+      );
+    },
+  });
+
+  const [cases, setCases] = useState([]);
   const caseColumns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "name", headerName: "Имя", flex: 1 },
-    { field: "queue", headerName: "Очередь", flex: 1 },
-    { field: "type", headerName: "Тип", flex: 1 },
+    { field: "name", headerName: "Имя", flex: 3.5 },
+    // { field: "queue", headerName: "Очередь", flex: 1 },
+    { field: "type", headerName: "Тип", flex: 1.5 },
     { field: "venue", headerName: "Адрес", flex: 1 },
     { field: "guests", headerName: "Гости", flex: 0.5 },
-    {
-      field: "video",
-      headerName: "Дело",
-      flex: 1,
-      renderCell: (params) => (
-        <video
-          src={`${endpoint}/uploads/cases/${params.value}`}
-          alt="avatar"
-          style={{ width: 70, height: 50, marginRight: 8, objectFit: 'cover' }}
-          controls
-        />
-      ),
-    },
-    {
-      field: "action",
-      headerName: "Действие",
-      flex: 3,
-      renderCell: (params) => (
-        <div className="spaceAround adminDirectoryEdit" style={{ width: '100%' }}>
-          <Button variant="link"><img onClick={() => handlePreview()} src={greyArrow} alt="greyArrow" /></Button>
-          <Button variant="link"><img onClick={() => handleUpdateClick({ url: '/admin/case', Data: params.row })} src={greyPencil} alt="greyPencil" /></Button>
-          <Button variant="link"><GridDeleteIcon sx={{ color: '#E03B3B' }} onClick={() => handleDelete(params.row._id)} /></Button>
-        </div>
-      ),
-    },
+    createMediaColumn("video", "Дело"),
+    createActionColumn("case", cases, setCases, handleDelete),
     {
       field: "addAction",
       headerName: "Добавить решение",
@@ -61,15 +219,24 @@ const Publist = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => handleOpenDialog(params.row._id)}
+          onClick={() => handleOpenDialog(params.row.id)}
         >
           Добавить
         </Button>
       ),
     },
-  ]
+  ];
 
-  const [sites, setSites] = useState([])
+  const [bestCases, setBestCases] = useState([]);
+  const bestCaseColumns = [
+    { field: "id", headerName: "ID", flex: 0.5 },
+    { field: "name", headerName: "Кейс", flex: 3.5 },
+    { field: "type", headerName: "Тип", flex: 1.5 },
+    createMediaColumn("video", "Дело"),
+    createActionColumn("case", bestCases, setBestCases, handleDelete),
+  ];
+
+  const [sites, setSites] = useState([]);
   const siteColums = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "name", headerName: "Имя", flex: 1 },
@@ -78,34 +245,11 @@ const Publist = () => {
     { field: "capacity", headerName: "Вместимость", flex: 1 },
     { field: "address", headerName: "Адрес", flex: 1 },
     { field: "link_page", headerName: "Ссылка Страница", flex: 1 },
-    {
-      field: "video",
-      headerName: "Сайт",
-      flex: 1,
-      renderCell: (params) => (
-        <video
-          src={`${endpoint}/uploads/site/${params.value}`}
-          alt="avatar"
-          style={{ width: 80, height: 80, marginRight: 8, objectFit: 'cover' }}
-          controls
-        />
-      ),
-    },
-    {
-      field: "action",
-      headerName: "Действие",
-      flex: 2,
-      renderCell: (params) => (
-        <div className="spaceAround adminDirectoryEdit" style={{ width: '100%' }}>
-          <Button variant="link"><img onClick={() => handlePreview()} src={greyArrow} alt="greyArrow" /></Button>
-          <Button variant="link"><img onClick={() => handleUpdateClick({ url: '/admin/site', Data: params.row })} src={greyPencil} alt="greyPencil" /></Button>
-          <Button variant="link"><GridDeleteIcon sx={{ color: '#E03B3B' }} onClick={() => handleSiteDelete(params.row._id)} /></Button>
-        </div>
-      ),
-    },
-  ]
+    createMediaColumn("video", "Сайт"),
+    createActionColumn("site", sites, setSites, handleSiteDelete),
+  ];
 
-  const [equipment, setEquipment] = useState([])
+  const [equipment, setEquipment] = useState([]);
   const equipmentColums = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "name", headerName: "Имя", flex: 1 },
@@ -113,77 +257,11 @@ const Publist = () => {
     { field: "type", headerName: "Тип", flex: 1 },
     { field: "description", headerName: "Описание", flex: 2 },
     { field: "manufacturer", headerName: "Производитель", flex: 1 },
-    {
-      field: "images",
-      headerName: "Оборудование",
-      flex: 1,
-      renderCell: (params) => (
-        <img
-          src={`${endpoint}/uploads/equipment/${params.value?.[0]}`}
-          alt="avatar"
-          style={{ width: 50, height: 50, objectFit: 'cover' }}
-        />
-      ),
-    },
-    {
-      field: "action",
-      headerName: "Действие",
-      flex: 2,
-      renderCell: (params) => (
-        <div className="spaceAround adminDirectoryEdit" style={{ width: '100%' }}>
-          <Button variant="link"><img onClick={() => handlePreview()} src={greyArrow} alt="greyArrow" /></Button>
-          <Button variant="link"><img onClick={() => handleUpdateClick({ url: '/admin/equipment', Data: params.row })} src={greyPencil} alt="greyPencil" /></Button>
-          <Button variant="link"><GridDeleteIcon sx={{ color: '#E03B3B' }} onClick={() => handleEquipDelete(params.row._id)} /></Button>
-        </div>
-      ),
-    },
-  ]
+    createMediaColumn("images", "Оборудование"),
+    createActionColumn("equipment", equipment, setEquipment, handleEquipDelete),
+  ];
 
-  const [factory, setFactory] = useState([])
-  const factoryColums = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "title", headerName: "Название", flex: 2 },
-    { field: "queue", headerName: "Очередь", flex: 1 },
-    { field: "description", headerName: "Описание", flex: 3 },
-    {
-      field: "video",
-      headerName: "Завод Показать",
-      flex: 1,
-      renderCell: (params) => (
-        <video
-          src={`${endpoint}/uploads/factory/${params.value}`}
-          alt="avatar"
-          style={{ width: 70, height: 50, marginRight: 8, objectFit: 'cover' }}
-          controls
-        />
-      ),
-    },
-    {
-      field: "action",
-      headerName: "Действие",
-      flex: 2,
-      renderCell: (params) => (
-        <div className="flexWrap itemCenter" style={{ height: '100%' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleUpdateClick({ url: '/admin/factory', Data: params.row })}
-          >
-            Изменить
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => handleFactoryDelete(params.row._id)}
-          >
-            Удалить
-          </Button>
-        </div>
-      ),
-    },
-  ]
-
-  const [revlist, setRevlist] = useState([])
+  const [revlist, setRevlist] = useState([]);
   const reviewColumns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "type", headerName: "Тип", flex: 1 },
@@ -191,117 +269,58 @@ const Publist = () => {
     { field: "queue", headerName: "Очередь", flex: 1 },
     { field: "displayType", headerName: "Тип", flex: 1 },
     { field: "content", headerName: "Содержание", flex: 2 },
-    {
-      field: "action",
-      headerName: "Действие",
-      flex: 2,
-      renderCell: (params) => (
-        <div className="flexWrap itemCenter" style={{ height: '100%' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleUpdateClick({ url: '/admin/review', Data: params.row })}
-          >
-            Изменить
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => handleRevDelete(params.row._id)}
-          >
-            Удалить
-          </Button>
-        </div>
-      ),
-    },
-  ]
+    createActionColumn(
+      "review",
+      revlist,
+      setRevlist,
+      handleRevDelete,
+      "/services/visualization",
+      "customerReviewSection"
+    ),
+  ];
 
-  const [three, setThree] = useState([])
+  const [factory, setFactory] = useState([]);
+  const factoryColums = [
+    { field: "id", headerName: "ID", flex: 0.5 },
+    { field: "title", headerName: "Название", flex: 2 },
+    { field: "queue", headerName: "Очередь", flex: 1 },
+    { field: "description", headerName: "Описание", flex: 3 },
+    createMediaColumn("video", "Завод Показать"),
+    createActionColumn(
+      "factory",
+      factory,
+      setFactory,
+      handleFactoryDelete,
+      "/",
+      "blogSection"
+    ),
+  ];
+
+  const [participant, setParticipant] = useState([]);
+  const participantColumns = [
+    { field: "id", headerName: "ID", flex: 0.5 },
+    { field: "name", headerName: "Имя", flex: 4 },
+    createMediaColumn("image", "Avatar"),
+    createActionColumn(
+      "participant",
+      participant,
+      setParticipant,
+      handleParticipantDelete,
+      "/services/showdevelopment",
+      "userLists"
+    ),
+  ];
+
+  const [three, setThree] = useState([]);
   const threeColumns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title1", headerName: "Название1", flex: 2 },
     { field: "title2", headerName: "Название2", flex: 2 },
-    {
-      field: "video",
-      headerName: "3D-визуализация",
-      flex: 2,
-      renderCell: (params) => (
-        <video
-          src={`${endpoint}/uploads/three_d/${params.value}`}
-          alt="avatar"
-          style={{ width: 80, height: 50, marginRight: 8 }}
-          controls
-        />
-      ),
-    },
-    {
-      field: "action",
-      headerName: "Действие",
-      flex: 2,
-      renderCell: (params) => (
-        <div className="flexWrap itemCenter" style={{ height: '100%' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleUpdateClick({ url: '/admin/three', Data: params.row })}
-          >
-            Изменить
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => handleThreeDelete(params.row._id)}
-          >
-            Удалить
-          </Button>
-        </div>
-      ),
-    },
-  ]
+    createMediaColumn("video", "3D-визуализация"),
+    createActionColumn("three", three, setThree, handleThreeDelete),
+  ];
 
-  const [participant, setParticipant] = useState([])
-  const participantColumns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "name", headerName: "Имя", flex: 4 },
-    {
-      field: "image",
-      headerName: "Avatar",
-      flex: 1,
-      renderCell: (params) => (
-        <img
-          src={`${endpoint}/uploads/participant/${params.value}`}
-          alt="avatar"
-          style={{ width: 50, height: 50, marginRight: 8, objectFit: 'cover' }}
-          controls
-        />
-      ),
-    },
-    {
-      field: "action",
-      headerName: "Action",
-      flex: 2,
-      renderCell: (params) => (
-        <div className="flexWrap itemCenter" style={{ height: '100%' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleUpdateClick({ url: '/admin/participant', Data: params.row })}
-          >
-            Изменить
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => handleParticipantDelete(params.row._id)}
-          >
-            Удалить
-          </Button>
-        </div>
-      ),
-    },
-  ]
-
-  const [team, setTeam] = useState([])
+  const [team, setTeam] = useState([]);
   const teamColumns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "tag1", headerName: "Тег1", flex: 1 },
@@ -312,166 +331,153 @@ const Publist = () => {
     { field: "tag6", headerName: "Тег6", flex: 1 },
     { field: "tag7", headerName: "Тег7", flex: 1 },
     { field: "tag8", headerName: "Тег8", flex: 1 },
-    {
-      field: "action",
-      headerName: "Action",
-      flex: 1,
-      renderCell: (params) => (
-        <div className="flexWrap itemCenter" style={{ height: '100%' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleUpdateClick({ url: '/admin/team', Data: params.row })}
-          >
-            Изменить
-          </Button>
-        </div>
-      ),
-    },
-  ]
-
-  const [openDialog, setOpenDialog] = useState(false)
-  const [selectedId, setSelectedId] = useState(null)
-
-  const handleOpenDialog = (id) => {
-    setSelectedId(id)  // Set the selected row ID
-    setOpenDialog(true) // Open the dialog
-  }
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false) // Close the dialog
-    setSelectedId(null)  // Reset the selected ID
-  }
-
-  const handleDelete = (index) => {
-    deleteCase(index).then((data) => {
-      const temp = addId(data)
-      setCases(temp)
-    })
-  }
-
-  const handleNewCreate = (url) => {
-    navigate(url)
-  }
-
-  const handlePreview = () => {
-    alert('preview')
-  }
-
-  const handleUpdateClick = ({ url, Data }) => {
-    // Navigate to the update page and pass the case data
-    navigate(url, { state: { Data } })
-  }
-
-  const handleEquipDelete = (index) => {
-    deleteEquip(index).then((data) => {
-      const temp = addId(data)
-      setEquipment(temp)
-    })
-  }
-
-  const handleSiteDelete = (index) => {
-    deleteSite(index).then((data) => {
-      const temp = addId(data)
-      setSites(temp)
-    })
-  }
-
-  const handleRevDelete = (index) => {
-    deleteReview(index).then((data) => {
-      const temp = addId(data)
-      setRevlist(temp)
-    })
-  }
-
-  const handleFactoryDelete = (index) => {
-    deleteFactory(index).then((data) => {
-      const temp = addId(data)
-      setFactory(temp)
-    })
-  }
-
-  const handleThreeDelete = (index) => {
-    deleteThree(index).then((data) => {
-      const temp = addId(data)
-      setThree(temp)
-    })
-  }
-
-  const handleParticipantDelete = (index) => {
-    deleteParticipant(index).then((data) => {
-      const temp = addId(data)
-      setParticipant(temp)
-    })
-  }
-
-  const addId = (data) => {
-    let temp = []
-    data.map(
-      (item, index) => ((temp[index] = item), (temp[index].id = index + 1))
-    )
-    return temp
-  }
+    createActionColumn("team", team, setTeam, () => {
+      console.log("handleTeamDelete");
+    }),
+  ];
 
   useEffect(() => {
     getCases().then((data) => {
-      const temp = addId(data)
-      setCases(temp)
-    })
+      setCases(data);
+    });
     getSite().then((data) => {
-      const temp = addId(data)
-      setSites(temp)
-    })
+      setSites(data);
+    });
     getEquips().then((data) => {
-      const temp = addId(data)
-      setEquipment(temp)
-    })
+      setEquipment(data);
+    });
     getThrees().then((data) => {
-      const temp = addId(data)
-      setThree(temp)
-    })
+      setThree(data);
+    });
     getFactorys().then((data) => {
-      const temp = addId(data)
-      setFactory(temp)
-    })
+      setFactory(data);
+    });
     getReviews().then((data) => {
-      const temp = addId(data)
-      setRevlist(temp)
-    })
+      setRevlist(data);
+    });
     getParticipant().then((data) => {
-      const temp = addId(data)
-      setParticipant(temp)
-    })
+      setParticipant(data);
+    });
     getTeam().then((data) => {
-      const temp = addId(data)
-      setTeam(temp)
-    })
-  }, [])
+      setTeam(data);
+    });
+    getUserInfo().then((data) => {
+      setUserInfo(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    getCasesWithCheckbox(caseType, 9)
+      .then((data) => {
+        setBestCases(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching cases:", error);
+      });
+  }, [caseType, cases]);
+
+  const adminSections = [
+    {
+      id: "newCase",
+      title: "кейс мероприятия",
+      columns: caseColumns,
+      data: cases,
+      path: "/admin/case",
+    },
+    // {
+    //   id: "bestCase",
+    //   title: "Раздел «Лучшие кейсы»",
+    //   columns: bestCaseColumns,
+    //   data: bestCases,
+    //   path: "/admin/case",
+    // },
+    {
+      id: "newSite",
+      title: "Каталог площадок",
+      columns: siteColums,
+      data: sites,
+      path: "/admin/site",
+    },
+    {
+      id: "newEquipment",
+      title: "Каталог оборудования",
+      columns: equipmentColums,
+      data: equipment,
+      path: "/admin/equipment",
+    },
+    {
+      id: "newReview",
+      title: "Отзывы (Нас рекомендуют)",
+      columns: reviewColumns,
+      data: revlist,
+      path: "/admin/review",
+    },
+    {
+      id: "newBlog",
+      title: "Блог #ЗаводШоу",
+      columns: factoryColums,
+      data: factory,
+      path: "/admin/factory",
+    },
+    {
+      id: "newBase",
+      title: "Репетиционная база",
+      columns: participantColumns,
+      data: participant,
+      path: "/admin/participant",
+    },
+    {
+      id: "newVisualization",
+      title: "3D-визуализация",
+      columns: threeColumns,
+      data: three,
+      path: "/admin/three",
+    },
+    {
+      id: "newTeam",
+      title: "Команда",
+      columns: teamColumns,
+      data: team,
+      path: "/admin/team",
+    },
+  ];
 
   return (
     <div className="adminPage">
-
-      <AdminDataBox /> <br /> <br /> <br />
-
-      <AdminSection id='newCase' title='Кейсы мероприятий' columns={caseColumns} data={cases} handleNewCreate={() => handleNewCreate('/admin/case')} />
-
-      <AdminSection id='newSite' title='Каталог площадок' columns={siteColums} data={sites} handleNewCreate={() => handleNewCreate('/admin/site')} />
-
-      <AdminSection id='newEquipment' title='Каталог оборудования' columns={equipmentColums} data={equipment} handleNewCreate={() => handleNewCreate('/admin/equipment')} />
-
-      <AdminSection id='newReview' title='Отзывы (Нас рекомендуют)' columns={reviewColumns} data={revlist} handleNewCreate={() => handleNewCreate('/admin/review')} />
-
-      <AdminSection id='newBlog' title='Блог #ЗаводШоу' columns={factoryColums} data={factory} handleNewCreate={() => handleNewCreate('/admin/factory')} />
-
-      <AdminSection id='newBase' title='Репетиционная база' columns={participantColumns} data={participant} handleNewCreate={() => handleNewCreate('/admin/participant')} />
-
-      <AdminSection id='newVisualization' title='3D-визуализация' columns={threeColumns} data={three} handleNewCreate={() => handleNewCreate('/admin/three')} />
-
-      <AdminSection id='newTeam' title='Команда' columns={teamColumns} data={team} handleNewCreate={() => handleNewCreate('/admin/team')} />
-
-      <FormDialog opened={openDialog} idd={selectedId} onClose={handleCloseDialog} />
+      <AdminDataBox userInfo={userInfo} /> <br /> <br /> <br />
+      {adminSections.map((section) =>
+        section.title === "Репетиционная база" ? (
+          <AdminSection1
+            key={section.id}
+            adding={userInfo?.adding}
+            id={section.id}
+            title={section.title}
+            columns={section.columns}
+            data={section.data}
+            dataType={caseType}
+            handleNewCreate={() => handleNewCreate(section.path)}
+          />
+        ) : (
+          <AdminSection
+            key={section.id}
+            adding={userInfo?.adding}
+            id={section.id}
+            title={section.title}
+            columns={section.columns}
+            data={section.data}
+            dataType={caseType}
+            handle={handleSelBestCase}
+            handleNewCreate={() => handleNewCreate(section.path)}
+          />
+        )
+      )}
+      <FormDialog
+        opened={openDialog}
+        idd={selectedId}
+        onClose={handleCloseDialog}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Publist
+export default Publist;

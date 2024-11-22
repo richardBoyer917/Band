@@ -2,17 +2,17 @@ import { stage3d, Svideo3 } from "../../../assets";
 import { Big3DBox, BigVideoBox } from "../../../components/Boxes";
 import HeroSample from "../../../components/HeroSample/HeroSample";
 import { heroSectionInfo, workProcessInfo2 } from "../../../constant/group";
-import PendingSection from "../../home/PendingSection";
+import PendingSection from "../../Home/PendingSection";
 import WorkProcess from "../Visualization/WorkProcess";
 import ShowCreation from "./ShowCreation";
 import UserList from "../rehearsal/UserList";
-import ContactSection from "../../home/ContactSection";
-import BlogSection from "../../home/BlogSection";
+import ContactSection from "../../Home/ContactSection";
+import BlogSection from "../../Home/BlogSection";
 import ShowConcept from "./showconcept";
-import useScrollToTop from "../../../scrollTo/ScrollToTop";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 import { useEffect, useState } from "react";
 import { getShowParticipant } from "../../../api/participantAPI";
-import "../../../styles/pages/services/showDevelopment.css"
+import "../../../styles/pages/services/showDevelopment.css";
 
 const ShowDevelopment = () => {
   useScrollToTop();
@@ -38,7 +38,7 @@ const ShowDevelopment = () => {
           }}
         />
         <WorkProcess
-          arrowWidth="210px"
+          arrowWidth="115px"
           title1="Подготовка, реализация и проведение шоу"
           data={workProcessInfo2}
           fileName="development"

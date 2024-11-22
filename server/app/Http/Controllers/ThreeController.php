@@ -29,7 +29,7 @@ class ThreeController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['video'] = $request->file('video')? $request->file('video')->store('uploads/three','public'):'';
+        $data['video'] = $request->file('video')? url('storage/' . $request->file('video')->store('uploads/three','public')):'';
         try{
             $newThree = Three::create($data);
             return response()->json([
@@ -46,14 +46,13 @@ class ThreeController extends Controller
     {
         try {
             $three = Three::findOrFail($id);
-
             $data = $request->all();
             $data['video'] = $request->file('video')
-                ? $request->file('video')->store('uploads/three', 'public') // Adjust path as needed
+                ? url('storage/' . $request->file('video')->store('uploads/three', 'public')) // Adjust path as needed
                 : $three->video;
 
-                if ($three->video) {
-                    \Storage::disk('public')->delete($three->video);
+                if ($request->file('video')) {
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $three->video));
                 }
             $three->update($data);
 
@@ -72,7 +71,7 @@ class ThreeController extends Controller
         try {
             $three = Three::findOrFail($id);
             if($three->video){
-                \Storage::disk('public')->delete($three->video);
+                \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $three->video));
             }
             Blog::where('three_id', $id)->update(['three_id' => null]);
             $three->delete();

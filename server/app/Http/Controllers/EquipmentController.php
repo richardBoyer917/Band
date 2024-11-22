@@ -11,7 +11,7 @@ class EquipmentController extends Controller
     public function getEquipments()
     {
         try {
-            $data = Equipment::orderBy('queue', 'desc')->get();
+            $data = Equipment::orderBy('queue', 'desc')->with('blogs')->get();
             return response()->json($data);
         } catch (\Exception $e) {
             return response()->json(['error' => 'error fetching data'], 400);
@@ -32,17 +32,18 @@ class EquipmentController extends Controller
     public function insertEquipment(Request $request)
     {
         $data = $request->all();
-        if ($request->hasfile('images')) {
+        if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $filePath[] = $file->store('uploads/equipment', 'public');
-                $data['images']=$filePath;
+                $filePath[] = url('storage/' . $file->store('uploads/equipment', 'public'));
             }
+            $data['images'] = $filePath;
         } else {
             $data['images'] = [];
         }
-        
+
         if ($request->hasFile('files')) {
-            $data['file'] = $request->file('files')->store('uploads/equipment', 'public'); 
+            $storedPath = $request->file('files')->store('uploads/equipment', 'public'); 
+            $data['file'] = url('storage/' . $storedPath);
         }
         
         try {
@@ -66,11 +67,11 @@ class EquipmentController extends Controller
         if ($request->hasFile('images')) {
             if ($existingEquipment&&$existingEquipment->images) {
                 foreach (($existingEquipment->images) as $oldImage) {
-                    \Storage::disk('public')->delete($oldImage);
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $oldImage));
                 }
             }   
             foreach ($request->file('images') as $file) {
-                $filePath[] = $file->store('uploads/equipment', 'public');
+                $filePath[] = url('storage/' . $file->store('uploads/equipment', 'public'));
                 $data['images']=$filePath;
             }
         } else {
@@ -79,9 +80,9 @@ class EquipmentController extends Controller
         
         if ($request->hasFile('files')) {
             if ($existingEquipment->file) {
-                \Storage::disk('public')->delete($existingEquipment->file);
+                \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $existingEquipment->file));
             }
-            $data['file'] = $request->file('files')->store('uploads/equipment', 'public'); 
+            $data['file'] =  url('storage/' . $request->file('files')->store('uploads/equipment', 'public')); 
         }else {
             $data['file'] = $existingEquipment->file;
         }
@@ -101,11 +102,11 @@ class EquipmentController extends Controller
             if ($equipmentToDelete) {
                 if ($equipmentToDelete->images) {
                     foreach (($equipmentToDelete->images) as $oldFile) {
-                        \Storage::disk('public')->delete($oldFile);
+                        \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $oldFile));
                     }
                 }
                 if ($equipmentToDelete->file) {
-                    \Storage::disk('public')->delete($equipmentToDelete->file);
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $equipmentToDelete->file));
                 }
                 $equipmentToDelete->delete();
                 return response()->json(Equipment::all(), 200);

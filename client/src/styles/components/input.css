@@ -94,8 +94,21 @@
   width: 56.79%;
 }
 
-@media (max-width: 1080px) {
+.captcha {
+  cursor: default;
+}
 
+.captcha p {
+  color: #4f6167;
+}
+
+.recaptcha {
+  color: #35a3de;
+  font-weight: 500 !important;
+  cursor: pointer;
+}
+
+@media (max-width: 1080px) {
   .selectBoxSquare,
   .caseImageSquare {
     width: 100%;

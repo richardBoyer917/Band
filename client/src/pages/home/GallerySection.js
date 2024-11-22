@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { gallery } from "../../constant/group";
 import { ArrowDefaultButton } from "../../components/Buttons";
 import { getCasesWithCheckbox } from "../../api/caseAPI";
-import endpoint from "../../config/config";
 import { useNavigate } from "react-router-dom";
 
 const GallerySection = ({ title, galleryType }) => {
@@ -67,17 +66,18 @@ const GallerySection = ({ title, galleryType }) => {
             textAlign: "center",
             position: !isShrunk ? "sticky" : "static",
             top: "clamp(100px, 15vw, 200px)",
+            zIndex: "20",
           }}
         >
           {title}
         </p>
         {screenSize >= 1332 ? (
           <>
-            <div className="galleryMain">
+            <div className="gallery galleryMain">
               {galleryInfo.map((image, index) => (
                 <div key={index} style={{ width: `${image.width}px` }}>
                   <video
-                    src={`${endpoint}/uploads/cases/${image.video}`}
+                    src={`${image.video}`}
                     alt={image.name}
                     style={{
                       marginTop: `${image.top}px`,
@@ -85,7 +85,7 @@ const GallerySection = ({ title, galleryType }) => {
                       height: "auto",
                     }}
                     onClick={() => {
-                      navigate(`/case-one/${image?._id}`);
+                      navigate(`/case-one/${image?.id}`);
                     }}
                   />
                   <p className="x16">{image.name}</p>
@@ -101,13 +101,13 @@ const GallerySection = ({ title, galleryType }) => {
             </div>
           </>
         ) : (
-          <div className="smallgalleryMain">
+          <div className="gallery  smallgalleryMain">
             <div className="smallgallery">
               <div>
                 <video
-                  src={`${endpoint}/uploads/cases/${galleryInfo[0]?.video}`}
+                  src={`${galleryInfo[0]?.video}`}
                   onClick={() => {
-                    navigate(`/case-one/${galleryInfo[0]?._id}`);
+                    navigate(`/case-one/${galleryInfo[0]?.id}`);
                   }}
                   alt="smallgallery1"
                   style={{ width: `clamp(158px, 40vw, 463px)`, height: "100%" }}
@@ -115,9 +115,9 @@ const GallerySection = ({ title, galleryType }) => {
               </div>
               <div style={{ paddingTop: `clamp(27px,10vw,115px)` }}>
                 <video
-                  src={`${endpoint}/uploads/cases/${galleryInfo[1]?.video}`}
+                  src={`${galleryInfo[1]?.video}`}
                   onClick={() => {
-                    navigate(`/case-one/${galleryInfo[1]?._id}`);
+                    navigate(`/case-one/${galleryInfo[1]?.id}`);
                   }}
                   alt="smallgallery2"
                   style={{ width: `clamp(125px, 30vw, 360px)`, height: "100%" }}
@@ -133,9 +133,9 @@ const GallerySection = ({ title, galleryType }) => {
                 }}
               >
                 <video
-                  src={`${endpoint}/uploads/cases/${galleryInfo[2]?.video}`}
+                  src={`${galleryInfo[2]?.video}`}
                   onClick={() => {
-                    navigate(`/case-one/${galleryInfo[2]?._id}`);
+                    navigate(`/case-one/${galleryInfo[2]?.id}`);
                   }}
                   alt="smallgallery3"
                   style={{
@@ -144,9 +144,9 @@ const GallerySection = ({ title, galleryType }) => {
                   }}
                 />
                 <video
-                  src={`${endpoint}/uploads/cases/${galleryInfo[6]?.video}`}
+                  src={`${galleryInfo[6]?.video}`}
                   onClick={() => {
-                    navigate(`/case-one/${galleryInfo[6]?._id}`);
+                    navigate(`/case-one/${galleryInfo[6]?.id}`);
                   }}
                   alt="smallgallery5"
                   style={{
@@ -164,9 +164,9 @@ const GallerySection = ({ title, galleryType }) => {
                 }}
               >
                 <video
-                  src={`${endpoint}/uploads/cases/${galleryInfo[3]?.video}`}
+                  src={`${galleryInfo[3]?.video}`}
                   onClick={() => {
-                    navigate(`/case-one/${galleryInfo[3]?._id}`);
+                    navigate(`/case-one/${galleryInfo[3]?.id}`);
                   }}
                   alt="smallgallery4"
                   style={{
@@ -175,9 +175,9 @@ const GallerySection = ({ title, galleryType }) => {
                   }}
                 />
                 <video
-                  src={`${endpoint}/uploads/cases/${galleryInfo[4]?.video}`}
+                  src={`${galleryInfo[4]?.video}`}
                   onClick={() => {
-                    navigate(`/case-one/${galleryInfo[4]?._id}`);
+                    navigate(`/case-one/${galleryInfo[4]?.id}`);
                   }}
                   alt="smallgallery6"
                   style={{
@@ -189,9 +189,9 @@ const GallerySection = ({ title, galleryType }) => {
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <video
-                src={`${endpoint}/uploads/cases/${galleryInfo[5]?.video}`}
+                src={`${galleryInfo[5]?.video}`}
                 onClick={() => {
-                  navigate(`/case-one/${galleryInfo[5]?._id}`);
+                  navigate(`/case-one/${galleryInfo[5]?.id}`);
                 }}
                 alt="smallgallery6"
                 style={{ width: `clamp(300px, 20vw, 400px)` }}
@@ -199,17 +199,17 @@ const GallerySection = ({ title, galleryType }) => {
             </div>
             <div className="smallgallery">
               <video
-                src={`${endpoint}/uploads/cases/${galleryInfo[8]?.video}`}
+                src={`${galleryInfo[8]?.video}`}
                 onClick={() => {
-                  navigate(`/case-one/${galleryInfo[8]?._id}`);
+                  navigate(`/case-one/${galleryInfo[8]?.id}`);
                 }}
                 alt="smallgallery4"
                 style={{ width: `clamp(158px, 40vw, 660px)` }}
               />
               <video
-                src={`${endpoint}/uploads/cases/${galleryInfo[7]?.video}`}
+                src={`${galleryInfo[7]?.video}`}
                 onClick={() => {
-                  navigate(`/case-one/${galleryInfo[7]?._id}`);
+                  navigate(`/case-one/${galleryInfo[7]?.id}`);
                 }}
                 alt="smallgallery4"
                 style={{ width: `clamp(124px, 30vw, 260px)` }}

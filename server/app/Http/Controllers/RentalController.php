@@ -28,7 +28,7 @@ class RentalController extends Controller
     {
         $request->validate([
             'cost' => 'nullable|string|max:255',
-            'files.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx',
+            'files.*' => 'nullable|file',
         ]);
 
         $rental = Rental::first();
@@ -37,11 +37,11 @@ class RentalController extends Controller
         if ($request->hasFile('files')) {
             if ($rental && $rental->files) {
                 foreach (($rental->files) as $oldFile) {
-                    \Storage::disk('public')->delete($oldFile);
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $oldFile));
                 }
             }
             foreach ($request->file('files') as $file) {
-                $filePath = $file->store('uploads/rental', 'public');
+                $filePath = url('storage/' . $file->store('uploads/rental', 'public'));
                 $filePaths[] = $filePath;
             }
         }

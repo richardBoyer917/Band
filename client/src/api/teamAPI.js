@@ -13,7 +13,12 @@ export const getTeam = async () => {
 
 export const insertTeam = async (formdata) => {
   try {
-    const response = await apiClient.post("/team", formdata);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post("/team", formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;

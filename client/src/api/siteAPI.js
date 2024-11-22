@@ -35,7 +35,13 @@ export const getSiteById = async (id) => {
 
 export const insertSite = async (formdata) => {
   try {
-    const response = await apiClient.post("/sites", formdata);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post("/sites", formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;
@@ -46,8 +52,12 @@ export const insertSite = async (formdata) => {
 
 export const updateSite = async (id, formdata) => {
   try {
-    const response = await apiClient.put(`/sites/${id}`, formdata, {
-      headers: { "Content-Type": "multipart/form-data" },
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post(`/sites/${id}`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
@@ -57,9 +67,14 @@ export const updateSite = async (id, formdata) => {
   }
 };
 
-export const deleteSite = async (_id) => {
+export const deleteSite = async (id) => {
   try {
-    const response = await apiClient.delete(`/sites/${_id}`);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.delete(`/sites/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
     return response.data;

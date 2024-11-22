@@ -42,7 +42,7 @@ class FactoryController extends Controller
 
         if ($request->hasFile('video')) {
             $file = $request->file('video');
-            $filePath = $file->store('uploads/factory', 'public');
+            $filePath = url('storage/' . $file->store('uploads/factory', 'public'));
 
             $factory = FactoryShow::create([
                 'title' => $request->input('title'),
@@ -88,10 +88,10 @@ class FactoryController extends Controller
 
         if ($request->hasFile('video')) {
             $file = $request->file('video');
-            $filePath = $file->store('uploads/factory', 'public');
+            $filePath = url('storage/' . $file->store('uploads/factory', 'public'));
 
-            if ($factory->video) {
-                \Storage::disk('public')->delete($factory->video);
+            if ($request->file('video')) {
+                \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $factory->video));
             }
 
             $factory->video = $filePath;
@@ -115,7 +115,7 @@ class FactoryController extends Controller
         }
 
         if ($factory->video) {
-            \Storage::disk('public')->delete($factory->video);
+            \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $factory->video));
         }
 
         $factory->delete();

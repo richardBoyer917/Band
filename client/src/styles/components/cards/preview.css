@@ -56,7 +56,7 @@
   background-color: var(--secondaryWhiteColor);
 }
 
-@media(max-width: 650px) {
+@media (max-width: 650px) {
   .textPreviewContainer {
     width: 260px;
     height: 386px;
@@ -74,4 +74,12 @@
   .textPreviewContent::-webkit-scrollbar {
     width: 3px;
   }
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--secondaryWhiteColor);
+  cursor: pointer;
 }

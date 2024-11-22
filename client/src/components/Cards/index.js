@@ -14,8 +14,13 @@ import {
   whitePlay,
   starIcon1,
   positionIcon,
+  redTrash,
+  greyPencil,
+  greyArrow,
+  moveUp,
+  moveDown,
 } from "../../assets";
-import "../../styles/components/cards/card.css"
+import "../../styles/components/cards/card.css";
 import endpoint from "../../config/config";
 import { useNavigate } from "react-router-dom";
 
@@ -46,16 +51,13 @@ const PublicationCard = ({ item }) => {
   const navigate = useNavigate();
   const handleLink = () => {
     console.log("sdfsdf");
-    navigate(`site-one/${item._id}`);
+    navigate(`site-one/${item.id}`);
   };
 
   return (
     <div className="publicationCard">
       <div style={{ position: "relative" }}>
-        <video
-          src={`${endpoint}/uploads/site/${item.video}`}
-          alt="publicationImage"
-        />
+        <video src={`${item.video}`} alt="publicationImage" />
         <CardViewNumber value={item.capacity} />
       </div>
       <div
@@ -113,10 +115,7 @@ const VideoBlogCard = ({ item }) => {
               borderRadius: "5px",
             }}
           >
-            <source
-              src={`${endpoint}/uploads/factory/${item.video}`}
-              type="video/mp4"
-            />
+            <source src={`${item.video}`} type="video/mp4" />
           </video>
           <img
             src={whitePlay}
@@ -137,11 +136,7 @@ const VideoBlogCard = ({ item }) => {
           </a>
         </div>
       </div>
-      <VideoPreview
-        open={open}
-        setOpen={setOpen}
-        avatar={`${endpoint}/uploads/factory/${item.video}`}
-      />
+      <VideoPreview open={open} setOpen={setOpen} avatar={`${item.video}`} />
     </>
   );
 };
@@ -163,7 +158,7 @@ const EventWorksCard = ({ item }) => (
 const RentalCostCard = ({ cost }) => (
   <div className="rentalBox">
     <p className="sectionTitle" style={{ color: "var(--primaryBgColor)" }}>
-      от {cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} руб
+      от {cost?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} руб
     </p>
     <p className="rentalSmallText">за один репетиционный час</p>
   </div>
@@ -228,9 +223,9 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
         <video
           src={
             type === "case"
-              ? `${endpoint}/uploads/cases/${item?.video}`
+              ? `${item?.video}`
               : type === "platform"
-              ? `${endpoint}/uploads/site/${item?.video}`
+              ? `${item?.video}`
               : ""
           }
           style={{ width: "100%", height: "175px", objectFit: "cover" }}
@@ -247,9 +242,7 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
           }}
         >
           <img
-            src={`${endpoint}/uploads/equipment/${
-              item?.images.length > 0 && item.images[0]
-            }`}
+            src={`${item?.images.length > 0 && item.images[0]}`}
             style={{ maxWidth: "100%", maxHeight: "175px", objectFit: "cover" }}
             onClick={onClick}
             alt="img"
@@ -358,6 +351,34 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
   );
 };
 
+const BigEquipmentImageCard = ({ url }) => (
+  <div className="bigEquipmentImageWrappper itemCenter">
+    <img src={url} alt="cameraImg1" />
+  </div>
+);
+
+const SmallEquipmentImageCard = ({ url }) => (
+  <div className="smallEquipmentImageWrappper itemCenter">
+    <img src={url} alt="smailCameraImg1" />
+  </div>
+);
+
+const EquipmentImageCaptionCard = ({ title, text }) => (
+  <div style={{ width: "40%" }}>
+    <p className="x16Font_4" style={{ marginBottom: "10px" }}>
+      {title}
+    </p>
+    <p className="x18Font_4 ">{text}</p>
+  </div>
+);
+
+const AdminPermissionCard = ({ content }) => (
+  <div className="adminPermissionCard">
+    <p>Доступно:</p>
+    {content}
+  </div>
+);
+
 export {
   PendingCard,
   PublicationCard,
@@ -369,4 +390,8 @@ export {
   ChichaBoxVideoCard,
   ChichaBoxRightCard,
   CaseCatalogCard,
+  BigEquipmentImageCard,
+  SmallEquipmentImageCard,
+  EquipmentImageCaptionCard,
+  AdminPermissionCard,
 };

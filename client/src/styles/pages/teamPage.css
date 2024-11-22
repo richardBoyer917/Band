@@ -80,14 +80,20 @@
 }
 
 .plantShowTopics {
-  gap: clamp(50px, 6vw, 72px);
+  gap: clamp(50px, 6vw, 62px);
   color: var(--secondaryWhiteColor);
+}
+
+.teamLink {
+  color: var(--secondaryWhiteColor);
+  font-weight: 600;
 }
 
 .plantTopicsItem {
   width: 236px;
   display: grid;
-  gap: clamp(13px, 2vw, 20px);
+  gap: clamp(7px, 2vw, 10px);
+  font-weight: 300;
 }
 
 .inviteSec {
@@ -110,7 +116,6 @@
 .inviteTitle img {
   padding-right: 16px;
 }
-
 
 .inviteImg1 {
   width: 121px;
@@ -147,14 +152,12 @@
 }
 
 @media screen and (max-width: 1028px) {
-
   .inviteSec img {
     display: none;
   }
 }
 
 @media screen and (max-width: 850px) {
-
   .inviteSecBtnT {
     display: flex;
     flex-direction: column;
@@ -171,7 +174,6 @@
 
   .inviteSecBtnT button {
     margin-top: 30px;
-
   }
 
   .inviteSec div {
@@ -179,9 +181,7 @@
   }
 }
 
-
 @media screen and (max-width: 500px) {
-
   .plantShowTopics {
     display: flex;
     align-items: center;
@@ -193,8 +193,7 @@
   }
 }
 
-@media(max-width:1245px) {
-
+@media (max-width: 1245px) {
   .questionButtonGroup1 {
     display: block;
     display: flex;

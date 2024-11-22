@@ -18,6 +18,7 @@ class CreateSitesTable extends Migration
             $table->string('video')->nullable();
             $table->integer('queue')->default(0); // Default value for queue
             $table->text('tags')->nullable(); // Store tags as a JSON array
+            $table->text('type_equipment')->nullable();
             $table->timestamps(); // Created at and updated at
         });
     }

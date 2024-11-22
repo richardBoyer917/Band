@@ -1,18 +1,15 @@
-import { AdminDataBox, AdminDirectoryBox } from "../components/Boxes"
-import { AdminPageWrapper } from "./components/AdminSection"
+import { AdminDataBox, AdminDirectoryBox } from "../components/Boxes";
+import { AdminPageWrapper } from "./components/AdminSection";
 
 const AdminSetting = () => {
-
   const content = (
-    <div style={{ paddingBottom: '116px' }}>
+    <div style={{ paddingBottom: "116px" }}>
       <AdminDataBox />
       <AdminDirectoryBox />
     </div>
-  )
+  );
 
-  return (
-    <AdminPageWrapper content={content} />
-  )
-}
+  return <AdminPageWrapper content={content} />;
+};
 
-export default AdminSetting
+export default AdminSetting;

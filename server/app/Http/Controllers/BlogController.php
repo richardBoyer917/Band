@@ -15,6 +15,9 @@ class BlogController extends Controller
     {
         try {
             $blogs = Blog::orderBy('queue', 'desc')->get();
+            foreach ($blogs as $blog) {
+                $blog->equipment_names = $blog->equipment->pluck('name')->toArray();
+            }
             return response()->json($blogs, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error fetching data'], 400);
@@ -25,10 +28,10 @@ class BlogController extends Controller
     {
         $data = $request->all();
 
-        $data['video'] = $request->hasFile('video') ? $request->file('video')->store('uploads/blog', 'public') : null;
+        $data['video'] = $request->hasFile('video') ? url('storage/' . $request->file('video')->store('uploads/blog', 'public')) : null;
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $filePath[] = $file->store('uploads/blog', 'public');
+                $filePath[] = url('storage/' . $file->store('uploads/blog', 'public'));
                 $data['images']=$filePath;
             }
         } else {
@@ -65,12 +68,12 @@ class BlogController extends Controller
         if ($request->hasFile('images')) {
             if ($blog->images) {
                 foreach ($blog->images as $oldImage) {
-                    \Storage::disk('public')->delete($oldImage);
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $oldImage));
                 }
             }    
             $filePaths = [];
             foreach ($request->file('images') as $file) {
-                $filePaths[] = $file->store('uploads/blog', 'public');
+                $filePaths[] = url('storage/' . $file->store('uploads/blog', 'public'));
             }
             $data['images'] = $filePaths; 
         } else {
@@ -79,9 +82,9 @@ class BlogController extends Controller
         
         if ($request->hasFile('video')) {
             if ($blog->video) {
-                \Storage::disk('public')->delete($blog->video);
+                \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $blog->video));
             }
-            $data['video'] = $request->file('video')->store('uploads/blog', 'public'); 
+            $data['video'] = url('storage/' . $request->file('video')->store('uploads/blog', 'public')); 
         } else {
             $data['video'] = $blog->video;
         }
@@ -130,11 +133,11 @@ class BlogController extends Controller
                 $blog->equipment()->detach(); 
                 if ($blog->images) {
                     foreach (($blog->images) as $oldFile) {
-                        \Storage::disk('public')->delete($oldFile);
+                        \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $oldFile));
                     }
                 }
                 if ($blog->video) {
-                    \Storage::disk('public')->delete($blog->video);
+                    \Storage::disk('public')->delete(str_replace(url('storage') . '/', '', $blog->video));
                 }
                 $blog->delete();
                 return response()->json(Blog::all(), 200);
@@ -171,7 +174,7 @@ class BlogController extends Controller
             $images = [];
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $index => $file) {
-                    $path = $file->store('uploads/blog/solution', 'public');
+                    $path = url('storage/' . $file->store('uploads/blog/solution', 'public'));
                     
                     $images[] = [
                         'image' => $path, 

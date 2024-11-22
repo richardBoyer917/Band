@@ -15,7 +15,12 @@ export const getRental = async () => {
 
 export const insertRental = async (formdata) => {
   try {
-    const response = await apiClient.post("/rental", formdata);
+    const token = sessionStorage.getItem("token");
+    const response = await apiClient.post("/rental", formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (response.status !== 200)
       throw new Error(`Unexpected response status: ${response.status}`);
